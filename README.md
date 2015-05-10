@@ -18,7 +18,7 @@ And do the following :
 Normally, this command must generate output files MyTopLevel.vhd.
 The top level spinal code is defined into src\main\scala\MyCode
 
-## Basics, with Intellij IDEA and his scala plugin
+## Basics, with Intellij IDEA and its scala plugin
 
 You need to install :
 
