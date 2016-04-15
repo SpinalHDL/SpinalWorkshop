@@ -25,7 +25,7 @@ You need to install :
 - Java JDK
 - Scala
 - SBT
-- Intellij IDEA 14.1.3(the free Community Edition is nice)
+- Intellij IDEA 14.1.3 (the free Community Edition is nice)
 - Intellij IDEA Scala plugin
 
 And do the following :
