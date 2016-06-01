@@ -36,3 +36,23 @@ And do the following :
 - In the project (Intellij project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run MyTopLevel"
 
 Normally, this must generate output files MyTopLevel.vhd.
+
+## Basics, with Eclipse and its scala plugin
+
+You need to install :
+
+- Java JDK
+- Scala
+- SBT
+- Eclipse (tested with Mars.2 - 4.5.2)
+- [Sacla plugin](http://scala-ide.org/) (tested with 4.4.1)
+
+And do the following :
+
+- Clone or download this repository.
+- In Intellij IDEA, "import project" with the root of this repository, Import project from external model SBT, Check all box
+- In addition maybe you need to specify some path like JDK to Intellij
+- In the project (Intellij project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run MyTopLevel"
+
+Normally, this must generate output files MyTopLevel.vhd.
+
