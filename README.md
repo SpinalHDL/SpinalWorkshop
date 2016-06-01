@@ -50,9 +50,9 @@ You need to install :
 And do the following :
 
 - Clone or download this repository.
-- In Intellij IDEA, "import project" with the root of this repository, Import project from external model SBT, Check all box
-- In addition maybe you need to specify some path like JDK to Intellij
-- In the project (Intellij project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run MyTopLevel"
+- Run ```sbt eclipse``` in the ```SpinalBaseProject``` directory.
+- Import the eclipse project from eclipse.
+- In the project (eclips project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run as" > "Scala application"
 
-Normally, this must generate output files MyTopLevel.vhd.
+Normally, this must generate output file ```MyTopLevel.vhd```.
 
