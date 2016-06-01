@@ -20,9 +20,15 @@ project/plugins/project/
 .idea
 out
 
+# Eclipse
+bin/
+.classpath
+.project
+.settings
 
 #User
 *.vhd
 *.cf
 *.json
 !tester/src/test/resources/*.vhd
+
