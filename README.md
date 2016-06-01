@@ -36,3 +36,23 @@ And do the following :
 - In the project (Intellij project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run MyTopLevel"
 
 Normally, this must generate output files MyTopLevel.vhd.
+
+## Basics, with Eclipse and its scala plugin
+
+You need to install :
+
+- Java JDK
+- Scala
+- SBT
+- Eclipse (tested with Mars.2 - 4.5.2)
+- [Sacla plugin](http://scala-ide.org/) (tested with 4.4.1)
+
+And do the following :
+
+- Clone or download this repository.
+- Run ```sbt eclipse``` in the ```SpinalBaseProject``` directory.
+- Import the eclipse project from eclipse.
+- In the project (eclips project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run as" > "Scala application"
+
+Normally, this must generate output file ```MyTopLevel.vhd```.
+
