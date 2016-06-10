@@ -25,6 +25,7 @@ bin/
 .classpath
 .project
 .settings
+.cache-main
 
 #User
 *.vhd
