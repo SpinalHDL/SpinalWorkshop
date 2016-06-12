@@ -28,7 +28,8 @@ bin/
 .cache-main
 
 #User
-*.vhd
+/*.vhd
+/*.v
 *.cf
 *.json
 !tester/src/test/resources/*.vhd
