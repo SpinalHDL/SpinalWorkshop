@@ -32,5 +32,5 @@ bin/
 /*.v
 *.cf
 *.json
-!tester/src/test/resources/*.vhd
+!UartCtrlRx_tb.vhd
 
