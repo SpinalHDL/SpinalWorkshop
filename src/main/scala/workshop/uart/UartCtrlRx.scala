@@ -73,6 +73,7 @@ object UartCtrlRx{
     assert(doCmd(s"ghdl -a --ieee=synopsys UartCtrlRx.vhd UartCtrlRx_tb.vhd") == 0,"GHDL analysis fail")
     assert(doCmd(s"ghdl -e --ieee=synopsys UartCtrlRx_tb"                   ) == 0,"GHDL elaboration fail")
     assert(doCmd(s"ghdl -r --ieee=synopsys UartCtrlRx_tb --vcd=wave.vcd"    ) == 0,"GHDL simulation fail")
+    println("SUCCESS")
   }
 
   def doCmd(cmd : String) : Int = {
