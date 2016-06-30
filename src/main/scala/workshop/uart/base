@@ -70,9 +70,9 @@ class UartCtrlRx(generics : UartRxGenerics) extends Component{
 object UartCtrlRx{
   def main(args: Array[String]) {
     SpinalVhdl(new UartCtrlRx(UartRxGenerics(1,5,2)))
-    assert(doCmd(s"ghdl -a --ieee=synopsys UartCtrlRx.vhd UartCtrlRx_tb.vhd") == 0,"GHDL analysis fail")
-    assert(doCmd(s"ghdl -e --ieee=synopsys UartCtrlRx_tb"                   ) == 0,"GHDL elaboration fail")
-    assert(doCmd(s"ghdl -r --ieee=synopsys UartCtrlRx_tb --vcd=wave.vcd"    ) == 0,"GHDL simulation fail")
+    assert(s"ghdl -a --ieee=synopsys UartCtrlRx.vhd UartCtrlRx_tb.vhd" == 0,"GHDL analysis fail")
+    assert(s"ghdl -e --ieee=synopsys UartCtrlRx_tb"                    == 0,"GHDL elaboration fail")
+    assert(s"ghdl -r --ieee=synopsys UartCtrlRx_tb --vcd=wave.vcd"     == 0,"GHDL simulation fail")
   }
 
   def doCmd(cmd : String) : Int = {
