@@ -19,6 +19,8 @@ architecture arch of UartCtrlRx_tb is
   signal io_samplingTick : std_logic;
   signal io_read_valid : std_logic;
   signal io_read_payload : std_logic_vector(7 downto 0);
+  signal clk : std_logic;
+  signal reset : std_logic;
   -- #spinalBegin userDeclarations
   shared variable done : integer := 0;
   constant clockDivision : integer := 10;
@@ -119,6 +121,8 @@ begin
       io_rxd =>  io_rxd,
       io_samplingTick =>  io_samplingTick,
       io_read_valid =>  io_read_valid,
-      io_read_payload =>  io_read_payload 
+      io_read_payload =>  io_read_payload,
+      clk =>  clk,
+      reset =>  reset 
     );
 end arch;
