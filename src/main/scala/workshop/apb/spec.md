@@ -1,7 +1,7 @@
 ## Description
 Component that generate a PWM which is controllable by using an APB bus.
 
-## Interfaces
+## Component interfaces
 
 | name | direction | type | 
 | ------ | ----------- | ------ |
@@ -21,4 +21,10 @@ Component that generate a PWM which is controllable by using an APB bus.
 | ------ | ----------- | ------ |
 | apbConfig | ApbConfig | Specify the shape of the APB bus |
 | timerWidth | Int | Specify how many bits the internal timer has |
+
+
+## APB specification
+
+
+![](assets/wave.svg)
 

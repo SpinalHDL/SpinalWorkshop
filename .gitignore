@@ -33,5 +33,5 @@ bin/
 *.cf
 *.json
 *.vcd
-!UartCtrlRx_tb.vhd
+!*_tb.vhd
 

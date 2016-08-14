@@ -15,7 +15,7 @@ case class UartRxGenerics( preSamplingSize: Int = 1,
 object UartCtrlRxState extends SpinalEnum {
   val IDLE, START, DATA, STOP = newElement()
 }
-class UartCtrlRx(generics : UartRxGenerics) extends Component{
+case class UartCtrlRx(generics : UartRxGenerics) extends Component{
   import generics._
   val io = new Bundle{
     val rxd  = in Bool

@@ -1,0 +1,7 @@
+package workshop.counter
+
+import spinal.core._
+
+case class Counter(width: Int) extends Component {
+  //TODO
+}
