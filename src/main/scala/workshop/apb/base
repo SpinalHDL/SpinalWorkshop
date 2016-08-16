@@ -14,7 +14,7 @@ case class Apb(config: ApbConfig) extends Bundle with IMasterSlave {
   //TODO define APB signals
 
   override def asMaster(): this.type = {
-    //TODO define direction of each signal
+    //TODO define direction of each signal in a master mode
     this
   }
 }
