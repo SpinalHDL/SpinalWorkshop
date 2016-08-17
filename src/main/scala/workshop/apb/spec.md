@@ -3,17 +3,17 @@ Component that generate a PWM which is controllable by using an APB bus.
 
 ## Component interfaces
 
-| name | direction | type | 
-| ------ | ----------- | ------ |
-| apb | slave | APB |
-| pwm | out | Bool |
+| name | direction | type | description |
+| ------ | ----------- | ------ | ------ |
+| apb | slave | APB | Bus used to read and write internal registers |
+| pwm | out | Bool | PWM output of the component |
 
 ## Register mapping
 
 | name | type | address |  description | 
 | ------ | ------ | ----------- | ------ |
-| enable | R/W | 0 | Enable the internal timer when the register is set |
-| dutyCycle | R/W | 4 | Specify own many cycle the `pwm` output is set in a timer period |
+| enable | R/W | 0 | Enable the internal timer when the register LSB is set |
+| dutyCycle | R/W | 4 | Specify own many cycle the `pwm` output is set in a timer period. <br> Range from 0 to (1 << timerWidth)-1 |
 
 ## RTL parametrization
 
