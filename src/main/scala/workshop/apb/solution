@@ -50,7 +50,7 @@ case class ApbPwm(apbConfig: ApbConfig,timerWidth : Int) extends Component{
     }
     io.pwm := output
   }
-  
+
   val control = new Area{
     val doWrite = io.apb.PSEL(0) && io.apb.PENABLE && io.apb.PWRITE
     io.apb.PRDATA := 0

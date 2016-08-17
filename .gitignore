@@ -33,5 +33,6 @@ bin/
 *.cf
 *.json
 *.vcd
+*.odg#
 !*_tb.vhd
 
