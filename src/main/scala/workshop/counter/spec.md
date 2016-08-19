@@ -7,7 +7,7 @@ Component which increment its output `value` each cycle.
 | ------ | ----------- | ------ |  ------ |
 | clear | in | Bool | When set, the internal register is cleared |
 | value | out | UInt(width bits) | By default, count up each cycle. Initialized to zero. Can overflow.|
-| overflow | out | Bool | Set when all bits of the output `value` are set. |
+| full | out | Bool | Set when all bits of the output `value` are set. |
 
 ## RTL parametrization
 

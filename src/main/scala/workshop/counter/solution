@@ -6,7 +6,7 @@ case class Counter(width: Int) extends Component {
   val io = new Bundle {
     val clear    = in  Bool
     val value    = out UInt(width bits)
-    val overflow = out Bool
+    val full     = out Bool
   }
 
   val counter = Reg(UInt(width bits)) init(0)
@@ -16,5 +16,5 @@ case class Counter(width: Int) extends Component {
   }
 
   io.value := counter
-  io.overflow := counter === U(counter.range -> true)
+  io.full  := counter === U(counter.range -> true)
 }

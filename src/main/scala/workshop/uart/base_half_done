@@ -6,8 +6,10 @@ import spinal.lib._
 case class UartRxGenerics( preSamplingSize: Int = 1,
                            samplingSize: Int = 5,
                            postSamplingSize: Int = 2){
+
   val rxdSamplePerBit = preSamplingSize + samplingSize + postSamplingSize
-  assert(isPow2(rxdSamplePerBit))
+  require(isPow2(rxdSamplePerBit))
+
   if ((samplingSize % 2) == 0)
     SpinalWarning(s"It's not nice to have a even samplingSize value at ${ScalaLocated.short} (because of the majority vote)")
 }
@@ -17,7 +19,7 @@ object UartCtrlRxState extends SpinalEnum {
 }
 
 case class UartCtrlRx(generics : UartRxGenerics) extends Component{
-  import generics._
+  import generics._  //Allow to directly use generics attribute without generics. prefix
   val io = new Bundle{
     val rxd  = in Bool
     val samplingTick = in Bool

@@ -24,8 +24,8 @@ case class Apb(config: ApbConfig) extends Bundle with IMasterSlave {
 }
 
 case class ApbPwm(apbConfig: ApbConfig,timerWidth : Int) extends Component{
-  assert(apbConfig.dataWidth == 32)
-  assert(apbConfig.selWidth == 1)
+  require(apbConfig.dataWidth == 32)
+  require(apbConfig.selWidth == 1)
 
   val io = new Bundle{
     val apb = slave(Apb(apbConfig))
