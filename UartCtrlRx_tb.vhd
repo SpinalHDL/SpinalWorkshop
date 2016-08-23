@@ -103,7 +103,7 @@ begin
     procedure assertRead(value : std_logic_vector(7 downto 0)) is
     begin
       wait until rising_edge(clk) and io_read_valid = '1';
-      assert io_read_payload = value report "io_read_payload missmatch ! Should be " & integer'image(to_integer(unsigned(value))) & " but was " & integer'image(to_integer(unsigned(io_read_payload)))  severity error;
+      assert io_read_payload = value report "io_read_payload missmatch ! Should be " & integer'image(to_integer(unsigned(value))) & " but was " & integer'image(to_integer(unsigned(io_read_payload)))  severity failure;
     end procedure;
   begin
     assertRead(X"FF");
