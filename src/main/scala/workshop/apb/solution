@@ -16,10 +16,9 @@ case class Apb(config: ApbConfig) extends Bundle with IMasterSlave {
   val PRDATA     = Bits(config.dataWidth bit)
   val PREADY     = Bool
 
-  override def asMaster(): this.type = {
+  override def asMaster(): Unit = {
     out(PADDR,PSEL,PENABLE,PWRITE,PWDATA)
     in(PREADY,PRDATA)
-    this
   }
 }
 

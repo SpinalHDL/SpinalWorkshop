@@ -13,9 +13,9 @@ case class ApbConfig(addressWidth : Int,
 case class Apb(config: ApbConfig) extends Bundle with IMasterSlave {
   //TODO define APB signals
 
-  override def asMaster(): this.type = {
+  override def asMaster(): Unit = {
     //TODO define direction of each signal in a master mode
-    this
+
   }
 }
 
