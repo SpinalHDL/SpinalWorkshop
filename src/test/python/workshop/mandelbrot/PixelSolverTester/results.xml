@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name="results">
+  <testsuite name="all" package="all" tests="0">
+    <testcase classname="PixelSolverTester" name="test1" time="48.67700004577637" />
+  </testsuite>
+</testsuites>
