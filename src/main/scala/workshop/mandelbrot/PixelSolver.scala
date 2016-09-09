@@ -3,7 +3,7 @@ package workshop.mandelbrot
 import spinal.core._
 import spinal.lib._
 
-case class MandelbrotGenerics(fixAmplitude : Int,
+case class PixelSolverGenerics(fixAmplitude : Int,
                               fixResolution : Int,
                               iterationLimit : Int){
   val iterationWidth = log2Up(iterationLimit+1)
@@ -14,15 +14,15 @@ case class MandelbrotGenerics(fixAmplitude : Int,
   )
 }
 
-case class PixelTask(g : MandelbrotGenerics) extends Bundle{
+case class PixelTask(g : PixelSolverGenerics) extends Bundle{
   val x,y = g.fixType
 }
 
-case class PixelResult(g : MandelbrotGenerics) extends Bundle{
+case class PixelResult(g : PixelSolverGenerics) extends Bundle{
   val iteration = g.iterationType
 }
 
-case class PixelSolver(g : MandelbrotGenerics) extends Component{
+case class PixelSolver(g : PixelSolverGenerics) extends Component{
   val io = new Bundle{
     val pixelTask = slave Stream(PixelTask(g))
     val pixelResult = master Stream(PixelResult(g))
@@ -60,3 +60,4 @@ case class PixelSolver(g : MandelbrotGenerics) extends Component{
     iterationReg := iteration + 1
   }
 }
+

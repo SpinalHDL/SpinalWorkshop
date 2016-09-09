@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <testsuites name="results">
   <testsuite name="all" package="all" tests="0">
-    <testcase classname="PixelSolverTester" name="test1" time="18.562000036239624" />
+    <testcase classname="PixelSolverMultiCoreTester" name="test1" time="21.282000064849854" />
   </testsuite>
 </testsuites>
