@@ -9,9 +9,9 @@ case class PixelSolverMultiCore(g : PixelSolverGenerics,coreCount : Int) extends
     val pixelTask = slave Stream (PixelTask(g))
     val pixelResult = master Stream (PixelResult(g))
   }
-  
+
   val pixelTaskDispatcher = new StreamDispatcherSequencial(PixelTask(g), coreCount)
-  val pixelTaskSolver    = List.fill(coreCount)(new PixelSolver(g))
+  val pixelTaskSolver    = List.fill(coreCount)(PixelSolver(g))
   val pixelResultArbiter = StreamArbiterFactory.sequentialOrder.build(PixelResult(g), coreCount)
   
   pixelTaskDispatcher.io.input << io.pixelTask

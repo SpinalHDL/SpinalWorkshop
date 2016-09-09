@@ -2,6 +2,7 @@ import random
 from Queue import Queue
 
 import cocotb
+from cocotb.result import TestFailure
 from cocotb.triggers import Timer, Edge, RisingEdge, Join, Event, FallingEdge
 import Tkinter
 import thread
@@ -70,6 +71,13 @@ def pixelSolverTester(dut):
     yield pixelTaskThread.join()
     yield pixelResultThread.join()
 
+    uutString = reduce(lambda a,b:a + "\n" + b,[str(e) for e in resultArray])
+    uutFile = open('mandelbrot.uut', 'w')
+    uutFile.write(uutString)
+    uutFile.flush()
+    uutFile.close()
+
+
     iterationCount = 0
     for y in xrange(resY):
         for x in xrange(resX):
@@ -97,3 +105,8 @@ def pixelSolverTester(dut):
                     img.put("#%02x%02x%02x" % (r,g,b), (x*zoomFactor +zx, y*zoomFactor +zy))
 
     window.mainloop()
+
+    refFile = open('mandelbrot.ref', 'r')
+    refString = refFile.read()
+    if refString != uutString:
+        raise TestFailure("FAIL because of picture missmatch, see mandelbrot.ref vs mandelbrot.uut")

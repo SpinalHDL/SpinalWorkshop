@@ -31,14 +31,8 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
   import g._
 
   //Define states
-  val start        = RegInit(True) clearWhen(io.pixelTask.valid && !io.pixelResult.valid) setWhen(io.pixelTask.ready)
-  val xReg,yReg    = Reg(fixType)
-  val iterationReg = Reg(g.iterationType)
-
-  //Mux algorithm inputs depending the start state
-  val x         = start ? io.pixelTask.x | xReg
-  val y         = start ? io.pixelTask.y | yReg
-  val iteration = start ? U(0)           | iterationReg
+  val x,y       = Reg(fixType) init(0)
+  val iteration = Reg(iterationType) init(0)
 
   //Do some shared calculation
   val xx = x*x
@@ -51,13 +45,20 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
   io.pixelResult.iteration := iteration
 
   //Is the mandelbrot iteration done ?
-  when(xx + yy >= 4.0 || iteration === iterationLimit){
-    io.pixelResult.valid := io.pixelTask.valid
-    io.pixelTask.ready   := io.pixelResult.ready
-  } otherwise{
-    xReg := (xx - yy + io.pixelTask.x).truncated
-    yReg := (((xy) << 1) + io.pixelTask.y).truncated
-    iterationReg := iteration + 1
+  when(io.pixelTask.valid) {
+    when(xx + yy >= 4.0 || iteration === iterationLimit) {
+      io.pixelResult.valid := True
+      when(io.pixelResult.ready){
+        io.pixelTask.ready := True
+        x := 0
+        y := 0
+        iteration := 0
+      }
+    } otherwise {
+      x := (xx - yy + io.pixelTask.x).truncated
+      y := (((xy) << 1) + io.pixelTask.y).truncated
+      iteration := iteration + 1
+    }
   }
 }
 
