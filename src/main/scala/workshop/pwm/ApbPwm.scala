@@ -1,4 +1,4 @@
-package workshop.apb
+package workshop.pwm
 
 import org.scalatest.FunSuite
 import spinal.core._
@@ -31,7 +31,7 @@ case class ApbPwm(apbConfig: ApbConfig,timerWidth : Int) extends Component{
   val logic = new Area {
     //TODO define the PWM logic
   }
-  
+
   val control = new Area{
     //TODO define the APB slave logic that will make PWM's registers writable/readable
   }

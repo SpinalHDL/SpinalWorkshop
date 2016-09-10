@@ -12,7 +12,7 @@ resX = 64
 resY = 64
 
 @cocotb.coroutine
-def pixelTaskAgent(dut,validRatio):
+def cmdAgent(dut,validRatio):
     startX = -2.0
     startY = -1.5
     endX = 0.8
@@ -20,31 +20,31 @@ def pixelTaskAgent(dut,validRatio):
     stepX = (endX-startX)/resX
     stepY = (endY - startY) / resY
 
-    dut.io_pixelTask_valid <= 0
+    dut.io_cmd_valid <= 0
     yield RisingEdge(dut.clk)
 
     for y in xrange(resY):
         for x in xrange(resX):
             while random.random() > validRatio:
                 yield RisingEdge(dut.clk)
-            dut.io_pixelTask_valid <= 1
-            dut.io_pixelTask_payload_x <= int((startX + x * stepX) * (1 << 20))
-            dut.io_pixelTask_payload_y <= int((startY + y * stepY) * (1 << 20))
+            dut.io_cmd_valid <= 1
+            dut.io_cmd_payload_x <= int((startX + x * stepX) * (1 << 20))
+            dut.io_cmd_payload_y <= int((startY + y * stepY) * (1 << 20))
             while True:
                 yield RisingEdge(dut.clk)
-                if int(dut.io_pixelTask_ready) == 1:
-                    dut.io_pixelTask_valid <= 0
+                if int(dut.io_cmd_ready) == 1:
+                    dut.io_cmd_valid <= 0
                     break
 
 @cocotb.coroutine
-def pixelResultAgent(dut,resultArray,readyRatio):
+def rspAgent(dut,resultArray,readyRatio):
     for y in xrange(resY):
         for x in xrange(resX):
             while True:
-                dut.io_pixelResult_ready <= (random.random() <= readyRatio)
+                dut.io_rsp_ready <= (random.random() <= readyRatio)
                 yield RisingEdge(dut.clk)
-                if int(dut.io_pixelResult_valid) == 1 and int(dut.io_pixelResult_ready) == 1:
-                    resultArray[y][x] = int(dut.io_pixelResult_payload_iteration)
+                if int(dut.io_rsp_valid) == 1 and int(dut.io_rsp_ready) == 1:
+                    resultArray[y][x] = int(dut.io_rsp_payload_iteration)
                     break
 
 @cocotb.coroutine
@@ -64,12 +64,12 @@ def pixelSolverTester(dut):
 
     resultArray = [[0 for x in xrange(resX)] for y in xrange(resY)]
     performanceCounter = [0]
-    pixelTaskThread = cocotb.fork(pixelTaskAgent(dut,1.0 if speedBench else 0.5))
-    pixelResultThread = cocotb.fork(pixelResultAgent(dut,resultArray,1.0 if speedBench else 0.5))
+    cmdThread = cocotb.fork(cmdAgent(dut,1.0 if speedBench else 0.5))
+    rspThread = cocotb.fork(rspAgent(dut,resultArray,1.0 if speedBench else 0.5))
     cocotb.fork(performanceCounterAgent(dut,performanceCounter))
 
-    yield pixelTaskThread.join()
-    yield pixelResultThread.join()
+    yield cmdThread.join()
+    yield rspThread.join()
 
     uutString = reduce(lambda a,b:a + "\n" + b,[str(e) for e in resultArray])
     uutFile = open('mandelbrot.uut', 'w')

@@ -1,4 +1,4 @@
-package workshop.apb
+package workshop.pwm
 
 import spinal.core._
 

@@ -24,8 +24,8 @@ case class PixelResult(g : PixelSolverGenerics) extends Bundle{
 
 case class PixelSolver(g : PixelSolverGenerics) extends Component{
   val io = new Bundle{
-    val pixelTask = slave Stream(PixelTask(g))
-    val pixelResult = master Stream(PixelResult(g))
+    val cmd = slave Stream(PixelTask(g))
+    val rsp = master Stream(PixelResult(g))
   }
 
   import g._
@@ -40,23 +40,23 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
   val xy = x*y
 
   //Apply default assignement
-  io.pixelTask.ready := False
-  io.pixelResult.valid := False
-  io.pixelResult.iteration := iteration
+  io.cmd.ready := False
+  io.rsp.valid := False
+  io.rsp.iteration := iteration
 
   //Is the mandelbrot iteration done ?
-  when(io.pixelTask.valid) {
+  when(io.cmd.valid) {
     when(xx + yy >= 4.0 || iteration === iterationLimit) {
-      io.pixelResult.valid := True
-      when(io.pixelResult.ready){
-        io.pixelTask.ready := True
+      io.rsp.valid := True
+      when(io.rsp.ready){
+        io.cmd.ready := True
         x := 0
         y := 0
         iteration := 0
       }
     } otherwise {
-      x := (xx - yy + io.pixelTask.x).truncated
-      y := (((xy) << 1) + io.pixelTask.y).truncated
+      x := (xx - yy + io.cmd.x).truncated
+      y := (((xy) << 1) + io.cmd.y).truncated
       iteration := iteration + 1
     }
   }

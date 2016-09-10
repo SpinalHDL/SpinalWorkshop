@@ -46,19 +46,19 @@ case class Arbiter[T <: Data](dataType : T,inputsCount : Int) extends Component{
 
 case class PixelSolverMultiCore(g : PixelSolverGenerics,coreCount : Int) extends Component {
   val io = new Bundle {
-    val pixelTask = slave Stream (PixelTask(g))
-    val pixelResult = master Stream (PixelResult(g))
+    val cmd = slave Stream (PixelTask(g))
+    val rsp = master Stream (PixelResult(g))
   }
 
   val pixelTaskDispatcher = Dispatcher(PixelTask(g), coreCount)
   val pixelTaskSolver     = List.fill(coreCount)(PixelSolver(g))
   val pixelResultArbiter  = Arbiter(PixelResult(g), coreCount)
 
-  pixelTaskDispatcher.io.input << io.pixelTask
+  pixelTaskDispatcher.io.input << io.cmd
   for (solverId <- 0 until coreCount) {
-    pixelTaskSolver(solverId).io.pixelTask <-< pixelTaskDispatcher.io.outputs(solverId)
-    pixelResultArbiter.io.inputs(solverId) <-< pixelTaskSolver(solverId).io.pixelResult
+    pixelTaskSolver(solverId).io.cmd <-< pixelTaskDispatcher.io.outputs(solverId)
+    pixelResultArbiter.io.inputs(solverId) <-< pixelTaskSolver(solverId).io.rsp
   }
-  io.pixelResult << pixelResultArbiter.io.output
+  io.rsp << pixelResultArbiter.io.output
 }
 
