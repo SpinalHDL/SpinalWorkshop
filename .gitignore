@@ -31,6 +31,8 @@ bin/
 /*.vhd
 /*.v
 *.cf
+*.xml
+*.vvp
 *.json
 *.vcd
 *.odg#
