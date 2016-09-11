@@ -5,19 +5,19 @@ import spinal.lib._
 
 
 case class MemoryWrite() extends Bundle{
-  val address = UInt(16 bits)
+  val address = UInt(8 bits)
   val data    = Bits(32 bits)
 }
 
-case class StreamComponent() extends Component{
+case class StreamUnit() extends Component{
   val io = new Bundle{
     val memWrite = slave Flow(MemoryWrite())
-    val cmdA = slave Stream(UInt(16 bits))
+    val cmdA = slave Stream(UInt(8 bits))
     val cmdB = slave Stream(Bits(32 bits))
     val rsp = master Stream(Bits(32 bits))
   }
 
-  val mem = Mem(Bits(32 bits),1 << 16)
+  val mem = Mem(Bits(32 bits),1 << 8)
   mem.write(
     enable = io.memWrite.valid,
     address = io.memWrite.address,
@@ -34,16 +34,16 @@ case class StreamComponent() extends Component{
 }
 
 
-case class StreamComponentB() extends Component{
+case class StreamUnit2() extends Component{
   val io = new Bundle{
     val memWrite = slave Flow(MemoryWrite())
-    val cmdA = slave Stream(UInt(16 bits))
+    val cmdA = slave Stream(UInt(8 bits))
     val cmdB = slave Stream(Bits(32 bits))
     val rsp = master Stream(Bits(32 bits))
   }
 
 
-  val mem = Mem(Bits(32 bits),1 << 16)
+  val mem = Mem(Bits(32 bits),1 << 8)
   mem.write(
     enable = io.memWrite.valid,
     address = io.memWrite.address,

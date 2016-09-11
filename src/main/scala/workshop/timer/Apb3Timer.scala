@@ -6,7 +6,9 @@ import spinal.lib.bus.amba3.apb.{Apb3SlaveFactory, Apb3}
 
 case class Apb3Timer() extends Component{
   val io = new Bundle{
-    val apb = slave(Apb3(addressWidth = 16,dataWidth = 32))
+    val apb = slave(Apb3(addressWidth = 8,dataWidth = 32))
+    val fullA = out Bool
+    val fullB = out Bool
     val external = new Bundle{
       val tick  = in Bool
       val clear = in Bool
@@ -20,16 +22,18 @@ case class Apb3Timer() extends Component{
   }
 
   val apbCtrl = Apb3SlaveFactory(io.apb)
-  val timerA = Timer(width = 16)
-  timerA.driveFrom(apbCtrl,0x00)(
+  val timerA  = Timer(width = 16)
+  val bridgeA = timerA.driveFrom(apbCtrl,0x00)(
     ticks  = List(True,clockDivider.full,io.external.tick),
-    clears = List(io.external.clear)
+    clears = List(timerA.io.full,io.external.clear)
   )
 
-
-  val timerB = Timer(width = 8)
-  timerB.driveFrom(apbCtrl,0x10)(
+  val timerB  = Timer(width = 8)
+  val bridgeB = timerB.driveFrom(apbCtrl,0x10)(
     ticks  = List(True,clockDivider.full,io.external.tick),
-    clears = List(io.external.clear)
+    clears = List(timerB.io.full,io.external.clear)
   )
+
+  io.fullA := timerA.io.full
+  io.fullB := timerB.io.full
 }

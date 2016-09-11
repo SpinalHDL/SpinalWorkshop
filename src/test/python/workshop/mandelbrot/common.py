@@ -6,7 +6,7 @@ from cocotb.result import TestFailure
 from cocotb.triggers import Timer, Edge, RisingEdge, Join, Event, FallingEdge
 import Tkinter
 import thread
-from workshop.common.misc import genClockAndReset, simulationSpeedPrinter
+from cocotblib.misc import simulationSpeedPrinter, ClockDomainAsyncReset
 
 resX = 64
 resY = 64
@@ -59,7 +59,7 @@ def pixelSolverTester(dut):
 
     speedBench = True
 
-    cocotb.fork(genClockAndReset(dut))
+    cocotb.fork(ClockDomainAsyncReset(dut.clk,dut.reset))
     cocotb.fork(simulationSpeedPrinter(dut.clk))
 
     resultArray = [[0 for x in xrange(resX)] for y in xrange(resY)]
