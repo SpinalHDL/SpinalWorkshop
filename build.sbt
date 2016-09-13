@@ -8,6 +8,6 @@ EclipseKeys.withSource := true
 
 libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.11" % "2.2.1",
-  "com.github.spinalhdl" % "spinalhdl-core_2.11" % "0.10.0",
-  "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "0.10.0"
+  "com.github.spinalhdl" % "spinalhdl-core_2.11" % "0.10.3",
+  "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "0.10.3"
 )

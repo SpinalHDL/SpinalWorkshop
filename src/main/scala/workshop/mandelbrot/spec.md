@@ -51,8 +51,8 @@ Let's specify the IO of our component :
 
 | IO Name | Direction | Type | Description |
 | ------- | ---- |  --- | --- |
-| cmd | slave | Stream[PixelTask]  | Provide XY coordinates to process |
-| rsp | master | Stream[PixelResult]  | Return iteration count needed for the corresponding cmd transaction |
+| cmd | slave | Stream(PixelTask)  | Provide XY coordinates to process |
+| rsp | master | Stream(PixelResult)  | Return iteration count needed for the corresponding cmd transaction |
 
 Let's specify the PixelTask bundle :
 

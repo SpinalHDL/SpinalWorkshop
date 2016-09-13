@@ -32,6 +32,7 @@ bin/
 /*.v
 *.cf
 *.xml
+*$*
 *.vvp
 *.json
 *.vcd
