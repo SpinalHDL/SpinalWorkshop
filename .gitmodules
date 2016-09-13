@@ -1,0 +1,3 @@
+[submodule "src/test/python/cocotblib"]
+	path = src/test/python/cocotblib
+	url = https://github.com/SpinalHDL/CocotbLib.git
