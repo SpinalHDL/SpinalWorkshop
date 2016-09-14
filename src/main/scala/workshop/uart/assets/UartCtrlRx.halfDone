@@ -14,10 +14,6 @@ case class UartRxGenerics( preSamplingSize: Int = 1,
     SpinalWarning(s"It's not nice to have a even samplingSize value at ${ScalaLocated.short} (because of the majority vote)")
 }
 
-object UartCtrlRxState extends SpinalEnum {
-  val IDLE, START, DATA, STOP = newElement()
-}
-
 case class UartCtrlRx(generics : UartRxGenerics) extends Component{
   import generics._  //Allow to directly use generics attribute without generics. prefix
   val io = new Bundle{
@@ -25,7 +21,6 @@ case class UartCtrlRx(generics : UartRxGenerics) extends Component{
     val samplingTick = in Bool
     val read = master Flow(Bits(8 bits))
   }
-
 
   // Implement the rxd sampling with a majority vote over samplingSize bits
   // Provide a new sampler.value each time sampler.tick is high
@@ -73,24 +68,6 @@ case class UartCtrlRx(generics : UartRxGenerics) extends Component{
 
   // Statemachine that use all precedent area
   val stateMachine = new Area {
-    import UartCtrlRxState._
-
-    val state   = RegInit(IDLE)
-
-    io.read.valid := False
-    switch(state) {
-      is(IDLE) {
-
-      }
-      is(START) {
-
-      }
-      is(DATA) {
-
-      }
-      is(STOP) {
-
-      }
-    }
+    //TODO state machine
   }
 }

@@ -4,6 +4,10 @@ This lab will be in 2 phases :
 - The implementation of a Timer component
 - The implementation of a function which allow to use an memory bus to control that timer
 
+This lab will introduce :
+- How to define an register bank by an abstract way (BusSlaveFactory)
+- Meta-hardware description possibilities
+
 ## Part 1 : Timer
 
 The Timer module will have a single construction parameter :

@@ -3,6 +3,11 @@ The goal of this lab is to practice function to generate hardware and also to gi
 
 The component to implement, is an un-serializer able to load 3 ouputs from 3 different commands.
 
+This lab will introduce :
+- Function usage (def)
+- Some re-usability pattern
+- How the scala can be mixed with SpinalHDL
+
 ## Interface
 
 The component will have following IO :

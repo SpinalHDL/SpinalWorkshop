@@ -1,6 +1,11 @@
 ## Description
 Component that generate a PWM which is controllable by using an APB bus.
 
+This lab will introduce :
+- Data structure and  buses (Bundle)
+- Conditional statments (switch)
+- Functionality groups (Area)
+
 ## Component interfaces
 
 | name | direction | type | description |
