@@ -1,11 +1,14 @@
 ## Introduction
-The goal of this lab is to have some practice with Stream (An simple handshake bus) and also memories. The component that will be implemented has no real-world purpose.
+The goal of this lab is to have some practice with Stream (An simple handshake bus) and also memories.<br> 
+The component that should be implemented has no real-world purpose.
 
 This lab will introduce :
 - The Hand-shake methodology (Stream)
 - How to write some arbitration with that methodology
 - How this arbitration can be describe by an abstract way
 - How to use Memory (Mem)
+
+There is some Stream documentation [there](http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/)
 
 ## Specification
 The functionality to implement is the following :

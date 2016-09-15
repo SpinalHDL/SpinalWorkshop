@@ -1,7 +1,8 @@
-## Description
-Component which increment its output `value` each cycle.
+## Introduction
+The goal of this lab is to get basics of SpinalHDL by implementing a simple component which increment its output `value` each cycle and provide a `full` flag.
 
 This lab will introduce :
+
 - Component with it IO definition and a little parameterization
 - Combinatorial and Sequential logic (gates and register)
 - Conditional statements (when)

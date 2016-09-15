@@ -92,3 +92,9 @@ There is a PixelSolverMultiCore diagram :
 ![](assets/PixelSolverMultiCore.svg)
 
 So, you will have to implement the Dispatcher and the Arbiter and then the PixelSolverMultiCore in order to get maximum performance ;).
+
+## Part 3 (optional) : Pipelining and hyper-threading 
+One improvement could be to implement the `PixelSolver` by using an pipelined and hyper-threaded manner.
+
+There is one implementation proposal :<br>
+![](assets/PipelinedAndHyperThreaded.svg)

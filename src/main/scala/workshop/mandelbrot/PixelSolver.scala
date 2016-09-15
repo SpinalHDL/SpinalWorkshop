@@ -4,8 +4,8 @@ import spinal.core._
 import spinal.lib._
 
 case class PixelSolverGenerics(fixAmplitude : Int,
-                              fixResolution : Int,
-                              iterationLimit : Int){
+                               fixResolution : Int,
+                               iterationLimit : Int){
   val iterationWidth = log2Up(iterationLimit+1)
   def iterationType = UInt(iterationWidth bits)
   def fixType = SFix(

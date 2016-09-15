@@ -1,5 +1,6 @@
-## Description
-Component that generate a PWM which is controllable by using an APB bus.
+## Introduction
+To goal of this lab is to get a little bit more into SpinalHDL by understanding how you can organise things.<br>
+The Component to implement is an PWM generator which is controllable mapped on a APB bus.
 
 This lab will introduce :
 - Data structure and  buses (Bundle)
@@ -29,7 +30,7 @@ This lab will introduce :
 
 
 ## APB specification
-
+For they labs, you can don't need to insert wait cycle on the bus, so you can keep the PREADY always high.
 
 ![](assets/wave.svg)
 

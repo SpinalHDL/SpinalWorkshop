@@ -1,7 +1,7 @@
 ## Introduction
 The goal of this lab is to practice function to generate hardware and also to give a better feeling of the object oriented nature of SpinalHDL.
 
-The component to implement, is an un-serializer able to load 3 ouputs from 3 different commands.
+The component to implement is a byte flow un-serializer able to load 3 outputs from 3 different commands.
 
 This lab will introduce :
 - Function usage (def)
