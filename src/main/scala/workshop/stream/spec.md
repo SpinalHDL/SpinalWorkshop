@@ -1,5 +1,5 @@
 ## Introduction
-The goal of this lab is to have some practice with Stream (An simple handshake bus) and also memories.<br> 
+The goal of this lab is to have some practice with Stream (An simple handshake bus) and also memories.<br>
 The component that should be implemented has no real-world purpose.
 
 This lab will introduce :
@@ -21,7 +21,7 @@ The functionality to implement is the following :
 - The width of `cmdB`/`rsp` payload is 32 bits
 - The memory should be read by an synchronous way
 
-There is the diagram of the component to implement :
+There is the diagram of the component to implement :<br>
 ![](assets/StreamUnit.svg)
 
 There is the specification of IO :

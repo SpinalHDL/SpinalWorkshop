@@ -6,7 +6,7 @@ The UART is an old transmission protocol which transmit data in serial with a fi
 In this labs, the configuration of the UART transmission will be 8 bits of data per frame, no parity and 1 stop bit.
 
 This configuration will produce the following chronogram :<br>
-Note : Start and Stop bauds allow the receiver to detect frames.
+Note : Start and Stop bauds allow the receiver to detect frames.<br>
 ![](assets/uart.png)
 
 Because the UART transmission is asynchronous, the receiver need to filter its input. This will be done by using a sliding window of samples with an majority vote to establish the value of the `RDX` line.
@@ -40,11 +40,12 @@ All RTL parameters are contained into the `UartRxGenerics` class. This class con
 
 ## RTL diagram
 
-This module is divided in 4 Area :
+This Component is divided in 4 Area :
 
 - sampler : Which implement the UART baud filter
 - bitTimer : Which could be configured by the FSM to provide a tick on each end of UART baud.
 - bitCounter : Which is a simple clearable counter.
 - stateMachine : Which manage all this stuff together.
 
+There is some explanation diagrams : <br>
 ![](assets/diagram.png)
