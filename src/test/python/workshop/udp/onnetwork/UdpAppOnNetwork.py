@@ -78,7 +78,7 @@ class DriverAgent(Infrastructure):
 
 
 
-
+import time
 class MonitorAgent(Infrastructure):
     def __init__(self,name,parent,dut,sock):
         Infrastructure.__init__(self,name,parent)
@@ -90,6 +90,9 @@ class MonitorAgent(Infrastructure):
 
         StreamMonitor(Stream(dut,"io_tx_cmd"), self.onTxCmd, dut.clk, dut.reset)
         StreamMonitor(Stream(dut, "io_tx_data"), self.onTxData, dut.clk, dut.reset)
+
+        self.bootTime = time.time()
+
 
     def onTxCmd(self,trans):
         self.txCmdQueue.put(trans)
@@ -113,7 +116,7 @@ class MonitorAgent(Infrastructure):
                 self.sock.sendto(payload, (ip, cmd.dstPort))
 
     def hasEnoughSim(self):
-        return False
+        return time.time() - self.bootTime > 120.0
 
 @cocotb.test()
 def test1(dut):
