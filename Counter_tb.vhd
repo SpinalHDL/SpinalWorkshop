@@ -15,6 +15,11 @@ entity Counter_tb is
 end Counter_tb;
 
 architecture arch of Counter_tb is
+  signal io_clear : std_logic;
+  signal io_value : unsigned(3 downto 0);
+  signal io_full : std_logic;
+  signal clk : std_logic;
+  signal reset : std_logic;
   -- #spinalBegin userDeclarations
   shared variable done : integer := 0;
   signal refCounter : unsigned(3 downto 0);
@@ -74,6 +79,11 @@ begin
   end process;
   -- #spinalEnd userLogics
   uut : entity work.Counter
-    port map  
+    port map (
+      io_clear =>  io_clear,
+      io_value =>  io_value,
+      io_full =>  io_full,
+      clk =>  clk,
+      reset =>  reset 
     );
 end arch;

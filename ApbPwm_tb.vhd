@@ -79,19 +79,19 @@ begin
       procedure checkDutyCycle(dutyCycle : unsigned) is
         variable highCounter : unsigned(7 downto 0);
       begin
-        for i in 0 to 256*7-1 loop
+        for i in 0 to 256*6-1 loop
           wait until rising_edge(clk);
         end loop;
 
-        highCounter := (others => '0');
+        wait until rising_edge(io_pwm);
         for i in 0 to 255 loop
           wait until rising_edge(clk);
-          if io_pwm = '1' then
-            highCounter := highCounter + 1;
+          if i < dutyCycle then
+            assert io_pwm = '1' report "io_pwm should be high" severity failure;
+          else
+            assert io_pwm = '0' report "io_pwm should be low" severity failure;
           end if;
         end loop;
-
-        assert dutyCycle = highCounter report "Wrong pwm duty cycle. " & integer'image(to_integer(highCounter)) & " in place of " & integer'image(to_integer(dutyCycle)) severity failure ;
       end procedure;
 
     begin

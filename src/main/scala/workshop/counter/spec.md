@@ -13,14 +13,14 @@ This lab will introduce :
 | ------ | ----------- | ------ |  ------ |
 | clear | in | Bool | When set, the internal register is cleared |
 | value | out | UInt(width bits) | By default, count up each cycle. Initialized to zero. Can overflow.|
-| full | out | Bool | Is set when all bits of the output `value` are set. |
+| full | out | Bool | Indicate when all bits of the output `value` are True. |
 
 ## RTL parametrization
 
-| name | type | description | 
+| name | type | description |
 | ------ | ----------- | ------ |
 | width | Int | Specify the width of the `value` output |
 
 ## Tips
 
-There is a SpinalHDL documentation and many examples [there](spinalhdl.github.io/SpinalDoc/)
+There is a SpinalHDL documentation and many examples [there](http://spinalhdl.github.io/SpinalDoc/)

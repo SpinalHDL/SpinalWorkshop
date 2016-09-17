@@ -17,5 +17,18 @@ case class StreamUnit() extends Component{
     val rsp      = master Stream(Bits(32 bits))
   }
 
-  //TODO
+  val mem = Mem(Bits(32 bits),1 << 8)
+  mem.write(
+    enable = io.memWrite.valid,
+    address = io.memWrite.address,
+    data = io.memWrite.data
+  )
+
+  val memReadStream = io.cmdA.stage()
+  val memReadData   = mem.readSync(
+    enable  = io.cmdA.fire,
+    address = io.cmdA.payload
+  )
+
+  io.rsp << StreamJoin.arg(memReadStream,io.cmdB).translateWith(memReadData ^ io.cmdB.payload)
 }

@@ -8,7 +8,7 @@ class UartCtrlRxTester extends FunSuite{
     SpinalVhdl(UartCtrlRx(UartRxGenerics(1,5,2)))
     assert(doCmd(s"ghdl -a --ieee=synopsys UartCtrlRx.vhd UartCtrlRx_tb.vhd") == 0,"GHDL analysis fail")
     assert(doCmd(s"ghdl -e --ieee=synopsys UartCtrlRx_tb"                   ) == 0,"GHDL elaboration fail")
-    assert(doCmd(s"ghdl -r --ieee=synopsys UartCtrlRx_tb --vcd=uartCtrlRxTester.vcd"    ) == 0,"GHDL simulation fail")
+    assert(doCmd(s"ghdl -r --ieee=synopsys UartCtrlRx_tb --vcd=uartCtrlRxTester.vcd --ieee-asserts=disable"    ) == 0,"GHDL simulation fail")
     println("SUCCESS")
   }
 

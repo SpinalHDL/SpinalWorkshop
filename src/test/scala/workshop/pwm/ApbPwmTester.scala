@@ -18,7 +18,7 @@ class ApbPwmTester extends FunSuite{
     )
     assert(doCmd(s"ghdl -a --ieee=synopsys ApbPwm.vhd ApbPwm_tb.vhd") == 0,"GHDL analysis fail")
     assert(doCmd(s"ghdl -e --ieee=synopsys ApbPwm_tb"                   ) == 0,"GHDL elaboration fail")
-    assert(doCmd(s"ghdl -r --ieee=synopsys ApbPwm_tb --vcd=ApbPwmTester.vcd"    ) == 0,"GHDL simulation fail")
+    assert(doCmd(s"ghdl -r --ieee=synopsys ApbPwm_tb --vcd=ApbPwmTester.vcd --ieee-asserts=disable"    ) == 0,"GHDL simulation fail")
     println("SUCCESS")
   }
 

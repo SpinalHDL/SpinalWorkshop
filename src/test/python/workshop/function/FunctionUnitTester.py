@@ -1,16 +1,11 @@
 import random
-from Queue import Queue
 
 import cocotb
-from cocotb.scoreboard import Scoreboard
 from cocotb.triggers import RisingEdge, Timer
 
-from cocotblib.Phase import PhaseManager, Infrastructure, PHASE_SIM
-from cocotblib.Scorboard import ScorboardInOrder
-from cocotblib.Stream import StreamDriverMaster, Stream, Transaction, StreamDriverSlave, StreamMonitor
-from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, randBits, assertEquals
+from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, assertEquals
 
-
+# Send a transaction on io_cmd with a random timing
 @cocotb.coroutine
 def sendCmdRandomTiming(dut,payload):
     while random.random() < 0.5:
@@ -21,6 +16,7 @@ def sendCmdRandomTiming(dut,payload):
     dut.io_cmd_valid <= 0
     dut.io_cmd_payload <= 0
 
+# Send a command with the given header + value and then check that the pin is correctly set by the hardware
 @cocotb.coroutine
 def driveAndCheck(dut,header,value,valueWidth,pin):
     assert(valueWidth % 8 == 0)
@@ -42,7 +38,7 @@ def test1(dut):
     cocotb.fork(ClockDomainAsyncReset(dut.clk, dut.reset))
     cocotb.fork(simulationSpeedPrinter(dut.clk))
 
-    yield driveAndCheck(dut,"setValueA",0x11,8,dut.io_valueA)
+    yield driveAndCheck(dut, "setValueA",0x11,8,dut.io_valueA)
     yield driveAndCheck(dut, "setValueB", 0x22334455, 32, dut.io_valueB)
     yield driveAndCheck(dut, "setValueC", 0x66778899AABB, 48, dut.io_valueC)
     yield driveAndCheck(dut, "setValueB", 0xCAFEF00D, 32, dut.io_valueB)

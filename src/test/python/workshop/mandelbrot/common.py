@@ -1,11 +1,9 @@
 import random
-from Queue import Queue
 
 import cocotb
 from cocotb.result import TestFailure
-from cocotb.triggers import Timer, Edge, RisingEdge, Join, Event, FallingEdge
-import Tkinter
-import thread
+from cocotb.triggers import RisingEdge
+
 from cocotblib.misc import simulationSpeedPrinter, ClockDomainAsyncReset
 
 resX = 64
@@ -17,7 +15,7 @@ def cmdAgent(dut,validRatio):
     startY = -1.5
     endX = 0.8
     endY = 1.5
-    stepX = (endX-startX)/resX
+    stepX = (endX - startX) / resX
     stepY = (endY - startY) / resY
 
     dut.io_cmd_valid <= 0
@@ -48,7 +46,7 @@ def rspAgent(dut,resultArray,readyRatio):
                     break
 
 @cocotb.coroutine
-def performanceCounterAgent(dut,counter):
+def cycleCounterAgent(dut, counter):
     while True:
         yield RisingEdge(dut.clk)
         counter[0] += 1
@@ -59,35 +57,40 @@ def pixelSolverTester(dut):
 
     speedBench = True
 
+    # Create Agents
     cocotb.fork(ClockDomainAsyncReset(dut.clk,dut.reset))
     cocotb.fork(simulationSpeedPrinter(dut.clk))
 
-    resultArray = [[0 for x in xrange(resX)] for y in xrange(resY)]
-    performanceCounter = [0]
-    cmdThread = cocotb.fork(cmdAgent(dut,1.0 if speedBench else 0.5))
-    rspThread = cocotb.fork(rspAgent(dut,resultArray,1.0 if speedBench else 0.5))
-    cocotb.fork(performanceCounterAgent(dut,performanceCounter))
+    cycleCounter = [0]
+    cocotb.fork(cycleCounterAgent(dut, cycleCounter))
 
+    cmdThread = cocotb.fork(cmdAgent(dut,1.0 if speedBench else 0.5))
+
+    resultArray = [[0 for x in xrange(resX)] for y in xrange(resY)]
+    rspThread = cocotb.fork(rspAgent(dut,resultArray,1.0 if speedBench else 0.5))
+
+    # Wait everybody finish its job
     yield cmdThread.join()
     yield rspThread.join()
 
+    # Flush the mandelbrot into a text file
     uutString = reduce(lambda a,b:a + "\n" + b,[str(e) for e in resultArray])
     uutFile = open('mandelbrot.uut', 'w')
     uutFile.write(uutString)
     uutFile.flush()
     uutFile.close()
 
-
+    # Count how many iteration were done
     iterationCount = 0
     for y in xrange(resY):
         for x in xrange(resX):
             iterationCount += resultArray[y][x] + 1
 
-    print("Done in %d cycles => %f iteration/cycle" % (performanceCounter[0],1.0*iterationCount/performanceCounter[0]))
+    print("Done in %d cycles => %f iteration/cycle" % (cycleCounter[0],1.0*iterationCount/cycleCounter[0]))
 
-    from Tkinter import Tk, Canvas, PhotoImage, mainloop
-    from math import sin
 
+    # Display the mandelbrot picture in a GUI
+    from Tkinter import Tk, Canvas, PhotoImage
     zoomFactor = 4
     pictureWidth, pictureHeight = resX*zoomFactor, resY*zoomFactor
     window = Tk()
@@ -106,6 +109,7 @@ def pixelSolverTester(dut):
 
     window.mainloop()
 
+    # Check differences with the reference image
     refFile = open('mandelbrot.ref', 'r')
     refString = refFile.read()
     if refString != uutString:

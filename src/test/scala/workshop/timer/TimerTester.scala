@@ -11,7 +11,7 @@ class TimerTester extends FunSuite{
     )
     assert(doCmd(s"ghdl -a --ieee=synopsys Timer.vhd Timer_tb.vhd") == 0,"GHDL analysis fail")
     assert(doCmd(s"ghdl -e --ieee=synopsys Timer_tb"                   ) == 0,"GHDL elaboration fail")
-    assert(doCmd(s"ghdl -r --ieee=synopsys Timer_tb --vcd=TimerTester.vcd"    ) == 0,"GHDL simulation fail")
+    assert(doCmd(s"ghdl -r --ieee=synopsys Timer_tb --vcd=TimerTester.vcd --ieee-asserts=disable"    ) == 0,"GHDL simulation fail")
     println("SUCCESS")
   }
 

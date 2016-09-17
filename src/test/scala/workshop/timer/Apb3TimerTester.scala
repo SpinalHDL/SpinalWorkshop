@@ -11,7 +11,7 @@ class Apb3TimerTester extends FunSuite{
     )
     assert(doCmd(s"ghdl -a --ieee=synopsys Apb3Timer.vhd Apb3Timer_tb.vhd") == 0,"GHDL analysis fail")
     assert(doCmd(s"ghdl -e --ieee=synopsys Apb3Timer_tb"                   ) == 0,"GHDL elaboration fail")
-    assert(doCmd(s"ghdl -r --ieee=synopsys Apb3Timer_tb --vcd=Apb3TimerTester.vcd"    ) == 0,"GHDL simulation fail")
+    assert(doCmd(s"ghdl -r --ieee=synopsys Apb3Timer_tb --vcd=Apb3TimerTester.vcd --ieee-asserts=disable"    ) == 0,"GHDL simulation fail")
     println("SUCCESS")
   }
 

@@ -44,7 +44,7 @@ This memory mapping function will take followings parameters :
 
 The register mapping will make the assumption that the bus system is 32 bits width :
 
-| Name | Access | Width | Address offset | Bit offset |  Description |
+| Register Name | Access | Width | Address offset | Bit offset |  Description |
 | ------- | ---- | --- | --- | --- |
 | ticksEnable | RW | len(ticks) | 0 | 0 | Each ticks bool can be actived if the corresponding ticksEnable bit is high. |
 | clearsEnable | RW | len(clears) | 0 | 16 | Each clears bool can be actived if the corresponding clearsEnable bit is high. |
