@@ -1,0 +1,145 @@
+import random
+from Queue import Queue
+
+import cocotb
+from cocotb.scoreboard import Scoreboard
+from cocotb.triggers import RisingEdge
+
+from cocotblib.Phase import PhaseManager, Infrastructure, PHASE_SIM
+from cocotblib.Scorboard import ScorboardInOrder
+from cocotblib.Stream import StreamDriverMaster, Stream, Transaction, StreamDriverSlave, StreamMonitor
+from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, randBits
+
+import socket
+import thread
+from _socket import SOL_SOCKET, SO_REUSEADDR, SO_BROADCAST
+
+RX_IP = "127.0.0.1"
+TX_IP = "255.255.255.255"
+SERVER_PORT = 37984
+
+
+class DriverAgent(Infrastructure):
+    def __init__(self, name, parent, dut, sock):
+        Infrastructure.__init__(self,name,parent)
+
+        self.rxCmdQueue = Queue()
+        self.rxDataQueue = Queue()
+
+        self.sock = sock
+
+        StreamDriverMaster(Stream(dut, "io_rx_cmd"), self.genRxCmd, dut.clk, dut.reset)
+        StreamDriverMaster(Stream(dut, "io_rx_data"), self.genRxData, dut.clk, dut.reset)
+        StreamDriverSlave(Stream(dut, "io_tx_cmd"), dut.clk, dut.reset)
+        StreamDriverSlave(Stream(dut, "io_tx_data"), dut.clk, dut.reset)
+
+        try:
+            thread.start_new_thread(self.rxThread, ())
+        except Exception as errtxt:
+            print errtxt
+
+
+    def rxThread(self):
+        while True:
+            data, addr = self.sock.recvfrom(2048)
+            print "received message:", data, addr
+
+            cmdTrans = Transaction()
+            ipSplit = addr[0].split(".")
+            cmdTrans.ip = 0
+            for i in xrange(4):
+                cmdTrans.ip |= int(ipSplit[i]) << (i*8)
+            cmdTrans.srcPort = addr[1]
+            cmdTrans.dstPort = SERVER_PORT
+            cmdTrans.length = len(data)
+            self.rxCmdQueue.put(cmdTrans)
+
+
+            for i in xrange(len(data)):
+                dataTrans = Transaction()
+                dataTrans.last = (i == len(data)-1)
+                dataTrans.fragment = ord(data[i])
+                self.rxDataQueue.put(dataTrans)
+
+
+    def genRxCmd(self):
+        if self.getPhase() != PHASE_SIM:
+            return None
+
+        if not self.rxCmdQueue.empty():
+            return self.rxCmdQueue.get()
+
+    def genRxData(self):
+        if self.getPhase() != PHASE_SIM:
+            return None
+
+        if not self.rxDataQueue.empty():
+            return self.rxDataQueue.get()
+
+
+
+
+class MonitorAgent(Infrastructure):
+    def __init__(self,name,parent,dut,sock):
+        Infrastructure.__init__(self,name,parent)
+
+        self.sock = sock
+
+        self.txCmdQueue = Queue()
+        self.txDataQueue = Queue()
+
+        StreamMonitor(Stream(dut,"io_tx_cmd"), self.onTxCmd, dut.clk, dut.reset)
+        StreamMonitor(Stream(dut, "io_tx_data"), self.onTxData, dut.clk, dut.reset)
+
+    def onTxCmd(self,trans):
+        self.txCmdQueue.put(trans)
+        self.update()
+
+    def onTxData(self,trans):
+        self.txDataQueue.put(trans)
+        self.update()
+
+    def update(self):
+        if not self.txCmdQueue.empty():
+            cmd = self.txCmdQueue.queue[0]
+            if len(self.txDataQueue.queue) == cmd.length:
+                self.txCmdQueue.get()
+                ip = "%d.%d.%d.%d" % ((cmd.ip >> 0) &0xFF,(cmd.ip >> 8) &0xFF,(cmd.ip >> 16) &0xFF,(cmd.ip >> 24) &0xFF)
+
+                payload = ""
+                for i in xrange(cmd.length):
+                    data = self.txDataQueue.get()
+                    payload += chr(data.fragment)
+                self.sock.sendto(payload, (ip, cmd.dstPort))
+
+    def hasEnoughSim(self):
+        return False
+
+@cocotb.test()
+def test1(dut):
+    random.seed(0)
+
+
+
+    import time
+
+
+    sock = socket.socket(socket.AF_INET,  # Internet
+                         socket.SOCK_DGRAM)  # UDP
+    sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+    sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+    sock.bind((RX_IP, SERVER_PORT))
+
+
+    cocotb.fork(ClockDomainAsyncReset(dut.clk, dut.reset))
+    cocotb.fork(simulationSpeedPrinter(dut.clk))
+
+    phaseManager = PhaseManager()
+    phaseManager.setWaitTasksEndTime(1000 * 200)
+
+
+    DriverAgent("driver",phaseManager,dut,sock)
+    MonitorAgent("monitor",phaseManager,dut,sock)
+
+
+    yield phaseManager.run()

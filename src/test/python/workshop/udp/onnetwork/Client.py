@@ -6,7 +6,7 @@ import time
 # UDP_IP = "127.0.0.1"
 from _socket import SOL_SOCKET, SO_REUSEADDR, SO_BROADCAST
 
-RX_IP = "192.168.0.108"
+RX_IP = "127.0.0.1"
 # RX_IP = "127.0.0.1"
 TX_IP = "255.255.255.255"
 SERVER_PORT = 37984
@@ -19,7 +19,7 @@ sock.bind((RX_IP, 0))
 
 def rxThread(sock,dummy):
     while True:
-        data, addr = sock.recvfrom(2048) # buffer size is 1024 bytes
+        data, addr = sock.recvfrom(2048)
         print "received message:", data, addr
 
 try:
