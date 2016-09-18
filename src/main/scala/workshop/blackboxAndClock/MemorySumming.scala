@@ -31,11 +31,11 @@ case class Ram_1w_1r_2c(wordWidth: Int, wordCount: Int,writeClock : ClockDomain,
 }
 
 // Create the top level and instanciate the Ram
-case class TopLevel(writeClock : ClockDomain,sumClock : ClockDomain) extends Component {
+case class MemorySumming(writeClock : ClockDomain,sumClock : ClockDomain) extends Component {
   val io = new Bundle {
     val wr = new Bundle {
       val en   = in Bool
-      val addr = in UInt (log2Up(8) bits)
+      val addr = in UInt (8 bits)
       val data = in Bits (16 bits)
     }
 
@@ -56,6 +56,7 @@ case class TopLevel(writeClock : ClockDomain,sumClock : ClockDomain) extends Com
   io.wr.en   <> ram.io.wr.en
   io.wr.addr <> ram.io.wr.addr
   io.wr.data <> ram.io.wr.data
+  io.sum.done := False
 
   val sumArea = new ClockingArea(sumClock){
     val counter = Reg(UInt(8 bits))
@@ -86,4 +87,6 @@ case class TopLevel(writeClock : ClockDomain,sumClock : ClockDomain) extends Com
       io.sum.done := True
     }
   }
+
+  io.sum.value := sumArea.sum
 }
