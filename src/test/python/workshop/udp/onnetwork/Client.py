@@ -3,11 +3,9 @@ import thread
 
 import time
 
-# UDP_IP = "127.0.0.1"
 from _socket import SOL_SOCKET, SO_REUSEADDR, SO_BROADCAST
 
-RX_IP = "127.0.0.1"
-# RX_IP = "127.0.0.1"
+RX_IP = open('ip.txt', 'r').read()
 TX_IP = "255.255.255.255"
 SERVER_PORT = 37984
 
@@ -27,8 +25,9 @@ try:
 except Exception as errtxt:
     print errtxt
 
+print("Send request")
 sock.sendto(chr(0x11), (TX_IP, SERVER_PORT))
-
+print("Wait two seconds for answers")
 
 time.sleep(2)
 print("Done")

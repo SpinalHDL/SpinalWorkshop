@@ -14,8 +14,6 @@ import socket
 import thread
 from _socket import SOL_SOCKET, SO_REUSEADDR, SO_BROADCAST
 
-RX_IP = "127.0.0.1"
-TX_IP = "255.255.255.255"
 SERVER_PORT = 37984
 
 
@@ -131,7 +129,7 @@ def test1(dut):
                          socket.SOCK_DGRAM)  # UDP
     sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     sock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-    sock.bind((RX_IP, SERVER_PORT))
+    sock.bind(('', SERVER_PORT))
 
 
     cocotb.fork(ClockDomainAsyncReset(dut.clk, dut.reset))

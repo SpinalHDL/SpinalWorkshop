@@ -7,8 +7,8 @@ from cocotb.triggers import RisingEdge, Timer
 
 @cocotb.coroutine
 def genClockAndReset(dut):
-    dut.reset <= 1
-    dut.clk <= 0
+    dut.reset = 1
+    dut.clk   = 0
     yield Timer(1000)
     # TODO Animate the dut.clk and dut.reset
     pass
@@ -22,8 +22,8 @@ def test1(dut):
     for i in xrange(256):
         yield RisingEdge(dut.clk)
         # TODO Check that the DUT match with the model (counter variable)
-        # read io_value =>     int(dut.io_value)
-        # read io_full =>      int(dut.io_full)
+        # read io_value =>     dut.io_value
+        # read io_full =>      dut.io_full
 
         # TODO Animate the model depending DUT inputs
 
