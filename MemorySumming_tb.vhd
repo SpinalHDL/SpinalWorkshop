@@ -82,6 +82,20 @@ begin
     wait until rising_edge(io_sum_clk) and io_sum_done = '1';
     assert io_sum_value = 33664 report "io_sum_value error" severity failure;
 
+    wait until rising_edge(io_sum_clk);
+    wait until rising_edge(io_sum_clk);
+    wait until rising_edge(io_sum_clk);
+    wait until rising_edge(io_sum_clk);
+    wait until rising_edge(io_sum_clk);
+
+    io_sum_start <= '1';
+    wait until rising_edge(io_sum_clk);
+    io_sum_start <= '0';
+
+    wait until rising_edge(io_sum_clk) and io_sum_done = '1';
+    assert io_sum_value = 33664 report "io_sum_value error" severity failure;
+
+
     done := done + 1;
     wait;
   end process;
