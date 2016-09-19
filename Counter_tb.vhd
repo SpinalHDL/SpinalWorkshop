@@ -23,7 +23,7 @@ architecture arch of Counter_tb is
   -- #spinalBegin userDeclarations
   shared variable done : integer := 0;
   signal refCounter : unsigned(3 downto 0);
-  signal refOverflow : std_logic;
+  signal refFull : std_logic;
   -- #spinalEnd userDeclarations
 begin
   -- #spinalBegin userLogics
@@ -39,7 +39,7 @@ begin
     wait for 5 ns;
   end process;
 
-  refOverflow <= '1' when refCounter = (refCounter'range => '1')
+  refFull <= '1' when refCounter = (refCounter'range => '1')
             else '0';
 
   process(clk,reset)
@@ -48,7 +48,7 @@ begin
       refCounter <= (others => '0');
     elsif rising_edge(clk) then
       assert io_value = refCounter report "io_value is " & integer'image(to_integer(io_value)) & " in place of " & integer'image(to_integer(refCounter)) severity failure;
-      assert io_overflow = refOverflow report "io_overflow is " & std_logic'image((io_overflow)) & " in place of " & std_logic'image((refOverflow)) severity failure;
+      assert io_full = refFull report "io_full is " & std_logic'image((io_full)) & " in place of " & std_logic'image((refFull)) severity failure;
       refCounter <= refCounter + 1;
       if io_clear = '1' then
         refCounter <= (others => '0');

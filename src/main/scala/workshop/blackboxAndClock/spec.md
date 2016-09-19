@@ -42,3 +42,12 @@ end Ram_1w_1r_2c;
 ```
 
 Some documentation about the SpinalHDL blackbox feature are present [here](http://spinalhdl.github.io/SpinalDoc/spinal/core/blackbox/)
+
+## Notes about Clock crossing, not related to this lab
+Clock crossing is something that should be done carefully because the simulation of your design will not be able to detect metastability issues. There is many way to do clock crossing safely :
+
+- Using two stages register separation to transmit value continuously
+- Using toggle protocol to transmit events and transactions
+- Using a dual clock FIFO IP (Gray counter) to transmit transactions
+
+Also, SpinalHDL check that all cross clock domains are done explicitly.

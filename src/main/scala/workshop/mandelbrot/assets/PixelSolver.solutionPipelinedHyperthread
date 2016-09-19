@@ -4,8 +4,8 @@ import spinal.core._
 import spinal.lib._
 
 case class PixelSolverGenerics(fixAmplitude : Int,
-                              fixResolution : Int,
-                              iterationLimit : Int){
+                               fixResolution : Int,
+                               iterationLimit : Int){
   val iterationWidth = log2Up(iterationLimit+1)
   def iterationType = UInt(iterationWidth bits)
   def fixType = SFix(
@@ -52,12 +52,12 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
     val x,y = fixType
   }
 
-  case class LoopbackStageContext() extends Bundle with Context{
+  case class RouterContext() extends Bundle with Context{
     val x,y = fixType
   }
 
   val inserter = new Area{
-    val loopback = Flow(LoopbackStageContext())
+    val loopback = Flow(RouterContext())
     val freeId = Counter(1 << idWidth,inc = io.cmd.fire)
     val cmdContext = InserterContext()
     cmdContext.id := freeId
@@ -100,7 +100,7 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
   }
 
 
-  val LoopbackStage = new Area{
+  val router = new Area{
     val input = addStage.output.stage()
     val wantedId = Counter(1 << idWidth,inc = io.rsp.fire)
 

@@ -24,6 +24,9 @@ def test1(dut):
         # TODO Check that the DUT match with the model (counter variable)
         # read io_value =>     dut.io_value
         # read io_full =>      dut.io_full
+        # raise TestFailure("io_value missmatch")
+        # raise TestFailure("io_full missmatch")
+
 
         # TODO Animate the model depending DUT inputs
 

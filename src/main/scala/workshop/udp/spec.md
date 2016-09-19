@@ -1,5 +1,5 @@
 ## Description
-The goal of this lab is to implement an component which implement an UDP application layer. This UDP application will be an server who listen to the port 37984 to return a message when an packet of one byte set to 0x11 is received 
+The goal of this lab is to implement an component which implement an UDP application layer. This UDP application will be an server who listen to the port 37984 to return a message when an packet of one byte set to 0x11 is received
 
 This lab will introduce :
 
@@ -25,7 +25,6 @@ case class UdpAppBus() extends Bundle with IMasterSlave{
 
   override def asMaster(): Unit = master(cmd,data)
 }
-
 ```
 
 ## Component interfaces

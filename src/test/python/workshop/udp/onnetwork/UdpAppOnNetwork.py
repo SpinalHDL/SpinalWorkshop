@@ -3,7 +3,7 @@ from Queue import Queue
 
 import cocotb
 from cocotb.scoreboard import Scoreboard
-from cocotb.triggers import RisingEdge
+from cocotb.triggers import RisingEdge, Timer
 
 from cocotblib.Phase import PhaseManager, Infrastructure, PHASE_SIM
 from cocotblib.Scorboard import ScorboardInOrder
@@ -18,9 +18,9 @@ SERVER_PORT = 37984
 
 
 class DriverAgent(Infrastructure):
-    def __init__(self, name, parent, dut, sock):
+    def __init__(self, name, parent, dut, sock,clkTocken):
         Infrastructure.__init__(self,name,parent)
-
+        self.clkTocken = clkTocken
         self.rxCmdQueue = Queue()
         self.rxDataQueue = Queue()
 
@@ -58,6 +58,8 @@ class DriverAgent(Infrastructure):
                 dataTrans.last = (i == len(data)-1)
                 dataTrans.fragment = ord(data[i])
                 self.rxDataQueue.put(dataTrans)
+
+            self.clkTocken[0] += 1000
 
 
     def genRxCmd(self):
@@ -114,7 +116,27 @@ class MonitorAgent(Infrastructure):
                 self.sock.sendto(payload, (ip, cmd.dstPort))
 
     def hasEnoughSim(self):
-        return time.time() - self.bootTime > 120.0
+        return False #time.time() - self.bootTime > 120.0
+
+import time
+@cocotb.coroutine
+def ClockDomainAsyncResetTokened(clk,reset,token,period = 1000):
+    if reset:
+        reset <= 1
+    clk <= 0
+    yield Timer(period)
+    if reset:
+        reset <= 0
+    while True:
+        if token[0] == 0:
+            time.sleep(0.2);
+        else:
+            token[0] -= 1
+        clk <= 0
+        yield Timer(period/2)
+        clk <= 1
+        yield Timer(period/2)
+
 
 @cocotb.test()
 def test1(dut):
@@ -124,6 +146,7 @@ def test1(dut):
 
     import time
 
+    clkTocken = [1000]
 
     sock = socket.socket(socket.AF_INET,  # Internet
                          socket.SOCK_DGRAM)  # UDP
@@ -132,14 +155,14 @@ def test1(dut):
     sock.bind(('', SERVER_PORT))
 
 
-    cocotb.fork(ClockDomainAsyncReset(dut.clk, dut.reset))
+    cocotb.fork(ClockDomainAsyncResetTokened(dut.clk, dut.reset,clkTocken))
     cocotb.fork(simulationSpeedPrinter(dut.clk))
 
     phaseManager = PhaseManager()
     phaseManager.setWaitTasksEndTime(1000 * 200)
 
 
-    DriverAgent("driver",phaseManager,dut,sock)
+    DriverAgent("driver",phaseManager,dut,sock,clkTocken)
     MonitorAgent("monitor",phaseManager,dut,sock)
 
 

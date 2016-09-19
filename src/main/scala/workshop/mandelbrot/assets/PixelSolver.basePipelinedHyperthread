@@ -57,7 +57,7 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
     val x,y = fixType
   }
 
-
+  
   val inserter = new Area{
     val freeId = Counter(1 << idWidth,inc = io.cmd.fire)
 

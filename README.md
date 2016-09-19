@@ -1,58 +1,69 @@
-Spinal Base Project
-============
-This repository is a base SBT project added to help non Scala/SBT native people in their first steps.
+## RTL labs
+There is the list of RTL labs :
 
-## Basics, without any IDE
+- Counter : src/main/scala/workshop/counter
+- PWM with APB : src/main/scala/workshop/pwm
+- UART : src/main/scala/workshop/uart
+- Function : src/main/scala/workshop/function
+- Timer with BusSlaveFactory : src/main/scala/workshop/timer
+- Blackbox and Clockdomain : src/main/scala/workshop/blackboxAndClock
+- Stream : src/main/scala/workshop/stream
+- Mandelbrot : src/main/scala/workshop/mandelbrot
+- UDP : src/main/scala/workshop/udp
 
-You need to install :
+In each labs, there is an assets folder which contain a starting template and a solution.
 
-- Java JDK
-- Scala
-- SBT
+### Generate your RTL
+For each labs, you will find an scala main which will generate your RTL.
 
-And do the following :
+For example, to run the `CounterMain` by using SBT, you can do as following in the root folder of this repository :
 
-- Clone or download this repository.
-- Open a terminal in the root of it and run "sbt run". At the first execution, the process could take some seconds
+```sh
+sbt
+run-main workshop.counter.CounterTester
 
-Normally, this command must generate output files MyTopLevel.vhd.
-The top level spinal code is defined into src\main\scala\MyCode
+# Run again
+run-main workshop.counter.CounterTester
 
-## Basics, with Intellij IDEA and its scala plugin
+# Run again
+run-main workshop.counter.CounterTester
+```
 
-You need to install :
+Or in a single (But slower) command :
 
-- Java JDK
-- Scala
-- SBT
-- Intellij IDEA 14.1.3 (the free Community Edition is nice)
-- Intellij IDEA Scala plugin
+```sh
+sbt "run-main workshop.counter.CounterTester"
+```
 
-And do the following :
+### Test your RTL
+For each labs, you will find an automated regression suite in src/test/scala/workshop/xxx
 
-- Clone or download this repository.
-- In Intellij IDEA, "import project" with the root of this repository, Import project from external model SBT, Check all box
-- In addition maybe you need to specify some path like JDK to Intellij
-- In the project (Intellij project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run MyTopLevel"
+For example, to run the `CounterTester` regression by using SBT, you can do as following in the root folder of this repository :
 
-Normally, this must generate output files MyTopLevel.vhd.
+```sh
+sbt
+test-only *CounterTester
 
-## Basics, with Eclipse and its scala plugin
+# To test again
+test-only *CounterTester
 
-You need to install :
+# To test again
+test-only *CounterTester
+```
 
-- Java JDK
-- Scala
-- SBT
-- Eclipse (tested with Mars.2 - 4.5.2)
-- [Sacla plugin](http://scala-ide.org/) (tested with 4.4.1)
+Or in a single (But slower) command :
 
-And do the following :
+```sh
+sbt "test-only *CounterTester"
+```
 
-- Clone or download this repository.
-- Run ```sbt eclipse``` in the ```SpinalBaseProject``` directory.
-- Import the eclipse project from eclipse.
-- In the project (eclips project GUI), right click on src/main/scala/MyCode/TopLeve.scala and select "Run as" > "Scala application"
+Note : Each tester regenerate the hardware, you don't need to do it manualy.
 
-Normally, this must generate output file ```MyTopLevel.vhd```.
 
+## Verification labs
+There is the list of verification labs :
+
+- Counter with cocotb : src/test/python/workshop/counter
+- FIFO with cocotb : src/test/python/workshop/fifo
+
+To run cocotb labs, you have to run `make` in the testbench folder.

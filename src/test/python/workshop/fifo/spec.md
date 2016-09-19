@@ -8,6 +8,7 @@ This lab will introduce :
 - How to wait the end of one coroutine execution
 
 ## FIFO interface 
+The FIFO doesn't use the traditional full/empty arbitration, but the Stream one :
 
 | name | direction | type |
 | ------ | ----------- | ------ |
@@ -18,7 +19,44 @@ This lab will introduce :
 | io_pop_ready    | in  | Bool         |
 | io_pop_payload  | out | Bool(8 bits) |
 
+## Python Queue
+In python you can define Queue by the following way :
 
+```python
+from Queue import Queue
 
+queue = Queue()
+```
 
+Then you can use some Queue fonctions :
 
+```python
+// Push element into the queue
+// Be carefull, don't forget to get the Int from the IO signal, else you will put an reference into the queue
+queue.put(int(dut.io_push_payload))
+
+// Get an element from the queue by an blocking way.
+// Be carefull, if there is nothing in the queue you will stuck the simulation.
+queue.get() 
+
+// Get if the queue is empty
+queue.empty()
+```
+
+## Cocotb fork
+
+You can create on join a simulation thready by the following way :
+
+```python
+// Create the coroutine thread (and run it directly)
+handle = cocotb.fork(myCoroutine(dut))
+
+// Wait until the handle's coroutine finish
+yield handle.join()
+```
+
+If you only have a single simulation thread to join, you can do as following :
+
+```python
+yield myCoroutine(dut)
+```

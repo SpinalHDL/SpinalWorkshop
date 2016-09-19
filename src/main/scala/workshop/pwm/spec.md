@@ -16,21 +16,20 @@ This lab will introduce :
 
 ## Register mapping
 
-| name | type | address |  description | 
+| name | type | address |  description |
 | ------ | ------ | ----------- | ------ |
 | enable | R/W | 0 | Enable the internal timer when the register LSB is set |
-| dutyCycle | R/W | 4 | Specify own many cycle the `pwm` output is set in a timer period. <br> Range from 0 to (1 << timerWidth)-1 |
+| dutyCycle | R/W | 4 | Specify own many cycle the `pwm` output is high in a timer period. <br> Range from 0 to (1 << timerWidth)-1 |
 
 ## RTL parametrization
 
-| name | type | description | 
+| name | type | description |
 | ------ | ----------- | ------ |
 | apbConfig | ApbConfig | Specify the shape of the APB bus |
 | timerWidth | Int | Specify how many bits the internal timer has |
 
 
 ## APB specification
-For they labs, you can don't need to insert wait cycle on the bus, so you can keep the PREADY always high.
+For they labs, you don't need to insert wait cycle on the bus, so you can keep the PREADY always high.
 
 ![](assets/wave.svg)
-

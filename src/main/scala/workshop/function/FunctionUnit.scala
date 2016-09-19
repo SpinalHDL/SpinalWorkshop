@@ -6,7 +6,7 @@ import spinal.lib._
 
 case class FunctionUnit() extends Component{
   val io = new Bundle{
-    val cmd = slave  Flow(Bits(8 bits))
+    val cmd    = slave Flow(Bits(8 bits))
     val valueA = out Bits(8 bits)
     val valueB = out Bits(32 bits)
     val valueC = out Bits(48 bits)

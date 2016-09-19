@@ -36,4 +36,9 @@ There is the specification of IO :
 The MemoryWrite bundle is composed of one `address : UInt(8 bits)` and one `data : Bits(32 bits)` fields
 
 
-Note : Hardware design with Stream is similar to software Petri net by many aspects.
+## Note
+Hardware design with Handshake (Stream) is similar to software Petri net by many aspects. But be very careful when you implement the arbitration, any mistake will very easily drop/duplicate transactions or even create dead-lock situations.
+
+Also it's very important to have a well defined methodology to do transactions communication in hardware. Having a component with a bunch of random signals that communicate with pulse is sadly common and very non-productive.
+
+When the lab is done, please, take a look into the proposed solution [there](assets/StreamUnit.solutionSimple).

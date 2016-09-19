@@ -34,7 +34,7 @@ case class FunctionUnit() extends Component{
     }
   }
 
-  def valueLoader(start : Bool,that : Data)= new Area{
+  def valueLoader(start : Bool,that : Data) = new Area{
     require(widthOf(that) % widthOf(io.cmd.payload) == 0)
     val beatCount = widthOf(that)/widthOf(io.cmd.payload)
     val active    = RegInit(False) setWhen(start)

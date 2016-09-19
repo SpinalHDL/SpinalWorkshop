@@ -79,7 +79,7 @@ There is the reference picture that you should get when you run the test :
 
 ![](assets/ref.png)
 
-Important : The PixelSolver implementation should not be complicated. It can fit in 40 lines.
+Important : The PixelSolver implementation should not be complicated. It can fit in 40 lines. Also, do not take time to implement things by an pipelined way for the moment, it will come with the part 3.
 
 
 ## Part 2 : PixelSolverMultiCore
@@ -96,7 +96,22 @@ There is a PixelSolverMultiCore diagram :
 So, you will have to implement the Dispatcher and the Arbiter and then the PixelSolverMultiCore in order to get maximum performance ;).
 
 ## Part 3 (optional) : Pipelining and hyper-threading
-One improvement could be to implement the `PixelSolver` by using an pipelined and hyper-threaded manner.
+With the part 1 implementation, we have one real world issue, it's the fact that the design will not be able to run with a high clock frequency because of the long combinatorial path of multiplications and additions.
+
+To solve this issue we can pipeline operations over multiple cycle. For example, two cycle for multiplications, one cycle for addition.
+
+But, if we apply the pipelining concept to our design, another issue come,
+it's the fact that the throughput of our design will be divided by the number of cycle required to do each iteration (A little bit like very old fashion micro controller).
+ To solve that, we have to introduce the fact that each stage of our pipeline at a given time, should be abble to work on a given "thread",
+  a little bit like Intel hyper-threading.
 
 There is one implementation proposal :<br>
 ![](assets/PipelinedAndHyperThreaded.svg)
+
+So, new tasks are inserted by the inserter in the loop. Tasks in the loop will go through the MUL and ADD stages and then the router will route task which are done to the `rsp` port, else tasks will be looped again. Also, each taslk should be tagged with an order ID to allow the router to route them in the right order on `rsp`.
+
+The inserter should always give the priority to tasks already in the loop.
+
+Then the loop could be a Stream one, or a Flow one. My proposal is to implement the loop as a fully Flow one, and then, if a task which is done arrive on the router, but the `rsp` is not ready to take it, the task is looped again (but without states changes).
+
+Note : You can find a implementation template [there](assets/PixelSolver.basePipelinedHyperthread)
