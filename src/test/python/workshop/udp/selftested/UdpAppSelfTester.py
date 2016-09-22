@@ -8,7 +8,7 @@ from cocotb.triggers import RisingEdge
 from cocotblib.Phase import PhaseManager, Infrastructure, PHASE_SIM
 from cocotblib.Scorboard import ScorboardInOrder
 from cocotblib.Stream import StreamDriverMaster, Stream, Transaction, StreamDriverSlave, StreamMonitor
-from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, randBits
+from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, randBits, SimulationTimeout
 
 
 class DriverAgent(Infrastructure):
@@ -136,6 +136,7 @@ def test1(dut):
 
     cocotb.fork(ClockDomainAsyncReset(dut.clk, dut.reset))
     cocotb.fork(simulationSpeedPrinter(dut.clk))
+    cocotb.fork(SimulationTimeout(1000 * 2000))
 
     phaseManager = PhaseManager()
     phaseManager.setWaitTasksEndTime(1000 * 200)

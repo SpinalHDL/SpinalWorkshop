@@ -51,3 +51,5 @@ The register mapping will make the assumption that the bus system is 32 bits wid
 | limit | RW | width | 4  | 0 | Access the limit value of the timer component.<br> When this register is written, the timer is cleared. |
 | value | R | width | 8  | 0 | Access the value of the timer. |
 | clear | W | - | 8  | - | When this register is written, it clear the timer. |
+
+Note : You can see an usage of this memory mapping function in Apb3Timer 

@@ -7,7 +7,7 @@ import workshop.common.CocotbRunner
 //Run this scala test to generate and check that your RTL work correctly
 class PixelSolverMultiCoreTester extends FunSuite{
   test("test") {
-    SpinalConfig().dumpWave(0,"PixelSolverMultiCoreTester.vcd").generateVerilog(
+    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../../waves/PixelSolverMultiCoreTester.vcd").generateVerilog(
       PixelSolverMultiCore(
         g = PixelSolverGenerics(
           fixAmplitude = 7,

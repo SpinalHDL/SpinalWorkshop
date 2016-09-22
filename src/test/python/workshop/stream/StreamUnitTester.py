@@ -8,7 +8,7 @@ from cocotb.triggers import RisingEdge
 from cocotblib.Phase import PhaseManager, Infrastructure, PHASE_SIM
 from cocotblib.Scorboard import ScorboardInOrder
 from cocotblib.Stream import StreamDriverMaster, Stream, Transaction, StreamDriverSlave, StreamMonitor
-from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, randBits
+from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, randBits, SimulationTimeout
 import socket
 
 
@@ -84,25 +84,14 @@ class MonitorAgent(Infrastructure):
         return self.scoreboard.refsCounter > 100
 
 
-def UdpRxSocket(sock):
-    while True:
-        data, addr, info = sock.recvfrom(2048) # buffer size is 1024 bytes
-        print "received message:", data, addr, info
-
 
 @cocotb.test()
 def test1(dut):
     random.seed(0)
 
-    UDP_IP = "127.0.0.1"
-    UDP_PORT = 37984
-
-    sock = socket.socket(socket.AF_INET, # Internet
-                         socket.SOCK_DGRAM) # UDP
-    sock.bind((UDP_IP, UDP_PORT))
-
     cocotb.fork(ClockDomainAsyncReset(dut.clk, dut.reset))
     cocotb.fork(simulationSpeedPrinter(dut.clk))
+    cocotb.fork(SimulationTimeout(1000 * 8000))
 
     phaseManager = PhaseManager()
     phaseManager.setWaitTasksEndTime(1000 * 200)

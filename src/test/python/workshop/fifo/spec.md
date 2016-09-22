@@ -19,6 +19,10 @@ The FIFO doesn't use the traditional full/empty arbitration, but the Stream one 
 | io_pop_ready    | in  | Bool         |
 | io_pop_payload  | out | Bool(8 bits) |
 
+## Verification
+The verification should be done by using the starting template. <br>
+The idea is to implement an driverAgent which constantly send random stimulus to the DUT and then implement an checkerAgent that check that the `pop` port of the fifo is correct by using a reference Queue.
+
 ## Python Queue
 In python you can define Queue by the following way :
 

@@ -3,7 +3,8 @@ import random
 import cocotb
 from cocotb.triggers import RisingEdge, Timer
 
-from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, assertEquals
+from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, assertEquals, SimulationTimeout
+
 
 # Send a transaction on io_cmd with a random timing
 @cocotb.coroutine
@@ -37,6 +38,7 @@ def test1(dut):
 
     cocotb.fork(ClockDomainAsyncReset(dut.clk, dut.reset))
     cocotb.fork(simulationSpeedPrinter(dut.clk))
+    cocotb.fork(SimulationTimeout(1000*16000))
 
     yield driveAndCheck(dut, "setValueA",0x11,8,dut.io_valueA)
     yield driveAndCheck(dut, "setValueB", 0x22334455, 32, dut.io_valueB)

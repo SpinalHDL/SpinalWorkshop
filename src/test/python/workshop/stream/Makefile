@@ -1,4 +1,4 @@
-VERILOG_SOURCES += $(WORKSHOPROOT)/StreamUnit.v
+VERILOG_SOURCES += $(WORKSHOPROOT)/rtl/StreamUnit.v
 TOPLEVEL=StreamUnit
 MODULE=StreamUnitTester
 

@@ -1,10 +1,10 @@
 package workshop.uart
 
-import spinal.core.SpinalVhdl
+import spinal.core.{SpinalConfig, SpinalVhdl}
 
 
 object UartCtrlRxMain{
   def main(args: Array[String]) {
-    SpinalVhdl(UartCtrlRx(UartRxGenerics(1,5,2)))
+    SpinalConfig(targetDirectory = "rtl").generateVhdl(UartCtrlRx(UartRxGenerics(1,5,2)))
   }
 }

@@ -7,7 +7,7 @@ import workshop.common.CocotbRunner
 //Run this scala test to generate and check that your RTL work correctly
 class FunctionUnitTester extends FunSuite{
   test("test") {
-    SpinalConfig().dumpWave(0,"FunctionUnitTester.vcd").generateVerilog(
+    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../waves/FunctionUnitTester.vcd").generateVerilog(
       FunctionUnit()
     )
 

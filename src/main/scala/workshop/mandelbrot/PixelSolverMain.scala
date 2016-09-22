@@ -5,7 +5,7 @@ import spinal.core._
 //Run this main to generate the RTL
 object PixelSolverMain{
   def main(args: Array[String]) {
-    SpinalVhdl(
+    SpinalConfig(targetDirectory = "rtl").generateVhdl(
       gen = PixelSolver(
         g = PixelSolverGenerics(
           fixAmplitude = 7,

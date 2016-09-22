@@ -35,7 +35,7 @@ begin
     if done = 1 then
       wait;
     end if;
-    assert now < 1 ms report "timeout" severity failure;
+    assert now < 100 us report "timeout" severity failure;
     clk <= '1';
     wait for 5 ns;
   end process;

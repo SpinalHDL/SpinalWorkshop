@@ -8,6 +8,6 @@ import workshop.uart.{UartCtrlRx, UartRxGenerics}
 
 object TimerMain{
   def main(args: Array[String]) {
-    SpinalVhdl(Timer(width = 16))
+    SpinalConfig(targetDirectory = "rtl").generateVhdl(Timer(width = 16))
   }
 }

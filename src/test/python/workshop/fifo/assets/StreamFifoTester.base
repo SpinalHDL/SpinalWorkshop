@@ -20,8 +20,8 @@ def genClockAndReset(dut):
 
 
 @cocotb.coroutine
-def driverAgent(dut):
     dut.io_push_valid = 0
+def driverAgent(dut):
     dut.io_pop_ready  = 0
 
     while True:

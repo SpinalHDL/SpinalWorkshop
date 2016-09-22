@@ -37,6 +37,6 @@ bin/
 *.pyc
 *.json
 *.vcd
-*.odg#
+*.*#
 !*_tb.vhd
 

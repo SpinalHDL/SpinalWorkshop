@@ -32,7 +32,7 @@ Commands comming on the `cmd` port are string based :
 ## Implementation
 The implementation could be done by many way, but the goal of this lab is to practice functions. The proposal is the following :
 
-1) Define a function which is able to recognise a string pattern on the `cmd` port and which produce True value when that happen.
+1) Define a function which is able to recognise a string pattern on the `cmd` port and which set the `hit` signal to True when that happen.
 
 ```scala
 def pattern(str : String) = new Area{

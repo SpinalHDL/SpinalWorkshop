@@ -1,10 +1,10 @@
 package workshop.udp
 
-import spinal.core.SpinalVhdl
+import spinal.core.{SpinalConfig, SpinalVhdl}
 
 
 object UdpAppMain{
   def main(args: Array[String]) {
-    SpinalVhdl(UdpApp("012345"))
+    SpinalConfig(targetDirectory = "rtl").generateVhdl(UdpApp("012345"))
   }
 }

@@ -26,7 +26,9 @@ def driverAgent(dut):
 
     while True:
         yield RisingEdge(dut.clk)
-        # TODO generate random stimulus on the hardware
+        dut.io_push_valid   = random.random() < 0.5
+        dut.io_push_payload = random.randint(0,255)
+        dut.io_pop_ready    = random.random() < 0.5
 
 
 @cocotb.coroutine
@@ -35,11 +37,18 @@ def checkerAgent(dut):
     matchCounter = 0
     while matchCounter < 5000:
         yield RisingEdge(dut.clk)
-        # TODO Capture and store 'push' transactions into the queue
 
-        # TODO Capture and check 'pop' transactions with the head of the queue.
-        # If match increment matchCounter else throw error
+        # capture and store 'push' transactions
+        if dut.io_push_valid == 1 and dut.io_push_ready == 1:
+            queue.put(int(dut.io_push_payload))
 
+        # capture and check 'pop' transactions
+        if dut.io_pop_valid == 1 and dut.io_pop_ready == 1:
+            if queue.empty():
+                raise TestFailure("parasite io_pop transaction")
+            if dut.io_pop_payload != queue.get():
+                raise TestFailure("io_pop_payload missmatch")
+            matchCounter += 1
 
 @cocotb.test()
 def test1(dut):

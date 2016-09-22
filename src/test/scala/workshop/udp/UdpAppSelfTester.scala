@@ -7,7 +7,7 @@ import workshop.common.CocotbRunner
 //Run this scala test to generate and check that your RTL work correctly
 class UdpAppSelfTester extends FunSuite{
   test("test") {
-    SpinalConfig().dumpWave(0,"UdpAppSelfTester.vcd").generateVerilog(
+    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../../waves/UdpAppSelfTester.vcd").generateVerilog(
       UdpApp("test1234")
     )
 

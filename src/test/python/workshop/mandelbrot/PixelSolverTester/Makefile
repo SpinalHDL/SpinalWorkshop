@@ -1,4 +1,4 @@
-VERILOG_SOURCES += $(WORKSHOPROOT)/PixelSolver.v
+VERILOG_SOURCES += $(WORKSHOPROOT)/rtl/PixelSolver.v
 TOPLEVEL=PixelSolver
 MODULE=PixelSolverTester
 

@@ -8,8 +8,20 @@ This lab will introduce :
 - Kind of AXI-like communication layer protocol
 
 ## Bus specification
-The UDP application layer can receive and send packets via one RX and one TX instance of the `UdpAppBus`.<br>
-The header of each packet will appear as an simple transaction on the `cmd` stream, while related payloads will appear as sequential transactions on the `data` stream.
+Receiving or transmitting UDP frames will be possible via the `UdpAppBus` interface.<br>
+
+```scala
+case class UdpAppBus() extends Bundle with IMasterSlave{
+  val cmd  = Stream(UdpAppCmd())
+  val data = Stream(Fragment(Bits(8 bits)))
+
+  override def asMaster(): Unit = master(cmd,data)
+}
+```
+
+The header of each packet will appear as an simple transaction on the `cmd` stream, while related payloads will appear as sequential transactions on the `data` stream (encapsulated by the Fragment concept).
+
+The `UdpAppCmd` is constituted as following :
 
 ```scala
 case class UdpAppCmd() extends Bundle{
@@ -17,13 +29,6 @@ case class UdpAppCmd() extends Bundle{
   val srcPort = Bits(16 bits)
   val dstPort = Bits(16 bits)
   val length  = UInt(16 bits)
-}
-
-case class UdpAppBus() extends Bundle with IMasterSlave{
-  val cmd  = Stream(UdpAppCmd())
-  val data = Stream(Fragment(Bits(8 bits)))
-
-  override def asMaster(): Unit = master(cmd,data)
 }
 ```
 
@@ -47,4 +52,4 @@ As usual there is an self tester testbench, but for this labs, there is also an 
 
 You can run this wrapped RTL by running `make` in the src/test/python/workshop/udp/onnetwork folder.<br>
 You can also run an python script that will send an `discoveringCmd` and wait two seconds for `discoveringRsp` answers by running `python Client.py` in the same folder.<br>
-By default Client.py broadcast request are sent the the localhost (127.0.0.1). If you want to bind another network, you have to put the IP of your corresponding network card inside the ip.txt file.
+By default Client.py broadcast requests are sent to the localhost (127.0.0.1). If you want to bind another network, you have to put the IP of your corresponding network card inside the ip.txt file.

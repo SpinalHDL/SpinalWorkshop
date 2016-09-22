@@ -32,7 +32,7 @@ module Counter
   end
 
   initial begin
-    $dumpfile("Counter.vcd");
+    $dumpfile("../../../../../waves/Counter.vcd");
     $dumpvars(0, Counter);
   end
 
