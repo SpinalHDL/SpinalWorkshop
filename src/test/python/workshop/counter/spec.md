@@ -11,9 +11,9 @@ This lab will introduce :
 You can verify it as you want :
 
 - Directed tests
-- Full randomisation of inputs and outputs checking with a reference model.
+- Full randomisation of inputs with outputs checking by using a reference model.
 
-The starting template provided use the second method. 
+The starting template provided in this lab use the second method. 
 
 Also, do not forget to check that your testbench check things by manually introducing bugs in the RTL (Counter.v)
 

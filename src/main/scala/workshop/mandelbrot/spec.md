@@ -85,7 +85,7 @@ Important : The PixelSolver implementation should not be complicated. It can fit
 ## Part 2 : PixelSolverMultiCore
 The interface of the PixelSolverMultiCore is exactly the same than the PixelSolver. There is just an additional construction parameter named `coreCount` which specify how many PixelSolver you want to instantiate in parallel.
 
-The to run input tasks in parallel, there is a very simple strategy :
+To run input tasks in parallel, there is a very simple strategy :
 - Take input tasks and dispatch them on PixelSolvers in the same order that they come. First task go to PixelSolver 0, second task go to PixelSolver 1 and so on.
 - Arbitrate the outputs of all PixelSolver by the same way. First take the PixelSolver 0 output, then take the PixelSolver 1 output and so on.
 
@@ -101,14 +101,14 @@ With the part 1 implementation, we have one real world issue, it's the fact that
 To solve this issue we can pipeline operations over multiple cycle. For example, two cycle for multiplications, one cycle for addition.
 
 But, if we apply the pipelining concept to our design, another issue come,
-it's the fact that the throughput of our design will be divided by the number of cycle required to do each iteration (A little bit like very old fashion micro controller).
+it's the fact that the throughput of our design will be divided by the number of cycle required to do each iteration (A little bit like very old fashion micro processor).
  To solve that, we have to introduce the fact that each stage of our pipeline at a given time, should be abble to work on a given "thread",
   a little bit like Intel hyper-threading.
 
 There is one implementation proposal :<br>
 ![](assets/PipelinedAndHyperThreaded.svg)
 
-So, new tasks are inserted by the inserter in the loop. Tasks in the loop will go through the MUL and ADD stages and then the router will route task which are done to the `rsp` port, else tasks will be looped again. Also, each taslk should be tagged with an order ID to allow the router to route them in the right order on `rsp`.
+So, new tasks are inserted by the inserter in the loop. Tasks in the loop will go through the MUL and ADD stages and then the router will route task which are done to the `rsp` port, else tasks will be looped again. Also, each tasks should be tagged with an order ID to allow the router to route them in the right order on `rsp`.
 
 The inserter should always give the priority to tasks already in the loop.
 

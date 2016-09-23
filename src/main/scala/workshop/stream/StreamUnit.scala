@@ -24,11 +24,33 @@ case class StreamUnit() extends Component{
     data = io.memWrite.data
   )
 
-  val memReadStream = io.cmdA.stage()
-  val memReadData   = mem.readSync(
-    enable  = io.cmdA.fire,
+  //*******  MemReadStage **************
+  //MemReadStage declarations
+  val memReadValid = RegInit(False)
+  val memReadReady = Bool
+
+  //MemReadStage handshake
+  when(memReadReady){
+    memReadValid := False
+  }
+  when(!memReadValid || memReadReady){
+    memReadValid := io.cmdA.valid
+  }
+  io.cmdA.ready := !memReadValid || memReadReady
+
+  //MemReadStage memory access
+  val memReadData = mem.readSync(
+    enable = io.cmdA.fire,
     address = io.cmdA.payload
   )
 
-  io.rsp << StreamJoin.arg(memReadStream,io.cmdB).translateWith(memReadData ^ io.cmdB.payload)
+
+  //******** Join stage **************
+  // Join arbitration
+  io.rsp.valid := memReadValid && io.cmdB.valid
+  memReadReady := io.rsp.fire
+  io.cmdB.ready := io.rsp.fire
+
+  // Join datapath
+  io.rsp.payload := memReadData ^ io.cmdB.payload
 }

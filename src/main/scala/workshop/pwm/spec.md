@@ -26,10 +26,12 @@ This lab will introduce :
 | name | type | description |
 | ------ | ----------- | ------ |
 | apbConfig | ApbConfig | Specify the shape of the APB bus |
-| timerWidth | Int | Specify how many bits the internal timer has |
+| timerWidth | Int | Specify how many bits has the internal timer |
 
 
 ## APB specification
-For they labs, you don't need to insert wait cycle on the bus, so you can keep the PREADY always high.
+The APB bus is a very simple (and also old, but still used) peripheral bus. It is specified by ARM, but there is some typical chronograms : 
+
+Note : For this labs, you don't need to insert wait cycle on the bus, so you can keep the PREADY always high.
 
 ![](assets/wave.svg)

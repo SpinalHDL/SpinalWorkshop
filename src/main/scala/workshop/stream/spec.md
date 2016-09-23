@@ -1,5 +1,5 @@
 ## Introduction
-The goal of this lab is to have some practice with Stream (An simple handshake bus) and also memories.<br>
+The goal of this lab is to have some practice with Stream (An simple handshake protocol) and also memories.<br>
 The component that should be implemented has no real-world purpose.
 
 This lab will introduce :
@@ -11,7 +11,7 @@ This lab will introduce :
 There is some Stream documentation [there](http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/)
 
 ## Specification
-The functionality to implement is the following :
+The functionalities to implement is the following :
 
 - The component has an internal memory of 256*32 bits
 - This memory can be written by the `memWrite` port
@@ -28,12 +28,31 @@ There is the specification of IO :
 
 | IO name | direction | type | description |
 | ------ | ----------- | ------ | ------ |
-| memWrite | slave | Flow(MemoryWrite) | Interface which allow to write the internal memory |
+| memWrite | slave | Flow(MemoryWrite) | Interface which allows to write the internal memory |
 | cmdA | slave | Stream(UInt(8 bits)) | Stream of address used to read the internal memory |
 | cmdB | slave | Stream(Bits(32 bits)) | Stream of data used for internal computation with the read value from the memory |
 | rsp | master | Stream(Bits(32 bits)) | Stream which return one result for each cmdA/cmdB couple |
 
-The MemoryWrite bundle is composed of one `address : UInt(8 bits)` and one `data : Bits(32 bits)` fields
+The MemoryWrite bundle is composed of one `address : UInt(8 bits)` and one `data : Bits(32 bits)` field
+
+## How to implement the arbitration
+You can implement the arbitration by hand, and it's probably one good things todo if you want to "feel" how hand-shake happen.
+
+Any way, implementing by hand the arbitration is something dangerous because in addition of taking a lot of time, it's also very easy to do mistakes, and mistakes in arbitration are not easy to identify in simulations and could create nasty bugs.<br>
+So, many arbitration utils are available in the SpinalHDL library, and for example, this lab could use following tools :
+
+```scala
+//Implement a one cycle delay / buffer
+val delayedStream = myStream.stage()  
+
+//Produce an Stream with transactions when streamA and StreamB have transactinos
+val joinedStreamWithoutPayload = StreamJoin.arg(streamA,streamB)  
+
+//Return a stream with anotherPayload as payload
+val translatedStream = myStream.translateWith(anotherPayload)   
+```
+
+There is many other utils documented [there](http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/)
 
 
 ## Note

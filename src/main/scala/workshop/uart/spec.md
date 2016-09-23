@@ -1,5 +1,5 @@
 ## Description
-The goal of this lab is to implement an component that receive UART frames and translate them into a flow of bytes. (RS232 => UART)
+The goal of this lab is to implement a component that receive UART frames and translate them into a flow of bytes. (RS232 => UART)
 
 The UART is an old transmission protocol which transmit data in serial with a fixed asynchronous baudrate.
 
@@ -29,7 +29,7 @@ This lab will introduce :
 
 ## RTL parametrization
 
-All RTL parameters are contained into the `UartRxGenerics` class. This class contain following parameters :
+All RTL parameters are contained into the `UartRxGenerics` class. This class contains following parameters :
 
 | name | type | description |
 | ------ | ----------- | ------ |

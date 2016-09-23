@@ -14,6 +14,12 @@ There is the list of RTL labs :
 In each labs, there is an assets folder which contain a starting template and a solution.<br>
 In each labs, there is an spec.html which give basics of the lab.
 
+### Minimum requirements
+
+- GHDL
+- Cocotb (commit 4fdd89339222759d57e9cc3d741ca04b3cdebe4f)
+- Cocotb path in the PYTHONPATH and in the COCOTB environment variable
+
 ### Generate your RTL
 For each labs, you will find an scala main which will generate your RTL.
 

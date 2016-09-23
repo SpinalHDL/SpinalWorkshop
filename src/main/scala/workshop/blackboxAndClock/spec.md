@@ -1,5 +1,5 @@
 ## Description
-The goal of this lab is to implement an component which instantiate a blackboxed dual port dual clock  ram (implemented in VHDL). Also the component should be able to sum all words of that ram. 
+The goal of this lab is to implement a component which instantiate a blackboxed dual port dual clock  ram (implemented in VHDL). Also the component should be able to sum all words of that ram. 
 
 This lab will introduce :
 
@@ -44,9 +44,9 @@ end Ram_1w_1r_2c;
 Some documentation about the SpinalHDL blackbox feature are present [here](http://spinalhdl.github.io/SpinalDoc/spinal/core/blackbox/)
 
 ## Notes about Clock crossing, not related to this lab
-Clock crossing is something that should be done carefully because the simulation of your design will not be able to detect metastability issues. There is many way to do clock crossing safely :
+Clock crossing is something that should be done carefully because you can easily lose transactions or have metastability issues. There is many way to do clock crossing safely :
 
-- Using two stages register separation to transmit value continuously
+- Using two stages register separation to transmit value continuously, (be careful with transition)
 - Using toggle protocol to transmit events and transactions
 - Using a dual clock FIFO IP (Gray counter) to transmit transactions
 

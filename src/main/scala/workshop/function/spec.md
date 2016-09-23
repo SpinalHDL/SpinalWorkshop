@@ -4,7 +4,7 @@ The goal of this lab is to practice function to generate hardware and also to gi
 The component to implement is a byte flow un-serializer able to load 3 outputs from 3 different commands.
 
 This lab will introduce :
-- Function usage (def)
+- Function combined with Area (def, Area)
 - Some re-usability pattern
 - How the scala can be mixed with SpinalHDL
 
@@ -62,8 +62,8 @@ Then those both function could be used to build the wanted functionality :
 ```
 
 ## Functions and Area, why
-One bad side with function is the fact that all signal defined inside them are unnamed in the generated RTL, which doesn't help the debugging.<br>
- This is because to name signals, SpinalHDL use the java reflection. This work well for classes attributes, but not for function variables.
+One bad side with function is the fact that all signals defined inside them are unnamed in the generated RTL, which doesn't help the debugging.<br>
+ The reason of that is the fact that to name signals, SpinalHDL use the java reflection. This work well for classes attributes, but not for function variables.
 
 But there is some solutions : 
 
