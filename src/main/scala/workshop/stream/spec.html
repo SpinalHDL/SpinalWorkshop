@@ -598,7 +598,7 @@ pre.editor-colors .fold-marker:after,
 </style>
   </head>
   <body class='markdown-preview' data-use-github-style><h2 id="introduction">Introduction</h2>
-<p>The goal of this lab is to have some practice with Stream (An simple handshake bus) and also memories.<br>
+<p>The goal of this lab is to have some practice with Stream (An simple handshake protocol) and also memories.<br>
 The component that should be implemented has no real-world purpose.</p>
 <p>This lab will introduce :</p>
 <ul>
@@ -609,7 +609,7 @@ The component that should be implemented has no real-world purpose.</p>
 </ul>
 <p>There is some Stream documentation <a href="http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/">there</a></p>
 <h2 id="specification">Specification</h2>
-<p>The functionality to implement is the following :</p>
+<p>The functionalities to implement is the following :</p>
 <ul>
 <li>The component has an internal memory of 256*32 bits</li>
 <li>This memory can be written by the <code>memWrite</code> port</li>
@@ -636,7 +636,7 @@ The component that should be implemented has no real-world purpose.</p>
 <td>memWrite</td>
 <td>slave</td>
 <td>Flow(MemoryWrite)</td>
-<td>Interface which allow to write the internal memory</td>
+<td>Interface which allows to write the internal memory</td>
 </tr>
 <tr>
 <td>cmdA</td>
@@ -658,6 +658,15 @@ The component that should be implemented has no real-world purpose.</p>
 </tr>
 </tbody>
 </table>
-<p>The MemoryWrite bundle is composed of one <code>address : UInt(8 bits)</code> and one <code>data : Bits(32 bits)</code> fields</p>
-<p>Note : Hardware design with Stream is similar to software Petri net by many aspects.</p></body>
+<p>The MemoryWrite bundle is composed of one <code>address : UInt(8 bits)</code> and one <code>data : Bits(32 bits)</code> field</p>
+<h2 id="how-to-implement-the-arbitration">How to implement the arbitration</h2>
+<p>You can implement the arbitration by hand, and it&#39;s probably one good things todo if you want to &quot;feel&quot; how hand-shake happen.</p>
+<p>Any way, implementing by hand the arbitration is something dangerous because in addition of taking a lot of time, it&#39;s also very easy to do mistakes, and mistakes in arbitration are not easy to identify in simulations and could create nasty bugs.<br>
+So, many arbitration utils are available in the SpinalHDL library, and for example, this lab could use following tools :</p>
+<pre class="editor-colors lang-scala"><div class="line"><span class="text plain null-grammar"><span>//Implement&nbsp;a&nbsp;one&nbsp;cycle&nbsp;delay&nbsp;/&nbsp;buffer</span></span></div><div class="line"><span class="text plain null-grammar"><span>val&nbsp;delayedStream&nbsp;=&nbsp;myStream.stage()&nbsp;&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>//Produce&nbsp;an&nbsp;Stream&nbsp;with&nbsp;transactions&nbsp;when&nbsp;streamA&nbsp;and&nbsp;StreamB&nbsp;have&nbsp;transactinos</span></span></div><div class="line"><span class="text plain null-grammar"><span>val&nbsp;joinedStreamWithoutPayload&nbsp;=&nbsp;StreamJoin.arg(streamA,streamB)&nbsp;&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>//Return&nbsp;a&nbsp;stream&nbsp;with&nbsp;anotherPayload&nbsp;as&nbsp;payload</span></span></div><div class="line"><span class="text plain null-grammar"><span>val&nbsp;translatedStream&nbsp;=&nbsp;myStream.translateWith(anotherPayload)</span></span></div></pre>
+<p>There is many other utils documented <a href="http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/">there</a></p>
+<h2 id="note">Note</h2>
+<p>Hardware design with Handshake (Stream) is similar to software Petri net by many aspects. But be very careful when you implement the arbitration, any mistake will very easily drop/duplicate transactions or even create dead-lock situations.</p>
+<p>Also it&#39;s very important to have a well defined methodology to do transactions communication in hardware. Having a component with a bunch of random signals that communicate with pulse is sadly common and very non-productive.</p>
+<p>When the lab is done, please, take a look into the proposed solution <a href="assets/StreamUnit.solutionSimple">there</a>.</p></body>
 </html>

@@ -720,7 +720,7 @@ pre.editor-colors .fold-marker:after,
 <p>Important : The PixelSolver implementation should not be complicated. It can fit in 40 lines. Also, do not take time to implement things by an pipelined way for the moment, it will come with the part 3.</p>
 <h2 id="part-2-pixelsolvermulticore">Part 2 : PixelSolverMultiCore</h2>
 <p>The interface of the PixelSolverMultiCore is exactly the same than the PixelSolver. There is just an additional construction parameter named <code>coreCount</code> which specify how many PixelSolver you want to instantiate in parallel.</p>
-<p>The to run input tasks in parallel, there is a very simple strategy :</p>
+<p>To run input tasks in parallel, there is a very simple strategy :</p>
 <ul>
 <li>Take input tasks and dispatch them on PixelSolvers in the same order that they come. First task go to PixelSolver 0, second task go to PixelSolver 1 and so on.</li>
 <li>Arbitrate the outputs of all PixelSolver by the same way. First take the PixelSolver 0 output, then take the PixelSolver 1 output and so on.</li>
@@ -732,12 +732,12 @@ pre.editor-colors .fold-marker:after,
 <p>With the part 1 implementation, we have one real world issue, it&#39;s the fact that the design will not be able to run with a high clock frequency because of the long combinatorial path of multiplications and additions.</p>
 <p>To solve this issue we can pipeline operations over multiple cycle. For example, two cycle for multiplications, one cycle for addition.</p>
 <p>But, if we apply the pipelining concept to our design, another issue come,
-it&#39;s the fact that the throughput of our design will be divided by the number of cycle required to do each iteration (A little bit like very old fashion micro controller).
+it&#39;s the fact that the throughput of our design will be divided by the number of cycle required to do each iteration (A little bit like very old fashion micro processor).
  To solve that, we have to introduce the fact that each stage of our pipeline at a given time, should be abble to work on a given &quot;thread&quot;,
   a little bit like Intel hyper-threading.</p>
 <p>There is one implementation proposal :<br>
 <img src="D:\pro\hdl\spinalHDL\SpinalBaseProject\src\main\scala\workshop\mandelbrot\assets\PipelinedAndHyperThreaded.svg" alt=""></p>
-<p>So, new tasks are inserted by the inserter in the loop. Tasks in the loop will go through the MUL and ADD stages and then the router will route task which are done to the <code>rsp</code> port, else tasks will be looped again. Also, each taslk should be tagged with an order ID to allow the router to route them in the right order on <code>rsp</code>.</p>
+<p>So, new tasks are inserted by the inserter in the loop. Tasks in the loop will go through the MUL and ADD stages and then the router will route task which are done to the <code>rsp</code> port, else tasks will be looped again. Also, each tasks should be tagged with an order ID to allow the router to route them in the right order on <code>rsp</code>.</p>
 <p>The inserter should always give the priority to tasks already in the loop.</p>
 <p>Then the loop could be a Stream one, or a Flow one. My proposal is to implement the loop as a fully Flow one, and then, if a task which is done arrive on the router, but the <code>rsp</code> is not ready to take it, the task is looped again (but without states changes).</p>
 <p>Note : You can find a implementation template <a href="assets/PixelSolver.basePipelinedHyperthread">there</a></p></body>

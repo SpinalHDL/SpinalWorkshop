@@ -186,23 +186,23 @@ module PixelSolver
   wire [27:0] zz_99;
   wire [27:0] zz_100;
   wire [27:0] zz_101;
-  wire  io_cmd_ready_readableBuffer;
-  wire  io_rsp_valid_readableBuffer;
-  wire [2:0] zz_102;
-  wire [2:0] zz_103;
-  wire [3:0] zz_104;
-  wire [27:0] zz_105;
-  wire [27:0] zz_106;
-  wire [28:0] zz_107;
+  wire  zz_102;
+  wire  zz_103;
+  wire [2:0] zz_104;
+  wire [2:0] zz_105;
+  wire [3:0] zz_106;
+  wire [27:0] zz_107;
   wire [27:0] zz_108;
-  wire [27:0] zz_109;
+  wire [28:0] zz_109;
+  wire [27:0] zz_110;
+  wire [27:0] zz_111;
 
 initial begin
   $dumpfile("../../../../../../waves/PixelSolverTester.vcd");
   $dumpvars(0, PixelSolver);
 end
-  assign io_cmd_ready = io_cmd_ready_readableBuffer;
-  assign io_rsp_valid = io_rsp_valid_readableBuffer;
+  assign io_cmd_ready = zz_102;
+  assign io_rsp_valid = zz_103;
   assign io_rsp_payload_iteration = router_input_payload_iteration;
   assign inserter_loopback_valid = zz_97;
   assign inserter_loopback_payload_id = router_input_payload_id;
@@ -212,11 +212,11 @@ end
   assign inserter_loopback_payload_done = router_input_payload_done;
   assign inserter_loopback_payload_x = zz_100;
   assign inserter_loopback_payload_y = zz_101;
-  assign zz_1 = (io_cmd_valid && io_cmd_ready_readableBuffer);
+  assign zz_1 = (io_cmd_valid && zz_102);
   assign inserter_freeId_willClear = 1'b0;
   assign zz_2 = inserter_freeId_willIncrement;
   assign zz_3 = zz_2;
-  assign zz_4 = (inserter_freeId_value + zz_102);
+  assign zz_4 = (inserter_freeId_value + zz_104);
   assign zz_5 = zz_4;
   assign zz_6 = 1'b1;
   assign zz_7 = 1'b0;
@@ -252,9 +252,9 @@ end
   assign mulStage_output_payload_y0 = zz_27;
   assign mulStage_output_payload_iteration = mulStage_input_payload_iteration;
   assign mulStage_output_payload_done = mulStage_input_payload_done;
-  assign mulStage_output_payload_xx = zz_109;
-  assign mulStage_output_payload_yy = zz_105;
-  assign mulStage_output_payload_xy = zz_108;
+  assign mulStage_output_payload_xx = zz_111;
+  assign mulStage_output_payload_yy = zz_107;
+  assign mulStage_output_payload_xy = zz_110;
   assign zz_26 = mulStage_input_payload_x0;
   assign zz_27 = mulStage_input_payload_y0;
   assign zz_28 = ($signed(mulStage_input_payload_x) * $signed(mulStage_input_payload_x));
@@ -283,7 +283,7 @@ end
   assign addStage_output_payload_iteration = zz_76;
   assign addStage_output_payload_done = zz_72;
   assign addStage_output_payload_x = zz_61;
-  assign addStage_output_payload_y = zz_106;
+  assign addStage_output_payload_y = zz_108;
   assign zz_56 = addStage_input_payload_x0;
   assign zz_57 = addStage_input_payload_y0;
   assign zz_58 = ($signed(addStage_input_payload_xx) - $signed(addStage_input_payload_yy));
@@ -291,7 +291,7 @@ end
   assign zz_60 = zz_59;
   assign zz_61 = zz_60;
   assign zz_62 = (addStage_input_payload_xy <<< 1);
-  assign zz_63 = ($signed(zz_62) + $signed(zz_107));
+  assign zz_63 = ($signed(zz_62) + $signed(zz_109));
   assign zz_64 = zz_63;
   assign zz_65 = zz_64;
   assign zz_66 = ($signed(addStage_input_payload_xx) + $signed(addStage_input_payload_yy));
@@ -304,17 +304,17 @@ end
   assign zz_73 = (! addStage_output_payload_done);
   assign zz_74 = zz_73;
   assign zz_75 = zz_74;
-  assign zz_76 = (addStage_input_payload_iteration + zz_104);
+  assign zz_76 = (addStage_input_payload_iteration + zz_106);
   assign zz_77 = addStage_output_payload_x0;
   assign zz_78 = addStage_output_payload_y0;
   assign zz_79 = addStage_output_payload_x;
   assign zz_80 = addStage_output_payload_y;
   assign zz_81 = 1'b0;
-  assign zz_82 = (io_rsp_valid_readableBuffer && io_rsp_ready);
+  assign zz_82 = (zz_103 && io_rsp_ready);
   assign router_wantedId_willClear = 1'b0;
   assign zz_83 = router_wantedId_willIncrement;
   assign zz_84 = zz_83;
-  assign zz_85 = (router_wantedId_value + zz_103);
+  assign zz_85 = (router_wantedId_value + zz_105);
   assign zz_86 = zz_85;
   assign zz_87 = 1'b1;
   assign zz_88 = 1'b0;
@@ -331,16 +331,16 @@ end
   assign zz_99 = router_input_payload_y0;
   assign zz_100 = router_input_payload_x;
   assign zz_101 = router_input_payload_y;
-  assign io_cmd_ready_readableBuffer = zz_20;
-  assign io_rsp_valid_readableBuffer = zz_91;
-  assign zz_102 = zz_3;
-  assign zz_103 = zz_84;
-  assign zz_104 = zz_75;
-  assign zz_105 = $signed(zz_35);
-  assign zz_106 = $signed(zz_65);
-  assign zz_107 = $signed(addStage_input_payload_y0);
-  assign zz_108 = $signed(zz_39);
-  assign zz_109 = $signed(zz_31);
+  assign zz_102 = zz_20;
+  assign zz_103 = zz_91;
+  assign zz_104 = zz_3;
+  assign zz_105 = zz_84;
+  assign zz_106 = zz_75;
+  assign zz_107 = $signed(zz_35);
+  assign zz_108 = $signed(zz_65);
+  assign zz_109 = $signed(addStage_input_payload_y0);
+  assign zz_110 = $signed(zz_39);
+  assign zz_111 = $signed(zz_31);
   always @ (zz_1 or zz_6 or zz_7)
   begin
     inserter_freeId_willIncrement <= zz_7;

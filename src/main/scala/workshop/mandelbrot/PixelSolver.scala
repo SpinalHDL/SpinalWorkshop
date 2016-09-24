@@ -22,93 +22,12 @@ case class PixelResult(g : PixelSolverGenerics) extends Bundle{
   val iteration = g.iterationType
 }
 
-
-
 case class PixelSolver(g : PixelSolverGenerics) extends Component{
   val io = new Bundle{
     val cmd = slave  Stream(PixelTask(g))
     val rsp = master Stream(PixelResult(g))
   }
 
-  import g._
-
-  val idWidth = 3
-  trait Context{
-    val id        = UInt(idWidth bits)
-    val x0,y0     = fixType
-    val iteration = UInt(iterationWidth bits)
-    val done      = Bool
-  }
-
-  case class InserterContext() extends Bundle with Context{
-    val x,y = fixType
-  }
-
-  case class MulStageContext() extends Bundle with Context{
-    val xx,yy,xy = fixType
-  }
-
-  case class AddStageContext() extends Bundle with Context{
-    val x,y = fixType
-  }
-
-  case class RouterContext() extends Bundle with Context{
-    val x,y = fixType
-  }
-
-  val inserter = new Area{
-    val loopback = Flow(RouterContext())
-    val freeId = Counter(1 << idWidth,inc = io.cmd.fire)
-    val cmdContext = InserterContext()
-    cmdContext.id := freeId
-    cmdContext.x0 := io.cmd.x
-    cmdContext.y0 := io.cmd.y
-    cmdContext.x  := 0.0
-    cmdContext.y  := 0.0
-    cmdContext.iteration := 0
-    cmdContext.done := False
-
-    val output = Flow(InserterContext())
-    output.valid := io.cmd.valid || loopback.valid
-    when(loopback.valid){
-      output.payload.assignSomeByName(loopback.payload)
-    } otherwise {
-      output.payload.assignSomeByName(cmdContext)
-    }
-    io.cmd.ready := !loopback.valid
-  }
-
-  val mulStage = new Area{
-    val input = inserter.output.stage()
-    val output = Flow(MulStageContext())
-    output.valid := input.valid
-    output.payload.assignSomeByName(input.payload)
-    output.xx := (input.x * input.x).truncated
-    output.yy := (input.y * input.y).truncated
-    output.xy := (input.x * input.y).truncated
-  }
-
-  val addStage = new Area{
-    val input = mulStage.output.stage().stage()
-    val output = Flow(AddStageContext())
-    output.valid := input.valid
-    output.payload.assignSomeByName(input.payload)
-    output.x         := (input.xx - input.yy + input.x0).truncated
-    output.y         := (((input.xy) << 1)   + input.y0).truncated
-    output.done      := input.done || input.xx + input.yy >= 4.0 || input.iteration === iterationLimit
-    output.iteration := input.iteration + (!output.done).asUInt
-  }
-
-
-  val router = new Area{
-    val input = addStage.output.stage()
-    val wantedId = Counter(1 << idWidth,inc = io.rsp.fire)
-
-    io.rsp.valid := input.valid && input.done && wantedId === input.id
-    io.rsp.iteration := input.iteration
-
-    inserter.loopback.valid := input.valid && (!(input.done && wantedId === input.id) || !io.rsp.ready)
-    inserter.loopback.payload.assignSomeByName(input.payload)
-  }
+  //TODO implement the mandelbrot algorithm
 }
 

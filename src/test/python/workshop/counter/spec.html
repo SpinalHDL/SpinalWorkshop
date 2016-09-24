@@ -597,89 +597,22 @@ pre.editor-colors .fold-marker:after,
 }
 </style>
   </head>
-  <body class='markdown-preview' data-use-github-style><h2 id="introduction">Introduction</h2>
-<p>To goal of this lab is to get a little bit more into SpinalHDL by understanding how you can organise things.<br>
-The Component to implement is an PWM generator which is controllable mapped on a APB bus.</p>
+  <body class='markdown-preview' data-use-github-style><h2 id="description">Description</h2>
+<p>The goal of this lab is to implement the testbench of the Counter lab by using Cocotb. </p>
 <p>This lab will introduce :</p>
 <ul>
-<li>Data structure and  buses (Bundle)</li>
-<li>Conditional statments (switch)</li>
-<li>Functionality groups (Area)</li>
+<li>How to read and write DUT signals from cocotb</li>
+<li>How to wait on triggers in cocotb (Yield, Timer)</li>
+<li>How to fork a simulation thread in Cocotb (coroutine)</li>
 </ul>
-<h2 id="component-interfaces">Component interfaces</h2>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>direction</th>
-<th>type</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>apb</td>
-<td>slave</td>
-<td>APB</td>
-<td>Bus used to read and write internal registers</td>
-</tr>
-<tr>
-<td>pwm</td>
-<td>out</td>
-<td>Bool</td>
-<td>PWM output of the component</td>
-</tr>
-</tbody>
-</table>
-<h2 id="register-mapping">Register mapping</h2>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>type</th>
-<th>address</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>enable</td>
-<td>R/W</td>
-<td>0</td>
-<td>Enable the internal timer when the register LSB is set</td>
-</tr>
-<tr>
-<td>dutyCycle</td>
-<td>R/W</td>
-<td>4</td>
-<td>Specify own many cycle the <code>pwm</code> output is high in a timer period. <br> Range from 0 to (1 &lt;&lt; timerWidth)-1</td>
-</tr>
-</tbody>
-</table>
-<h2 id="rtl-parametrization">RTL parametrization</h2>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>type</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>apbConfig</td>
-<td>ApbConfig</td>
-<td>Specify the shape of the APB bus</td>
-</tr>
-<tr>
-<td>timerWidth</td>
-<td>Int</td>
-<td>Specify how many bits has the internal timer</td>
-</tr>
-</tbody>
-</table>
-<h2 id="apb-specification">APB specification</h2>
-<p>The APB bus is a very simple (and also old, but still used) peripheral bus. It is specified by ARM, but there is some typical chronograms : </p>
-<p>Note : For this labs, you don&#39;t need to insert wait cycle on the bus, so you can keep the PREADY always high.</p>
-<p><img src="D:\pro\hdl\spinalHDL\SpinalBaseProject\src\main\scala\workshop\pwm\assets\wave.svg" alt=""></p></body>
+<h2 id="verification">Verification</h2>
+<p>You can verify it as you want :</p>
+<ul>
+<li>Directed tests</li>
+<li>Full randomisation of inputs with outputs checking by using a reference model.</li>
+</ul>
+<p>The starting template provided in this lab use the second method. </p>
+<p>Also, do not forget to check that your testbench check things by manually introducing bugs in the RTL (Counter.v)</p>
+<h2 id="how-to-run-it">How to run it</h2>
+<p>Just run <code>make</code> in this directory</p></body>
 </html>

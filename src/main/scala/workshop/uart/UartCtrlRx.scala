@@ -2,7 +2,6 @@ package workshop.uart
 
 import spinal.core._
 import spinal.lib._
-import spinal.lib.fsm._
 
 case class UartRxGenerics( preSamplingSize: Int = 1,
                            samplingSize: Int = 5,
@@ -15,20 +14,18 @@ case class UartRxGenerics( preSamplingSize: Int = 1,
     SpinalWarning(s"It's not nice to have a even samplingSize value at ${ScalaLocated.short} (because of the majority vote)")
 }
 
-
 case class UartCtrlRx(generics : UartRxGenerics) extends Component{
-  import generics._   //Allow to directly use generics attribute without generics. prefix
+  import generics._  //Allow to directly use generics attribute without generics. prefix
   val io = new Bundle{
       val rxd  = in Bool
       val samplingTick = in Bool
       val read = master Flow(Bits(8 bits))
     }
 
-
   // Implement the rxd sampling with a majority vote over samplingSize bits
   // Provide a new sampler.value each time sampler.tick is high
   val sampler = new Area {
-    val samples     = History(
+    val samples = History(
       that  = io.rxd,
       range = 2 until 2+samplingSize,
       when  = io.samplingTick,
@@ -70,45 +67,7 @@ case class UartCtrlRx(generics : UartRxGenerics) extends Component{
   }
 
   // Statemachine that use all precedent area
-  val stateMachine = new StateMachine {
-    val buffer = Reg(io.read.payload)
-    io.read.valid := False
-
-    val IDLE  = new State with EntryPoint
-    val START = new State
-    val DATA  = new State
-    val STOP  = new State
-
-    IDLE.whenIsActive{
-      when(sampler.tick && !sampler.value) {
-        bitTimer.recenter := True
-        goto(START)
-      }
-    }
-
-    START.whenIsActive{
-      when(bitTimer.tick) {
-        bitCounter.clear := True
-        goto(DATA)
-      }
-    }
-
-
-    DATA.whenIsActive{
-      when(bitTimer.tick) {
-        buffer(bitCounter.value) := sampler.value
-        when(bitCounter.value === 7) {
-          goto(STOP)
-        }
-      }
-    }
-
-    STOP.whenIsActive {
-      when(bitTimer.tick) {
-        io.read.valid := True
-        goto(IDLE)
-      }
-    }
+  val stateMachine = new Area {
+    //TODO state machine
   }
-  io.read.payload := stateMachine.buffer
 }

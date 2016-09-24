@@ -598,7 +598,7 @@ pre.editor-colors .fold-marker:after,
 </style>
   </head>
   <body class='markdown-preview' data-use-github-style><h2 id="description">Description</h2>
-<p>The goal of this lab is to implement an component that receive UART frames and translate them into a flow of bytes.</p>
+<p>The goal of this lab is to implement a component that receive UART frames and translate them into a flow of bytes. (RS232 =&gt; UART)</p>
 <p>The UART is an old transmission protocol which transmit data in serial with a fixed asynchronous baudrate.</p>
 <p>In this labs, the configuration of the UART transmission will be 8 bits of data per frame, no parity and 1 stop bit.</p>
 <p>This configuration will produce the following chronogram :<br>
@@ -644,7 +644,7 @@ This window will only care about <code>samplingSize</code> samples in the center
 </tbody>
 </table>
 <h2 id="rtl-parametrization">RTL parametrization</h2>
-<p>All RTL parameters are contained into the <code>UartRxGenerics</code> class. This class contain following parameters :</p>
+<p>All RTL parameters are contained into the <code>UartRxGenerics</code> class. This class contains following parameters :</p>
 <table>
 <thead>
 <tr>

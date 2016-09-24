@@ -8,36 +8,29 @@ from cocotb.triggers import RisingEdge, Timer
 @cocotb.coroutine
 def genClockAndReset(dut):
     dut.reset = 1
-    dut.clk = 0
+    dut.clk   = 0
     yield Timer(1000)
-    dut.reset = 0
-    yield Timer(1000)
-    while True:
-        dut.clk = 1
-        yield Timer(500)
-        dut.clk = 0
-        yield Timer(500)
+    # TODO Animate the dut.clk and dut.reset
+    pass
 
 
 @cocotb.test()
 def test1(dut):
     cocotb.fork(genClockAndReset(dut))
 
-    counter = 0
+    counter = 0  # Used to model the hardware
     for i in xrange(256):
         yield RisingEdge(dut.clk)
-        if dut.io_value != counter:
-            raise TestFailure("io_value missmatch")
+        # TODO Check that the DUT match with the model (counter variable)
+        # read io_value =>     dut.io_value
+        # read io_full =>      dut.io_full
+        # raise TestFailure("io_value missmatch")
+        # raise TestFailure("io_full missmatch")
 
-        if dut.io_full != 1 if counter == 16 else 0:
-            raise TestFailure("io_full missmatch")
 
-        if dut.io_clear == 1:
-            counter = 0
-        else:
-            counter = (counter + 1) & 0xF
+        # TODO Animate the model depending DUT inputs
 
-        dut.io_clear = (random.random() < 0.03)
+        # TODO Generate random stimulus
 
 
 

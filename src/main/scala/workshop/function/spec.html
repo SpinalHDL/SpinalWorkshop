@@ -602,7 +602,7 @@ pre.editor-colors .fold-marker:after,
 <p>The component to implement is a byte flow un-serializer able to load 3 outputs from 3 different commands.</p>
 <p>This lab will introduce :</p>
 <ul>
-<li>Function usage (def)</li>
+<li>Function combined with Area (def, Area)</li>
 <li>Some re-usability pattern</li>
 <li>How the scala can be mixed with SpinalHDL</li>
 </ul>
@@ -670,15 +670,15 @@ pre.editor-colors .fold-marker:after,
 </table>
 <h2 id="implementation">Implementation</h2>
 <p>The implementation could be done by many way, but the goal of this lab is to practice functions. The proposal is the following :</p>
-<p>1) Define a function which is able to recognise a string pattern on the <code>cmd</code> port and which produce True value when that happen.</p>
+<p>1) Define a function which is able to recognise a string pattern on the <code>cmd</code> port and which set the <code>hit</code> signal to True when that happen.</p>
 <pre class="editor-colors lang-scala"><div class="line"><span class="text plain null-grammar"><span>def&nbsp;pattern(str&nbsp;:&nbsp;String)&nbsp;=&nbsp;new&nbsp;Area{</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;hit&nbsp;=&nbsp;False&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;//..</span></span></div><div class="line"><span class="text plain null-grammar"><span>}</span></span></div></pre>
 <p>2) Define a function which drive a given <code>Data</code> from a register buffer and load that register buffer chunk by chunk from the <code>cmd</code> port after an <code>start</code> pulse :</p>
 <pre class="editor-colors lang-scala"><div class="line"><span class="text plain null-grammar"><span>def&nbsp;loader(start&nbsp;:&nbsp;Bool,that&nbsp;:&nbsp;Data)&nbsp;=&nbsp;new&nbsp;Area{...}</span></span></div></pre>
 <p>Then those both function could be used to build the wanted functionality :</p>
 <pre class="editor-colors lang-scala"><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;setA&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;patternDetector(&quot;setValueA&quot;)</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;loadA&nbsp;&nbsp;&nbsp;=&nbsp;valueLoader(setA.hit,io.valueA)</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;setB&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;patternDetector(&quot;setValueB&quot;)</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;loadB&nbsp;&nbsp;&nbsp;=&nbsp;valueLoader(setB.hit,io.valueB)</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;setC&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;patternDetector(&quot;setValueC&quot;)</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;loadC&nbsp;&nbsp;&nbsp;=&nbsp;valueLoader(setC.hit,io.valueC)</span></span></div></pre>
 <h2 id="functions-and-area-why">Functions and Area, why</h2>
-<p>One bad side with function is the fact that all signal defined inside them are unnamed in the generated RTL, which doesn&#39;t help the debugging.<br>
- This is because to name signals, SpinalHDL use the java reflection. This work well for classes attributes, but not for function variables.</p>
+<p>One bad side with function is the fact that all signals defined inside them are unnamed in the generated RTL, which doesn&#39;t help the debugging.<br>
+ The reason of that is the fact that to name signals, SpinalHDL use the java reflection. This work well for classes attributes, but not for function variables.</p>
 <p>But there is some solutions : </p>
 <p>1) The function could return an Area which then will be kept in the Component (this is the solution retained in the &#39;Implementation&#39; chapter) :</p>
 <pre class="editor-colors lang-scala"><div class="line"><span class="text plain null-grammar"><span>def&nbsp;counter()&nbsp;=&nbsp;new&nbsp;Area{</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;value&nbsp;=&nbsp;Reg(UInt(8&nbsp;bits))&nbsp;init(0)</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;val&nbsp;isZero&nbsp;=&nbsp;value&nbsp;===&nbsp;0</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;value&nbsp;:=&nbsp;value&nbsp;+&nbsp;1</span></span></div><div class="line"><span class="text plain null-grammar"><span>}</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>val&nbsp;myCounter&nbsp;=&nbsp;counter()&nbsp;&nbsp;//All&nbsp;signal&nbsp;inside&nbsp;the&nbsp;function&nbsp;will&nbsp;be&nbsp;named&nbsp;&quot;myCounter_xxx&quot;</span></span></div><div class="line"><span class="text plain null-grammar"><span>when(myCounter.isZero){</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;&nbsp;//...</span></span></div><div class="line"><span class="text plain null-grammar"><span>}</span></span></div></pre>

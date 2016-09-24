@@ -1,5 +1,5 @@
 ## Description
-The goal of this lab is to implement a component which instantiate a blackboxed dual port dual clock  ram (implemented in VHDL). Also the component should be able to sum all words of that ram. 
+The goal of this lab is to implement a component which instantiate a blackboxed dual port dual clock  ram (implemented in VHDL). Also the component should be able to sum all words of that ram.
 
 This lab will introduce :
 

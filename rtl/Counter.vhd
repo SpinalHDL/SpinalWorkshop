@@ -366,33 +366,11 @@ use work.pkg_enum.all;
 
 entity Counter is
   port( 
-    io_clear : in std_logic;
-    io_value : out unsigned(3 downto 0);
-    io_full : out std_logic;
-    clk : in std_logic;
-    reset : in std_logic 
   );
 end Counter;
 
 architecture arch of Counter is
 
-  signal counter : unsigned(3 downto 0);
-  signal zz_1 : unsigned(3 downto 0);
 begin
-  io_value <= counter;
-  io_full <= pkg_toStdLogic(counter = zz_1);
-  zz_1(3 downto 0) <= pkg_unsigned("1111");
-  process(clk,reset)
-  begin
-    if reset = '1' then
-      counter <= pkg_unsigned("0000");
-    elsif rising_edge(clk) then
-      counter <= (counter + pkg_unsigned("0001"));
-      if io_clear = '1' then
-        counter <= pkg_unsigned("0000");
-      end if;
-    end if;
-  end process;
-
 end arch;
 

@@ -29,66 +29,20 @@ case class UdpApp(helloMessage : String,helloPort : Int = 37984) extends Compone
     val tx = master(UdpAppBus())
   }
 
-  io.rx.cmd.ready := False
-  io.rx.data.ready := False
-
-  io.tx.cmd.valid := False
-  io.tx.cmd.ip := io.rx.cmd.ip
-  io.tx.cmd.srcPort := io.rx.cmd.dstPort
-  io.tx.cmd.dstPort := io.rx.cmd.srcPort
-  io.tx.cmd.length  := 1 + helloMessage.length
-
-  io.tx.data.valid    := False
-  io.tx.data.last := False
-  io.tx.data.fragment := 0
-
-  val flushRx = new Area{
-    def apply(): Unit ={
-      active := True
-    }
-
-    val active = RegInit(False)
-    when(active){
-      io.rx.data.ready := True
-      when(io.rx.data.valid && io.rx.data.last){
-        io.rx.cmd.ready := True
-        active := False
-      }
-    }
-  }
-
+  // TODO give default value to rx/tx output pins
 
   val fsm = new StateMachine{
     //Filter rx dst ports
     val idle : State = new State with EntryPoint{
       whenIsActive{
-        when(io.rx.cmd.valid && !flushRx.active){
-          switch(io.rx.cmd.dstPort){
-            is(helloPort){
-              goto(helloHeader)
-            }
-            default{
-              flushRx()
-            }
-          }
-        }
+        // TODO Check io.rx.cmd dst port
       }
     }
 
     //Check the hello protocol Header
     val helloHeader = new State{
       whenIsActive {
-        when(io.rx.data.valid) {
-          switch(io.rx.data.fragment) {
-            is(Hello.discoveringCmd) {
-              goto(discoveringRspTx)
-            }
-            default {
-              flushRx()
-              goto(idle)
-            }
-          }
-        }
+        // TODO check that the first byte of the packet payload is equals to Hello.discoveringCmd
       }
     }
 
@@ -98,8 +52,7 @@ case class UdpApp(helloMessage : String,helloPort : Int = 37984) extends Compone
       discoveringRspTxDataFsm
     ){
       whenCompleted{
-        flushRx()
-        goto(idle)
+        //TODO return to IDLE
       }
     }
   }
@@ -108,10 +61,7 @@ case class UdpApp(helloMessage : String,helloPort : Int = 37984) extends Compone
   lazy val discoveringRspTxCmdFsm = new StateMachine{
     val sendCmd = new State with EntryPoint{
       whenIsActive{
-        io.tx.cmd.valid := True
-        when(io.tx.cmd.ready){
-          exit()
-        }
+        //TODO send one io.tx.cmd transaction
       }
     }
   }
@@ -120,28 +70,17 @@ case class UdpApp(helloMessage : String,helloPort : Int = 37984) extends Compone
   lazy val discoveringRspTxDataFsm = new StateMachine{
     val sendHeader = new State with EntryPoint{
       whenIsActive{
-        io.tx.data.valid   := True
-        io.tx.data.fragment := Hello.discoveringRsp
-        when(io.tx.data.ready){
-          goto(sendMessage)
-        }
+        //TODO send the io.tx.cmd header (Hello.discoveringRsp)
       }
     }
+
     val sendMessage = new State{
       val counter = Reg(UInt(log2Up(helloMessage.length) bits))
       onEntry{
         counter := 0
       }
       whenIsActive{
-        io.tx.data.valid    := True
-        io.tx.data.fragment := helloMessage.map(c => B(c.toInt,8 bits)).read(counter)
-        io.tx.data.last := counter === helloMessage.length-1
-        when(io.tx.data.ready){
-          counter := counter + 1
-          when(io.tx.data.last){
-            exit()
-          }
-        }
+        //TODO send the message on io.tx.cmd header
       }
     }
   }
