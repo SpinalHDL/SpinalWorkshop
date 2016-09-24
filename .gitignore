@@ -28,8 +28,8 @@ bin/
 .cache-main
 
 #User
-/*.vhd
-/*.v
+/rtl/*.vhd
+/rtl/*.v
 *.cf
 *.xml
 *$*
@@ -38,5 +38,5 @@ bin/
 *.json
 *.vcd
 *.*#
-!*_tb.vhd
+!/rtl/*_tb.vhd
 
