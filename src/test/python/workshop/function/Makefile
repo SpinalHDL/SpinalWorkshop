@@ -1,4 +1,4 @@
-VERILOG_SOURCES += $(WORKSHOPROOT)/rtl/FunctionUnit.v
+VERILOG_SOURCES += ../common/timescaleit.v $(WORKSHOPROOT)/rtl/FunctionUnit.v
 TOPLEVEL=FunctionUnit
 MODULE=FunctionUnitTester
 

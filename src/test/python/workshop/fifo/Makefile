@@ -1,4 +1,4 @@
-VERILOG_SOURCES += StreamFifo.v
+VERILOG_SOURCES += ../common/timescaleit.v StreamFifo.v
 TOPLEVEL=StreamFifo
 MODULE=StreamFifoTester
 

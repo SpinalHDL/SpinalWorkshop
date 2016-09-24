@@ -11,8 +11,6 @@ def genClockAndReset(dut):
     dut.clk   = 0
     yield Timer(1000)
     # TODO Animate the dut.clk and dut.reset
-    pass
-
 
 @cocotb.test()
 def test1(dut):

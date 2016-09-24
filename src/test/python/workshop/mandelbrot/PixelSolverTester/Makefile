@@ -1,4 +1,4 @@
-VERILOG_SOURCES += $(WORKSHOPROOT)/rtl/PixelSolver.v
+VERILOG_SOURCES += ../../common/timescaleit.v $(WORKSHOPROOT)/rtl/PixelSolver.v
 TOPLEVEL=PixelSolver
 MODULE=PixelSolverTester
 

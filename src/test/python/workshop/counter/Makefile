@@ -1,4 +1,4 @@
-VERILOG_SOURCES += Counter.v
+VERILOG_SOURCES += ../common/timescaleit.v Counter.v
 TOPLEVEL=Counter
 MODULE=CounterTester
 
