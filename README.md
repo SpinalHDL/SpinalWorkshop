@@ -23,7 +23,7 @@ In each labs, there is an spec.html which give basics of the lab.
 - Cocotb path in the PYTHONPATH and in the COCOTB environment variable
 
 ### Generate your RTL
-For each labs, you will find an scala main which will generate your RTL.
+For each labs, you will find a scala main which will generate your RTL.
 
 For example, to run the `CounterMain` by using SBT, you can do as following in the root folder of this repository :
 

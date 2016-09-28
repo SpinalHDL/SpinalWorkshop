@@ -20,7 +20,7 @@ And also some inputs/outputs :
 | IO Name  | Direction | Type  | Description |
 | ------- | ---- | ---- | ---- |
 | tick | in | Bool | When `tick` is True, the timer count up until `limit`. |
-| clear | in | Bool | When `tick` is True, the timer is set to zero. `clear` has the priority over `tick`. |
+| clear | in | Bool | When `clear` is True, the timer is set to zero. `clear` has the priority over `tick`. |
 | limit | in |  UInt(width bits) | When the timer value is equals to `limit`, the `tick` input is inhibited. |
 | full | out | Bool | full is high when the timer value is equals to `limit`  |
 | value | out | UInt(width bits)  | Wire out the timer counter value. |
