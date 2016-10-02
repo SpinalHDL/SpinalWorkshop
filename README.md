@@ -19,8 +19,11 @@ In each labs, there is an spec.html which give basics of the lab.
 - Scala   
 - SBT
 - GHDL
-- Cocotb (commit 4fdd89339222759d57e9cc3d741ca04b3cdebe4f)
+- Cocotb (commit 4fdd89339222759d57e9cc3d741ca04b3cdebe4f + Cocotb dependencies)
 - Cocotb path in the PYTHONPATH and in the COCOTB environment variable
+- GTKwave to open simulation waves (./waves/*.vcd)
+
+For the first row of labs, you don't need cocotb/python stuffs.
 
 ### Generate your RTL
 For each labs, you will find a scala main which will generate your RTL.
