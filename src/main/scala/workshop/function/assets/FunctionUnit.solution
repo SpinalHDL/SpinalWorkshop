@@ -43,7 +43,7 @@ case class FunctionUnit() extends Component{
     when(active && io.cmd.valid){
       counter.increment()
       active.clearWhen(counter.willOverflowIfInc)
-      buffer.subdivide(beatCount)(counter) := io.cmd.payload
+      buffer.subdivideIn(beatCount slices)(counter) := io.cmd.payload
     }
     that.assignFromBits(buffer)
   }
