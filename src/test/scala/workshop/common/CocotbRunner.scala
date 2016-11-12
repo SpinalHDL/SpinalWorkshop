@@ -5,8 +5,10 @@ import scala.sys.process.{Process, ProcessIO}
 
 object CocotbRunner{
   def apply(path : String) : Boolean = {
+
     doCmd(Seq(
       s"cd $path",
+      "rm -f results.xml",
       "make")
     )
     getCocotbPass(path)
