@@ -18,6 +18,7 @@ In each labs, there is an spec.html which give basics of the lab.
 - java 7/8
 - SBT
 - GHDL
+- Icarus Verilog
 - Cocotb (http://cocotb.readthedocs.io/en/latest/quickstart.html#installing-cocotb)
 - Cocotb path in the 'COCOTB' environment variable
 - GTKwave to open simulation waves (./waves/*.vcd)
@@ -39,8 +40,17 @@ sudo add-apt-repository -y ppa:pgavin/ghdl
 sudo apt-get update
 sudo apt-get install -y --force-yes ghdl
 
+# iverilog (debian package 9.7 contain bugs)
+sudo apt-get install -y gperf readline-common bison flex
+wget https://github.com/steveicarus/iverilog/archive/v10_0.tar.gz
+tar -xvf v10_0.tar.gz
+cd iverilog-10_0
+autoconf
+./configure
+make -j4
+sudo make install
+
 # COCOTB
-sudo apt-get install git make gcc g++ swig python-dev
 sudo apt-get install -y git make gcc g++ swig python-dev
 git clone https://github.com/potentialventures/cocotb
 export COCOTB=$(pwd)/cocotb
