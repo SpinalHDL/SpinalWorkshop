@@ -25,6 +25,9 @@ In each labs, there is an spec.html which give basics of the lab.
 
 For the first row of labs, you don't need cocotb/python stuffs.
 
+
+There is how to setup by command line a Debian distribution :
+
 ```sh
 # JAVA
 sudo apt-get install openjdk-7-jdk
@@ -41,7 +44,7 @@ sudo apt-get update
 sudo apt-get install -y --force-yes ghdl
 
 # iverilog (debian package 9.7 contain bugs)
-sudo apt-get install -y gperf readline-common bison flex
+sudo apt-get install -y gperf readline-common bison flex autoconf
 wget https://github.com/steveicarus/iverilog/archive/v10_0.tar.gz
 tar -xvf v10_0.tar.gz
 cd iverilog-10_0
@@ -49,6 +52,7 @@ autoconf
 ./configure
 make -j4
 sudo make install
+cd ..
 
 # COCOTB
 sudo apt-get install -y git make gcc g++ swig python-dev
@@ -57,6 +61,13 @@ export COCOTB=$(pwd)/cocotb
 
 # GTKwave
 sudo apt-get install gtkwave
+
+# Used for the mandelbrot lab
+sudo apt-get install python-tk
+
+# Clone this repo
+git clone -b workshop --recursive https://github.com/SpinalHDL/SpinalBaseProject.git
+cd SpinalBaseProject
 ```
 
 ### Generate your RTL
