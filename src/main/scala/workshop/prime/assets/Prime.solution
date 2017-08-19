@@ -1,0 +1,37 @@
+package workshop.function
+
+import spinal.core._
+import spinal.lib._
+
+
+object Prime{
+  //Pure scala function which return true when the number is prime
+  def apply(n : Int) =  ! ((2 until n-1) exists (n % _ == 0))
+
+  //Explicit functional programming style
+  def apply(n : UInt) : Bool = {
+    val valueRange         = (0 until 1 << widthOf(n))
+    val primesInValueRange = valueRange.filter(i => Prime(i))
+    val primesHits         = primesInValueRange.map(primeValue => n === primeValue)
+    val nIsPrime           = primesHits.orR
+    nIsPrime
+  }
+
+  //One liner functional programming style
+  def apply2(n : UInt) : Bool = (0 until 1 << widthOf(n)).filter(i => Prime(i)).map(primeValue => n === primeValue).orR
+
+  //Explicit traditional programming style
+  def apply3(n : UInt) : Bool = {
+    val nIsPrime = False
+    for(i <- (0 until 1 << widthOf(n))){
+      if(Prime(i)){ //Behave like a VHDL if generate
+        when(n === i){ //Real hardware statement
+          nIsPrime := True
+        }
+      }
+    }
+    nIsPrime
+  }
+}
+
+

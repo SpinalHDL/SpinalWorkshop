@@ -4,6 +4,7 @@ There is the list of RTL labs :
 - Counter : src/main/scala/workshop/counter
 - PWM with APB : src/main/scala/workshop/pwm
 - UART : src/main/scala/workshop/uart
+- Prime : src/main/scala/workshop/prime
 - Function : src/main/scala/workshop/function
 - Timer with BusSlaveFactory : src/main/scala/workshop/timer
 - Blackbox and Clockdomain : src/main/scala/workshop/blackboxAndClock

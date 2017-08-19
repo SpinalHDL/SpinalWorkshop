@@ -5,6 +5,7 @@ set -x #echo on
 cp -f src/main/scala/workshop/blackboxAndClock/assets/MemorySumming.base src/main/scala/workshop/blackboxAndClock/MemorySumming.scala
 cp -f src/main/scala/workshop/counter/assets/Counter.base src/main/scala/workshop/counter/Counter.scala
 cp -f src/main/scala/workshop/function/assets/FunctionUnit.base src/main/scala/workshop/function/FunctionUnit.scala
+cp -f src/main/scala/workshop/prime/assets/Prime.base src/main/scala/workshop/prime/Prime.scala
 cp -f src/main/scala/workshop/mandelbrot/assets/PixelSolver.base src/main/scala/workshop/mandelbrot/PixelSolver.scala
 cp -f src/main/scala/workshop/mandelbrot/assets/PixelSolverMultiCore.base src/main/scala/workshop/mandelbrot/PixelSolverMultiCore.scala
 cp -f src/main/scala/workshop/pwm/assets/ApbPwm.base src/main/scala/workshop/pwm/ApbPwm.scala
