@@ -24,7 +24,7 @@ The component will have following IO :
 Commands comming on the `cmd` port are string based :
 
 | Command pattern | Description |
-| ------- | ---- | ---- | ---- |
+| ------- | ---- |
 | 'setValueAx' | Load the valueA with x |
 | 'setValueBxxxx' | Load the valueA with xxxx (big-endian) |
 | 'setValueCxxxxxx' | Load the valueA with xxxxxx (big-endian) |
