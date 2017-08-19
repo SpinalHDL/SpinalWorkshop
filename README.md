@@ -13,7 +13,8 @@ There is the list of RTL labs :
 - UDP : src/main/scala/workshop/udp
 
 In each labs, there is an assets folder which contain a starting template and a solution.<br>
-In each labs, there is an spec.html which give basics of the lab.
+In each labs, there is an spec.html which give basics of the lab.<br>
+In case of a lab specification isn't clear, you can find in waves.tar.gz the corresponding working waves.
 
 ### Minimum requirements
 - java 7/8
