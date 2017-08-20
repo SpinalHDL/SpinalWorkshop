@@ -11,5 +11,5 @@ cp -f src/main/scala/workshop/mandelbrot/assets/PixelSolverMultiCore.base src/ma
 cp -f src/main/scala/workshop/pwm/assets/ApbPwm.base src/main/scala/workshop/pwm/ApbPwm.scala
 cp -f src/main/scala/workshop/stream/assets/StreamUnit.base src/main/scala/workshop/stream/StreamUnit.scala
 cp -f src/main/scala/workshop/timer/assets/Timer.base src/main/scala/workshop/timer/Timer.scala
-cp -f src/main/scala/workshop/uart/assets/UartCtrlRx.base src/main/scala/workshop/uart/UartCtrlRx.scala
+cp -f src/main/scala/workshop/uart/assets/UartCtrlRx.halfDone src/main/scala/workshop/uart/UartCtrlRx.scala
 cp -f src/main/scala/workshop/udp/assets/UdpApp.baseHalfDone src/main/scala/workshop/udp/UdpApp.scala
