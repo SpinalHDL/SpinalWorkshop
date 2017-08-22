@@ -6,6 +6,7 @@ There is the list of RTL labs :
 - UART : src/main/scala/workshop/uart
 - Prime : src/main/scala/workshop/prime
 - Function : src/main/scala/workshop/function
+- Apb3Decoder : src/main/scala/workshop/apb3decoder
 - Timer with BusSlaveFactory : src/main/scala/workshop/timer
 - Blackbox and Clockdomain : src/main/scala/workshop/blackboxAndClock
 - Stream : src/main/scala/workshop/stream
