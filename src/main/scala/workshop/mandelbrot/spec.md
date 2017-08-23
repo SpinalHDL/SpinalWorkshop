@@ -49,7 +49,7 @@ The component will receive one stream of pixel tasks (which contain the XY coord
 Following constructions parameters are given to the PixelSolver :
 
 | Name | Type | Description |
-| ------- | ---- |  --- | --- |
+| ------- | ---- |  --- | 
 | fixAmplitude | Int | 2^fixAmplitude represent the fixed point maximal value |
 | fixResolution | Int | 2^fixResolution represent the fixed point resolution |
 | iterationLimit | Int | Maximal number of iteration allowed per XY coordinates |
