@@ -1,3 +1,7 @@
+-- Generator : SpinalHDL v0.10.15    git head : ad680de6db01087f707f499ca62f637b2e5d6fef
+-- Date      : 23/08/2017, 12:50:33
+-- Component : ApbPwm
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -50,7 +54,7 @@ begin
         io_apb_PWRITE  <= '1';
         io_apb_PADDR <= address;
         io_apb_PWDATA <= data;
-        wait until rising_edge(clk) and io_apb_PREADY = '1';
+        wait until rising_edge(clk);
         io_apb_PENABLE <= '1';
         wait until rising_edge(clk) and io_apb_PREADY = '1';
         io_apb_PENABLE <= '0';
@@ -66,7 +70,7 @@ begin
         io_apb_PSEL <= "1";
         io_apb_PWRITE  <= '0';
         io_apb_PADDR <= address;
-        wait until rising_edge(clk) and io_apb_PREADY = '1';
+        wait until rising_edge(clk);
         io_apb_PENABLE <= '1';
         wait until rising_edge(clk) and io_apb_PREADY = '1';
         io_apb_PENABLE <= '0';
