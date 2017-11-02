@@ -107,6 +107,7 @@ begin
       io_limit =>  io_limit,
       io_full =>  io_full,
       io_value =>  io_value,
-      clk =>  clk 
+      clk =>  clk,
+      reset => '0'
     );
 end arch;
