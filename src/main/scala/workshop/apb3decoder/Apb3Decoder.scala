@@ -11,7 +11,6 @@ case class Mapping(base : BigInt, range : BigInt){
   def hit(address : UInt) : Bool = address >= base && address < base + range
 }
 
-
 //Example of instantiation :
 //new Apb3Decoder(
 //  apbConfig = Apb3Config(
@@ -25,7 +24,6 @@ case class Mapping(base : BigInt, range : BigInt){
 //    Mapping(base = 0x6000, range = 0x3000)
 //  )
 //)
-
 case class Apb3Decoder(apbConfig : Apb3Config, outputsMapping : Seq[Mapping]) extends Component{
   require(apbConfig.selWidth == 1)
 
@@ -34,8 +32,6 @@ case class Apb3Decoder(apbConfig : Apb3Config, outputsMapping : Seq[Mapping]) ex
     val outputs = Vec(master(Apb3(apbConfig)), outputsMapping.length)
   }
 
-  //TODO
+  //TODO fully asynchronous apb3 decoder
 }
-
-
 

@@ -17,10 +17,10 @@ case class UartRxGenerics( preSamplingSize: Int = 1,
 case class UartCtrlRx(generics : UartRxGenerics) extends Component{
   import generics._  //Allow to directly use generics attribute without generics. prefix
   val io = new Bundle{
-      val rxd  = in Bool
-      val samplingTick = in Bool
-      val read = master Flow(Bits(8 bits))
-    }
+    val rxd  = in Bool
+    val samplingTick = in Bool
+    val read = master Flow(Bits(8 bits))
+  }
 
   // Implement the rxd sampling with a majority vote over samplingSize bits
   // Provide a new sampler.value each time sampler.tick is high
