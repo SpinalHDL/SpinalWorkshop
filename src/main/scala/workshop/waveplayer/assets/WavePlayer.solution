@@ -5,9 +5,6 @@ import spinal.lib._
 import spinal.lib.bus.amba4.axilite.{AxiLite4, AxiLite4SlaveFactory}
 import spinal.lib.bus.misc.BusSlaveFactory
 
-//0.25 + 0.5 + 0.5
-
-
 case class WavePlayerGenerics(
                                sampleWidth : Int,
                                sampleCountLog2 : Int,
