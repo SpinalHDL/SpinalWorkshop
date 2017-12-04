@@ -5,6 +5,8 @@ import spinal.lib._
 import spinal.lib.bus.amba4.axilite.{AxiLite4, AxiLite4SlaveFactory}
 import spinal.lib.bus.misc.BusSlaveFactoryAddressWrapper
 
+//This is a multi tone version of the AxiLite4Wave player. It is able to play multiple ROM in the same time on the wave output.
+//It is only a show case.
 class AxiLite4WavePlayerMultiTone(wavePlayerGenerics : WavePlayerGenerics, toneCount : Int) extends Component{
   import wavePlayerGenerics._
   val io = new Bundle{
