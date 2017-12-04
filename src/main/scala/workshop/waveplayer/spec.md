@@ -1,5 +1,6 @@
 ## Introduction
-To goal of this lab is to have more practice with Area and BusSlaveFactory. Especialy to get a better understand about how you can define Area as a proper class and reuse it later.br>
+To goal of this lab is to have more practice with Area and BusSlaveFactory. Especialy to get a better understand about how you can define Area as a proper class and reuse it later.
+
 The component to implement is an wave generator with an preloaded sinus wave. This component will also have an AxiLite4 interface to access its registers.
 
 ![](assets/AxiLite4WavePlayer.png)
