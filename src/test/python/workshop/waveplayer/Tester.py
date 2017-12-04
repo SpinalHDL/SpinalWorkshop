@@ -66,10 +66,10 @@ class AxiLite4Master:
                 break
 
     @cocotb.coroutine
-    def readAssert(self,address, value, mask):
+    def readAssert(self,address, value, mask ,message):
         rsp = [0]
         yield self.read(address,rsp)
-        assert(rsp & mask == value)
+        assert rsp[0] & mask == value, message
 
 
 @cocotb.coroutine
@@ -85,8 +85,7 @@ def analyseFreq(dut, periode):
 
     i /= periode/2
     q /= periode/2
-    print(i, q, math.sqrt(i*i +q*q))
-
+    # print(i, q, math.sqrt(i*i +q*q))
     assert math.sqrt(i*i +q*q) > 0.95, "The output isn't a sinus wave at the right frequancy"
 
 @cocotb.test()
@@ -101,13 +100,16 @@ def test1(dut):
 
 
     yield RisingEdge(dut.clk)
+    yield master.readAssert(0x00, 0, 1, "wavePlayer.phase.run was read as True, but should be False")
+    yield master.readAssert(0x10, 1, 1, "wavePlayer.filter.bypass was read as False, but should be True")
     yield master.write(4, 0x80)
     yield master.write(0, 1)
+    yield master.readAssert(0x00, 1, 1, "wavePlayer.phase.run was read as False, but should be True")
     phaseValue = 0
     for i in xrange(4):
         newValue = [0]
         yield master.read(0x8, newValue)
-        assert(newValue[0] > phaseValue)
+        assert newValue[0] > phaseValue, "wavePlayer.phase.value doesn't seem to increment"
         phaseValue = newValue[0]
         yield RisingEdge(dut.clk)
 
@@ -117,28 +119,8 @@ def test1(dut):
 
     yield master.write(0x14, 0x10)
     yield master.write(0x10, 0)
+    yield master.readAssert(0x10, 0, 1, "wavePlayer.filter.bypass was read as True, but should be False")
 
     yield Timer(1000*2000);
     yield analyseFreq(dut,0x200)
     yield Timer(1000*2000);
-
-# io_axiLite_aw_valid,
-# io_axiLite_aw_ready,
-# io_axiLite_aw_payload_addr,
-# io_axiLite_aw_payload_prot,
-# io_axiLite_w_valid,
-# io_axiLite_w_ready,
-# io_axiLite_w_payload_data,
-# io_axiLite_w_payload_strb,
-# io_axiLite_b_valid,
-# io_axiLite_b_ready,
-# io_axiLite_b_payload_resp,
-# io_axiLite_ar_valid,
-# io_axiLite_ar_ready,
-# io_axiLite_ar_payload_addr,
-# io_axiLite_ar_payload_prot,
-# io_axiLite_r_valid,
-# io_axiLite_r_ready,
-# io_axiLite_r_payload_data,
-# io_axiLite_r_payload_resp,
-# io_wave,

@@ -14,3 +14,4 @@ cp -f src/main/scala/workshop/stream/assets/StreamUnit.solutionByHand src/main/s
 cp -f src/main/scala/workshop/timer/assets/Timer.solution src/main/scala/workshop/timer/Timer.scala
 cp -f src/main/scala/workshop/uart/assets/UartCtrlRx.solution src/main/scala/workshop/uart/UartCtrlRx.scala
 cp -f src/main/scala/workshop/udp/assets/UdpApp.solution src/main/scala/workshop/udp/UdpApp.scala
+cp -f src/main/scala/workshop/waveplayer/assets/WavePlayer.solution src/main/scala/workshop/waveplayer/WavePlayer.scala

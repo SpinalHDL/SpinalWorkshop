@@ -16,7 +16,7 @@ case class WavePlayerGenerics(
   def sampleCount = 1 << sampleCountLog2
 }
 
-//Area of logic which implement a phase counter, a rom sampler,
+//Area of logic which implement a phase counter, a rom sampler.
 case class WavePlayer(generics : WavePlayerGenerics) extends Area{
   import generics._
   assert(phaseWidth >= sampleCountLog2)
