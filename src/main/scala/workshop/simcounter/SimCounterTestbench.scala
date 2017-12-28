@@ -5,10 +5,7 @@ import spinal.core._
 import spinal.core.sim._
 
 object SimCounterTestbench extends App {
-  val simConfig = SimConfig(new SimCounterDut)
-    .withWave
-
-  simConfig.doManagedSim(dut => {
+  SimConfig.withWave.compile(new SimCounterDut).doSim(dut => {
     dut.clockDomain.forkStimulus(10)
 
     var counterModel = 0
