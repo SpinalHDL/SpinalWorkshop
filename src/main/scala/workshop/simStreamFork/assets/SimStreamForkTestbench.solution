@@ -1,0 +1,99 @@
+package workshop.simStreamFork
+
+import spinal.sim._
+import spinal.core._
+import spinal.core.sim._
+
+import scala.collection.mutable
+
+
+object SimStreamForkTestbench {
+  def main(args: Array[String]): Unit = {
+    //Compile the simulator
+    val compiled = SimConfig.withWave.compile(new SimStreamForkDut)
+
+    //Run the simulation
+    compiled.doSim{dut =>
+      dut.clockDomain.forkStimulus(period = 10)
+      SimTimeout(100000*10)
+
+
+      val xorCmdAQueue = mutable.Queue[Long]()
+      val xorCmdBQueue = mutable.Queue[Long]()
+
+      val mulCmdAQueue = mutable.Queue[Long]()
+      val mulCmdBQueue = mutable.Queue[Long]()
+
+
+
+      val cmdADriver = fork{
+        dut.io.cmdA.valid #= false
+        while(true){
+          dut.io.cmdA.valid.randomize()
+          dut.io.cmdA.payload.randomize()
+          dut.clockDomain.waitSampling()
+        }
+      }
+
+      val cmdBDriver = fork{
+        dut.io.cmdB.valid #= false
+        while(true){
+          dut.io.cmdB.valid.randomize()
+          dut.io.cmdB.payload.randomize()
+          dut.clockDomain.waitSampling()
+        }
+      }
+
+
+
+      val cmdAMonitor = fork{
+        while(true) {
+          dut.clockDomain.waitSampling()
+          if (dut.io.cmdA.valid.toBoolean && dut.io.cmdA.ready.toBoolean) {
+            xorCmdAQueue.enqueue(dut.io.cmdA.payload.toLong)
+            mulCmdAQueue.enqueue(dut.io.cmdA.payload.toLong)
+          }
+        }
+      }
+
+      val cmdBMonitor = fork{
+        while(true) {
+          dut.clockDomain.waitSampling()
+          if (dut.io.cmdB.valid.toBoolean && dut.io.cmdB.ready.toBoolean) {
+            xorCmdBQueue.enqueue(dut.io.cmdB.payload.toLong)
+            mulCmdBQueue.enqueue(dut.io.cmdB.payload.toLong)
+          }
+        }
+      }
+
+
+      var rspXorCounter = 0
+      val rspXorMonitor = fork{
+        dut.io.rspXor.ready #= true
+        while(true){
+          dut.io.rspXor.ready.randomize()
+          dut.clockDomain.waitSampling()
+          if(dut.io.rspXor.valid.toBoolean && dut.io.rspXor.ready.toBoolean){
+            assert(dut.io.rspXor.payload.toLong == (xorCmdAQueue.dequeue() ^ xorCmdBQueue.dequeue()))
+            rspXorCounter += 1
+          }
+        }
+      }
+
+      var rspMulCounter = 0
+      val rspMulMonitor = fork{
+        dut.io.rspMul.ready #= true
+        while(true){
+          dut.io.rspMul.ready.randomize()
+          dut.clockDomain.waitSampling()
+          if(dut.io.rspMul.valid.toBoolean && dut.io.rspMul.ready.toBoolean){
+            assert(dut.io.rspMul.payload.toBigInt == (BigInt(mulCmdAQueue.dequeue()) * BigInt(mulCmdBQueue.dequeue())))
+            rspMulCounter += 1
+          }
+        }
+      }
+
+      waitUntil(rspMulCounter > 100 && rspXorCounter > 100)
+    }
+  }
+}

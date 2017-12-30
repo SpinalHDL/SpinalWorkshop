@@ -1,4 +1,4 @@
-package workshop.simcounter
+package workshop.simCounter
 
 import spinal.core._
 

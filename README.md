@@ -20,6 +20,7 @@ In case of a lab specification isn't clear, you can find in waves.tar.gz the cor
 ### Minimum requirements
 - java 7/8
 - SBT
+- Verilator
 - GHDL
 - Icarus Verilog
 - Cocotb (http://cocotb.readthedocs.io/en/latest/quickstart.html#installing-cocotb)
@@ -32,14 +33,35 @@ For the first row of labs, you don't need cocotb/python stuffs.
 There is how to setup by command line a Debian distribution :
 
 ```sh
-# JAVA
-sudo apt-get install openjdk-7-jdk
+# JAVA 8
+sudo add-apt-repository -y ppa:openjdk-r/ppa
+sudo apt-get update
+sudo apt-get install openjdk-8-jdk -y
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
 
 # SBT
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 sudo apt-get update
 sudo apt-get install sbt
+
+# Verilator
+sudo apt-get install git make autoconf g++ flex bison -y  # First time prerequisites
+git clone http://git.veripool.org/git/verilator   # Only first time
+
+unsetenv VERILATOR_ROOT  # For csh; ignore error if on bash
+unset VERILATOR_ROOT  # For bash
+cd verilator
+git pull        # Make sure we're up-to-date
+git tag         # See what versions exist
+#git checkout HEAD                 # Use HEAD development version
+#git checkout verilator_{version}  # Switch to specified version
+autoconf        # Create ./configure script
+./configure
+make -j$(nproc)
+sudo make install
+cd ..
 
 # GHDL
 sudo add-apt-repository -y ppa:pgavin/ghdl
@@ -61,6 +83,7 @@ cd ..
 sudo apt-get install -y git make gcc g++ swig python-dev
 git clone https://github.com/potentialventures/cocotb
 export COCOTB=$(pwd)/cocotb
+echo export COCOTB=$(pwd)/cocotb >> ~/.bashrc 
 
 # GTKwave
 sudo apt-get install gtkwave
@@ -69,8 +92,9 @@ sudo apt-get install gtkwave
 sudo apt-get install python-tk
 
 # Clone this repo
-git clone -b workshop --recursive https://github.com/SpinalHDL/SpinalBaseProject.git
+git clone --recursive https://github.com/SpinalHDL/SpinalWorkshop.git
 cd SpinalBaseProject
+sbt compile
 ```
 
 ### Generate your RTL

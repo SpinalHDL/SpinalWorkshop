@@ -1,4 +1,4 @@
-package workshop.simcounter
+package workshop.simCounter
 
 import org.scalatest.FunSuite
 import spinal.core._
