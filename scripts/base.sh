@@ -15,3 +15,4 @@ cp -f src/main/scala/workshop/timer/assets/Timer.base src/main/scala/workshop/ti
 cp -f src/main/scala/workshop/uart/assets/UartCtrlRx.halfDone src/main/scala/workshop/uart/UartCtrlRx.scala
 cp -f src/main/scala/workshop/udp/assets/UdpApp.baseHalfDone src/main/scala/workshop/udp/UdpApp.scala
 cp -f src/main/scala/workshop/waveplayer/assets/WavePlayer.base src/main/scala/workshop/waveplayer/WavePlayer.scala
+cp -f src/main/scala/workshop/simcounter/assets/SimCounterTestbench.base src/main/scala/workshop/simcounter/SimCounterTestbench.scala
