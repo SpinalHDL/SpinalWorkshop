@@ -1,4 +1,5 @@
-## RTL labs
+
+## SpinalHDL labs
 There is the list of RTL labs :
 
 - Counter : src/main/scala/workshop/counter
@@ -12,13 +13,87 @@ There is the list of RTL labs :
 - Stream : src/main/scala/workshop/stream
 - Mandelbrot : src/main/scala/workshop/mandelbrot
 - UDP : src/main/scala/workshop/udp
+- WavePlayer : src/main/scala/workshop/waveplayer
 
 In each labs, there is an assets folder which contain a starting template and a solution.<br>
-In each labs, there is an spec.html which give basics of the lab.<br>
-In case of a lab specification isn't clear, you can find in waves.tar.gz the corresponding working waves.
+In each labs, there is an spec.md which give basics of the lab.<br>
+In case of a lab specification isn't clear, you can find in waves.tar.gz the corresponding working waves.<br>
+Those labs make the assumption that you are already comfortable with standards HDL.
 
-### Minimum requirements
-- java 7/8
+
+### Generate your RTL
+For each labs, you will find a scala main which will generate your RTL.
+
+For example, to run the `CounterMain` by using SBT, you can do as following in the root folder of this repository :
+
+```sh
+sbt
+run-main workshop.counter.CounterMain
+
+# Run again
+run-main workshop.counter.CounterMain
+
+# Run again
+run-main workshop.counter.CounterMain
+```
+
+Or in a single (But slower) command :
+
+```sh
+sbt "run-main workshop.counter.CounterMain"
+```
+
+All generated RTL will be in root_of_this_repository/rtl.
+
+### Test your RTL
+For each labs, you will find an automated regression suite in src/test/scala/workshop/xxx
+
+For example, to run the `CounterTester` regression by using SBT, you can do as following in the root folder of this repository :
+
+```sh
+sbt
+test-only *CounterTester
+
+# To test again
+test-only *CounterTester
+
+# To test again
+test-only *CounterTester
+```
+
+Or in a single (But slower) command :
+
+```sh
+sbt "test-only *CounterTester"
+```
+
+Note : Each tester regenerate the hardware, you don't need to do it manualy.
+
+All simulation waves files will be written in root_of_this_repository/waves in the VCD format.
+
+
+
+## SpinalSim labs
+There is the list of SpinalSim labs :
+
+- SimCounter : src/main/python/workshop/simCounter
+- SimStreamJoinFork : src/main/python/workshop/simStreamJoinFork
+
+For SpinalSim, the simulation waves are located in the simWorkspace folder.
+
+## Cocotb labs
+There is the list of Cocotb labs :
+
+- Counter with cocotb : src/test/python/workshop/counter
+- FIFO with cocotb : src/test/python/workshop/fifo
+
+To run cocotb labs, you have to run `make` in the testbench folder.
+
+
+## Minimum requirements
+Those labs use various tools to generate and verify the hardware :
+
+- java 8
 - SBT
 - Verilator
 - GHDL
@@ -96,61 +171,3 @@ git clone --recursive https://github.com/SpinalHDL/SpinalWorkshop.git
 cd SpinalBaseProject
 sbt compile
 ```
-
-### Generate your RTL
-For each labs, you will find a scala main which will generate your RTL.
-
-For example, to run the `CounterMain` by using SBT, you can do as following in the root folder of this repository :
-
-```sh
-sbt
-run-main workshop.counter.CounterMain
-
-# Run again
-run-main workshop.counter.CounterMain
-
-# Run again
-run-main workshop.counter.CounterMain
-```
-
-Or in a single (But slower) command :
-
-```sh
-sbt "run-main workshop.counter.CounterMain"
-```
-
-All generated RTL will be in root_of_this_repository/rtl.
-
-### Test your RTL
-For each labs, you will find an automated regression suite in src/test/scala/workshop/xxx
-
-For example, to run the `CounterTester` regression by using SBT, you can do as following in the root folder of this repository :
-
-```sh
-sbt
-test-only *CounterTester
-
-# To test again
-test-only *CounterTester
-
-# To test again
-test-only *CounterTester
-```
-
-Or in a single (But slower) command :
-
-```sh
-sbt "test-only *CounterTester"
-```
-
-Note : Each tester regenerate the hardware, you don't need to do it manualy.
-
-All simulation waves files will be written in root_of_this_repository/waves in the VCD format.
-
-## Verification labs
-There is the list of verification labs :
-
-- Counter with cocotb : src/test/python/workshop/counter
-- FIFO with cocotb : src/test/python/workshop/fifo
-
-To run cocotb labs, you have to run `make` in the testbench folder.

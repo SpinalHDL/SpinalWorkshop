@@ -6,7 +6,7 @@ The DUT is contained in SimCounterDut.scala and contains some faults-injection m
 Tasks : 
 
 1) Fill the SimCounterTestbench
-2) Run it and fix until it is passing
+2) Run it and fix it until it pass.
 3) Run the SimCounterTester (contains in the src/test folder) to check if your testbench catch the injected faults. 
 
 ## DUT specification
