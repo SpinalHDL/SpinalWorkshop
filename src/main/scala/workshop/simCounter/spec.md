@@ -3,7 +3,7 @@ To goal of this lab is to practice basics of SpinalSim by verifying a simple cou
 
 The DUT is contained in SimCounterDut.scala and contains some faults-injection mechanism to check that your test bench is checking things.
 
-Tasks : 
+#### Tasks 
 
 1) Fill the SimCounterTestbench
 2) Run it and fix it until it pass.
