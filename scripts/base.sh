@@ -16,4 +16,4 @@ cp -f src/main/scala/workshop/uart/assets/UartCtrlRx.halfDone src/main/scala/wor
 cp -f src/main/scala/workshop/udp/assets/UdpApp.baseHalfDone src/main/scala/workshop/udp/UdpApp.scala
 cp -f src/main/scala/workshop/waveplayer/assets/WavePlayer.base src/main/scala/workshop/waveplayer/WavePlayer.scala
 cp -f src/main/scala/workshop/simCounter/assets/SimCounterTestbench.base src/main/scala/workshop/simCounter/SimCounterTestbench.scala
-cp -f src/main/scala/workshop/simStreamJoinFork/assets/SimStreamForkTestbench.base src/main/scala/workshop/simStreamJoinFork/SimStreamForkTestbench.scala
+cp -f src/main/scala/workshop/simStreamJoinFork/assets/SimStreamJoinForkTestbench.base src/main/scala/workshop/simStreamJoinFork/SimStreamJoinForkTestbench.scala
