@@ -119,7 +119,7 @@ sudo update-alternatives --config javac
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 sudo apt-get update
-sudo apt-get install sbt
+sudo apt-get install sbt -y
 
 # Verilator
 sudo apt-get install git make autoconf g++ flex bison -y  # First time prerequisites
@@ -161,10 +161,10 @@ export COCOTB=$(pwd)/cocotb
 echo export COCOTB=$(pwd)/cocotb >> ~/.bashrc 
 
 # GTKwave
-sudo apt-get install gtkwave
+sudo apt-get install gtkwave -y
 
 # Used for the mandelbrot lab
-sudo apt-get install python-tk
+sudo apt-get install python-tk -y
 
 # Clone this repo
 git clone --recursive https://github.com/SpinalHDL/SpinalWorkshop.git SpinalWorkshop
