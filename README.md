@@ -167,7 +167,7 @@ sudo apt-get install gtkwave
 sudo apt-get install python-tk
 
 # Clone this repo
-git clone --recursive https://github.com/SpinalHDL/SpinalWorkshop.git
-cd SpinalBaseProject
+git clone --recursive https://github.com/SpinalHDL/SpinalWorkshop.git SpinalWorkshop
+cd SpinalWorkshop
 sbt compile
 ```
