@@ -9,7 +9,7 @@ The DUT is contained in SimStreamJoinFork.scala and contains some faults-injecti
 
 1) Fill the SimStreamJoinForkTestbench
 2) Run it and fix it until it pass.
-3) Run the SimStreamJoinForkTester (contains in the src/test folder) to check if your testbench catch the injected faults. 
+3) Run the SimStreamJoinForkTester (contains in the src/test/scala/workshop/simStreamJoinFork folder) to check if your testbench catch the injected faults. 
 
 #### Tips
 

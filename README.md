@@ -16,8 +16,8 @@ There is the list of RTL labs :
 - WavePlayer : src/main/scala/workshop/waveplayer
 
 In each labs, there is an assets folder which contain a starting template and a solution.<br>
-In each labs, there is an spec.md which give basics of the lab.<br>
-In case of a lab specification isn't clear, you can find in waves.tar.gz the corresponding working waves.<br>
+In each labs, there is an spec.md which give basics of the lab. (You can get the Intellij plugin to read it in the IDE)<br>
+In the case a lab specification isn't clear, you can find in waves.tar.gz the corresponding working waves.<br>
 Those labs make the assumption that you are already comfortable with standards HDL.
 
 
@@ -79,6 +79,9 @@ There is the list of SpinalSim labs :
 - SimCounter : src/main/python/workshop/simCounter
 - SimStreamJoinFork : src/main/python/workshop/simStreamJoinFork
 
+
+In each labs, there is an assets folder which contain a starting template and a solution.<br>
+In each labs, there is an spec.md which give basics of the lab. (You can get the Intellij plugin to read it in the IDE)<br>
 For SpinalSim, the simulation waves are located in the simWorkspace folder.
 
 ## Cocotb labs
