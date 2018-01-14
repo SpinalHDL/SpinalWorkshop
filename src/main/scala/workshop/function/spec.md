@@ -35,7 +35,7 @@ The implementation could be done by many way, but the goal of this lab is to pra
 1) Define a function which is able to recognise a string pattern on the `cmd` port and which set the `hit` signal to True when that happen.
 
 ```scala
-def pattern(str : String) = new Area{
+def patternDetector(str : String) = new Area{
   val hit = False 
   //..
 }
@@ -44,7 +44,9 @@ def pattern(str : String) = new Area{
 2) Define a function which drive a given `Data` from a register buffer and load that register buffer chunk by chunk from the `cmd` port after an `start` pulse :
 
 ```scala
-def loader(start : Bool,that : Data) = new Area{...}
+def valueLoader(start : Bool,that : Data) = new Area{
+    //...
+}
 ```
 
 Then those both function could be used to build the wanted functionality :

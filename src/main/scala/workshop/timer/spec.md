@@ -44,11 +44,22 @@ This memory mapping function will take followings parameters :
 The register mapping will make the assumption that the bus system is 32 bits width :
 
 | Register Name | Access | Width | Address offset | Bit offset |  Description |
-| ------- | ---- | --- | --- | --- |
+| ------- | ---- | --- | --- | --- | --- |
 | ticksEnable | RW | len(ticks) | 0 | 0 | Each ticks bool can be actived if the corresponding ticksEnable bit is high. |
 | clearsEnable | RW | len(clears) | 0 | 16 | Each clears bool can be actived if the corresponding clearsEnable bit is high. |
 | limit | RW | width | 4  | 0 | Access the limit value of the timer component.<br> When this register is written, the timer is cleared. |
 | value | R | width | 8  | 0 | Access the value of the timer. |
 | clear | W | - | 8  | - | When this register is written, it clear the timer. |
 
-Note : You can see an usage of this memory mapping function in Apb3Timer 
+Note : You can see an usage of this memory mapping function in Apb3Timer
+
+There is a list of some usefull function of the BusSlaveFactory :
+
+| Function  |  Description |
+| ------- | ---- | 
+| createReadWrite(dataType, address, bitOffset) | Return a new readable and writeable register mapped were specified |
+| driveAndRead(that, address, bitOffset) | Drive `that` from a new readable and writeable register mapped were specified|
+| read(that, address, bitOffset)  | Make that readable on the specified mapping  |
+| isWriting(address) | Return True when the specified address is written |
+
+ 

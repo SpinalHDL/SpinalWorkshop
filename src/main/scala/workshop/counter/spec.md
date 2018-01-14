@@ -7,6 +7,8 @@ This lab will introduce :
 - Combinatorial and Sequential logic (gates and register)
 - Conditional statements (when)
 
+![](assets/counter.png)
+
 ## Component interfaces
 
 | name | direction | type | description |

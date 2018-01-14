@@ -7,6 +7,8 @@ This lab will introduce :
 - Conditional statments (switch)
 - Functionality groups (Area)
 
+![](assets/wave.png)
+
 ## Component interfaces
 
 | name | direction | type | description |
@@ -30,8 +32,23 @@ This lab will introduce :
 
 
 ## APB specification
-The APB bus is a very simple (and also old, but still used) peripheral bus. It is specified by ARM, but there is some typical chronograms : 
+The APB bus is a very simple (and also old, but still used) peripheral bus. It is specified by ARM, there are its signals :  
 
-Note : For this labs, you don't need to insert wait cycle on the bus, so you can keep the PREADY always high.
+| Signal name | type |  driver | description |
+| ------ | ----------- | ------ | ------ |
+| PSEL | Bits(selwidth bits) | Master | Select which slave should listen the bus (One hot) |
+| PENABLE | Bool | Master | True when a transaction is on the bus |
+| PWRITE | Bool | Master | True when the transaction is a Write, else it's a read |
+| PADDR | UInt(addressWidth bits) | Master | Address of the transaction in byte |
+| PWDATA |  Bits(dataWidth bits)  | Master | Data used for write transactions |
+| PRDATA |  Bits(dataWidth bits)  | Slave | Data used for read transactions |
+| PREADY | Bool | Slave | Allow the slave to insert wait cycles durring a transaction |
+
+
+Note : For this labs, you don't need to insert wait cycle on the bus, so you can keep the PREADY always high. Also we will assume that we are the slave ID 0, which mean that PSEL(0) is True when the transaction is destinated to our PWM component.
+
+
+there is some typical chronograms : 
 
 ![](assets/wave.svg)
+ 
