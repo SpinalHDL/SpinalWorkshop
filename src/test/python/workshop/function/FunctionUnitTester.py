@@ -29,6 +29,10 @@ def driveAndCheck(dut,header,value,valueWidth,pin):
         yield sendCmdRandomTiming(dut,(value >> (i*8)) & 0xFF)
 
     yield RisingEdge(dut.clk)
+    yield RisingEdge(dut.clk)
+    yield RisingEdge(dut.clk)
+    yield RisingEdge(dut.clk)
+    yield RisingEdge(dut.clk)
     assertEquals(pin, value,pin._name + " wasn't loaded correctly")
 
 
