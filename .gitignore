@@ -39,6 +39,7 @@ bin/
 *.vcd
 *.*#
 !/rtl/*_tb.vhd
+*.bin
 
 simWorkspace/
 tmp/
