@@ -99,7 +99,6 @@ Those labs use various tools to generate and verify the hardware :
 - java 8
 - SBT
 - Verilator
-- GHDL
 - Icarus Verilog
 - Cocotb (http://cocotb.readthedocs.io/en/latest/quickstart.html#installing-cocotb)
 - Cocotb path in the 'COCOTB' environment variable
@@ -140,11 +139,6 @@ autoconf        # Create ./configure script
 make -j$(nproc)
 sudo make install
 cd ..
-
-# GHDL
-sudo add-apt-repository -y ppa:pgavin/ghdl
-sudo apt-get update
-sudo apt-get install -y --force-yes ghdl
 
 # iverilog (debian package 9.7 contain bugs)
 sudo apt-get install -y gperf readline-common bison flex autoconf

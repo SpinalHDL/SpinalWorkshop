@@ -7,6 +7,16 @@ This lab will introduce :
 - How to manage different clock domains (ClockingArea)
 - The possibility of inner bundles
 
+## Setup
+This lab is using GHDL to do the VHDL simulation of your design :  
+
+```sh
+# GHDL
+sudo add-apt-repository -y ppa:pgavin/ghdl
+sudo apt-get update
+sudo apt-get install -y --force-yes ghdl
+```
+
 ## Component interfaces
 
 | name | direction | type | description |

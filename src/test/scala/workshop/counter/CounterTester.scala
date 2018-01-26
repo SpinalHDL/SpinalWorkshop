@@ -2,21 +2,33 @@ package workshop.counter
 
 import org.scalatest.FunSuite
 import spinal.core._
+import spinal.core.sim._
+import spinal.sim.Suspendable
+import workshop.common.WorkshopSimConfig
+
+import scala.sys.process._
+import scala.util.Random
 
 //Run this scala test to generate and check that your RTL work correctly
-class CounterTester extends FunSuite{
-  test("test") {
-    SpinalConfig(targetDirectory = "rtl").generateVhdl(Counter(width = 4))
-    assert(doCmd(s"ghdl -a --work=lib_counter --ieee=synopsys rtl/Counter.vhd rtl/Counter_tb.vhd") == 0,"GHDL analysis fail")
-    assert(doCmd(s"ghdl -e --work=lib_counter --ieee=synopsys Counter_tb"                   ) == 0,"GHDL elaboration fail")
-    assert(doCmd(s"ghdl -r --work=lib_counter --ieee=synopsys Counter_tb --vcd=waves/CounterTester.vcd --ieee-asserts=disable"    ) == 0,"GHDL simulation fail")
-    println("SUCCESS")
+class CounterTester extends FunSuite {
+  var compiled: SimCompiled[Counter] = null
+
+  test("compile") {
+    compiled = WorkshopSimConfig().compile(Counter(width = 4))
   }
 
-  def doCmd(cmd : String) : Int = {
-    import scala.sys.process._
-    println(cmd)
-    cmd !
+  test("testbench") {
+    compiled.doSim{dut =>
+      dut.clockDomain.forkStimulus(10)
+      var counter = 0
+      Suspendable.repeat(100){
+        dut.io.clear #= Random.nextDouble() < 0.1
+        dut.clockDomain.waitSampling()
+        assert(dut.io.value.toInt == counter, "dut.io.value missmatch")
+        assert(dut.io.full.toBoolean == (counter == 15), "dut.io.full missmatch")
+        counter = if(dut.io.clear.toBoolean) 0 else (counter + 1) & 0xF
+      }
+    }
   }
 }
 

@@ -31,8 +31,8 @@ case class UartCtrlRx(generics : UartRxGenerics) extends Component{
       when  = io.samplingTick,
       init  = True
     )
-    val value       = RegNext(MajorityVote(samples))
-    val tick        = RegNext(io.samplingTick)
+    val value       = RegNext(MajorityVote(samples)) init(True)
+    val tick        = RegNext(io.samplingTick) init(False)
   }
 
   // Provide a bitTimer.tick each rxSamplePerBit

@@ -2,23 +2,68 @@ package workshop.timer
 
 import org.scalatest.FunSuite
 import spinal.core._
+import spinal.core.sim._
+import workshop.common.WorkshopSimConfig
+import workshop.pwm.{ApbConfig, ApbPwm}
 
 //Run this scala test to generate and check that your RTL work correctly
-class TimerTester extends FunSuite{
-  test("test") {
-    SpinalConfig(targetDirectory = "rtl").generateVhdl(
-      gen = Timer(width = 8)
-    )
-    assert(doCmd(s"ghdl -a --work=lib_timer --ieee=synopsys rtl/Timer.vhd rtl/Timer_tb.vhd") == 0,"GHDL analysis fail")
-    assert(doCmd(s"ghdl -e --work=lib_timer --ieee=synopsys Timer_tb"                   ) == 0,"GHDL elaboration fail")
-    assert(doCmd(s"ghdl -r --work=lib_timer --ieee=synopsys Timer_tb --vcd=waves/TimerTester.vcd --ieee-asserts=disable"    ) == 0,"GHDL simulation fail")
-    println("SUCCESS")
+class TimerTester extends FunSuite {
+  var compiled: SimCompiled[Timer] = null
+
+  test("compile") {
+    compiled = WorkshopSimConfig().compile(Timer(width = 8))
   }
 
-  def doCmd(cmd : String) : Int = {
-    import scala.sys.process._
-    println(cmd)
-    cmd !
+  test("testbench") {
+    compiled.doSim { dut =>
+      dut.clockDomain.forkStimulus(10)
+
+      dut.io.tick #= false
+      dut.io.clear #= false
+      dut.io.limit #= dut.io.limit.maxValue
+      dut.clockDomain.waitSampling()
+      
+      //-- Do clear
+      dut.io.clear #= true
+      dut.clockDomain.waitSampling()
+      dut.io.clear #= false
+      dut.clockDomain.waitSampling()
+      assert(dut.io.value.toInt == 0, "dut.io.value should be zero" )
+      dut.clockDomain.waitSampling()
+      assert(dut.io.value.toInt == 0, "dut.io.value should be zero" )
+
+      dut.io.tick #= true
+      dut.clockDomain.waitSampling(16)
+      dut.io.tick #= false
+      dut.clockDomain.waitSampling(2)
+      assert(dut.io.value.toInt == 0x10, "dut.io.value should be 0x10" )
+
+      dut.io.limit #= 0x20
+      dut.io.tick #= true
+      assert(dut.io.full.toBoolean == false, "dut.io.full should be false" )
+      dut.clockDomain.waitSampling(16)
+      assert(dut.io.value.toInt == 0x1F, "dut.io.value should be 0x1F" )
+      assert(dut.io.full.toBoolean == false, "dut.io.full should be false" )
+      dut.clockDomain.waitSampling()
+      assert(dut.io.value.toInt == 0x20, "dut.io.value should be 0x20" )
+      assert(dut.io.full.toBoolean == true, "dut.io.full should be true" )
+      dut.clockDomain.waitSampling(10)
+      dut.io.tick #= false
+      assert(dut.io.value.toInt == 0x20, "dut.io.value should be 0x20" )
+      assert(dut.io.full.toBoolean == true, "dut.io.full should be true" )
+
+
+      // Do clear
+      dut.io.clear #= true
+      dut.clockDomain.waitSampling()
+      dut.io.clear #= false
+      dut.clockDomain.waitSampling()
+      assert(dut.io.value.toInt == 0, "dut.io.value should be zero" )
+      dut.clockDomain.waitSampling()
+      assert(dut.io.value.toInt == 0, "dut.io.value should be zero" )
+
+
+      dut.clockDomain.waitSampling(10)
+    }
   }
 }
-
