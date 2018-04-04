@@ -45,8 +45,6 @@ sbt "run-main workshop.counter.CounterMain"
 
 All generated RTL will be in root_of_this_repository/rtl.
 
-
-! Note ! To compile this workshop, you will maybe have to increase the scalac stack size (-Xss4m)
 ### Test your RTL
 For each labs, you will find an automated regression suite in src/test/scala/workshop/xxx
 
