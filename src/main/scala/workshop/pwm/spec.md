@@ -7,6 +7,12 @@ This lab will introduce :
 - Conditional statments (switch)
 - Functionality groups (Area)
 
+There is diagram of the component to implement : 
+
+![](assets/sch.png)
+
+There is a wave from the logic part : 
+
 ![](assets/wave.png)
 
 ## Component interfaces

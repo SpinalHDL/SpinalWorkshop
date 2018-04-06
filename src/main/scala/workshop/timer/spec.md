@@ -9,6 +9,7 @@ This lab will introduce :
 - Meta-hardware description possibilities
 
 ## Part 1 : Timer
+
 The Timer module will have a single construction parameter :
 
 | Parameter Name  |  Type  | Description |
