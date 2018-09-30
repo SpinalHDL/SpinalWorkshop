@@ -52,19 +52,19 @@ For example, to run the `CounterTester` regression by using SBT, you can do as f
 
 ```sh
 sbt
-test-only *CounterTester
+test-only *.CounterTester
 
 # To test again
-test-only *CounterTester
+test-only *.CounterTester
 
 # To test again
-test-only *CounterTester
+test-only *.CounterTester
 ```
 
 Or in a single (But slower) command :
 
 ```sh
-sbt "test-only *CounterTester"
+sbt "test-only *.CounterTester"
 ```
 
 Note : Each tester regenerate the hardware, you don't need to do it manualy.

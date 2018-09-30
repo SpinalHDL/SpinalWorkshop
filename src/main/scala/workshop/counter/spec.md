@@ -26,3 +26,25 @@ This lab will introduce :
 ## Tips
 
 There is a SpinalHDL documentation and many examples [there](http://spinalhdl.github.io/SpinalDoc/)
+
+## Simulation
+
+To run the Counter simulation, run the src/test/scala/workshop/counter/CounterTester main.
+
+
+```sh
+sbt
+test-only *.CounterTester
+
+# To test again
+test-only *.CounterTester
+
+# To test again
+test-only *.CounterTester
+```
+
+Or in a single (But slower) command :
+
+```sh
+sbt "test-only *.CounterTester"
+```
