@@ -34,17 +34,17 @@ To run the Counter simulation, run the src/test/scala/workshop/counter/CounterTe
 
 ```sh
 sbt
-test-only *.CounterTester
+testOnly *.CounterTester
 
 # To test again
-test-only *.CounterTester
+testOnly *.CounterTester
 
 # To test again
-test-only *.CounterTester
+testOnly *.CounterTester
 ```
 
 Or in a single (But slower) command :
 
 ```sh
-sbt "test-only *.CounterTester"
+sbt "testOnly *.CounterTester"
 ```

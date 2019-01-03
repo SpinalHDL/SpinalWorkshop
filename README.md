@@ -28,19 +28,19 @@ For example, to run the `CounterMain` by using SBT, you can do as following in t
 
 ```sh
 sbt
-run-main workshop.counter.CounterMain
+runMain workshop.counter.CounterMain
 
 # Run again
-run-main workshop.counter.CounterMain
+runMain workshop.counter.CounterMain
 
 # Run again
-run-main workshop.counter.CounterMain
+runMain workshop.counter.CounterMain
 ```
 
 Or in a single (But slower) command :
 
 ```sh
-sbt "run-main workshop.counter.CounterMain"
+sbt "runMain workshop.counter.CounterMain"
 ```
 
 All generated RTL will be in root_of_this_repository/rtl.
@@ -52,19 +52,19 @@ For example, to run the `CounterTester` regression by using SBT, you can do as f
 
 ```sh
 sbt
-test-only *.CounterTester
+testOnly *.CounterTester
 
 # To test again
-test-only *.CounterTester
+testOnly *.CounterTester
 
 # To test again
-test-only *.CounterTester
+testOnly *.CounterTester
 ```
 
 Or in a single (But slower) command :
 
 ```sh
-sbt "test-only *.CounterTester"
+sbt "testOnly *.CounterTester"
 ```
 
 Note : Each tester regenerate the hardware, you don't need to do it manualy.
