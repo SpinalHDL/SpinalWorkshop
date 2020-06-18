@@ -18,12 +18,12 @@ sock.bind((RX_IP, 0))
 def rxThread(sock,dummy):
     while True:
         data, addr = sock.recvfrom(2048)
-        print "received message:", data, addr
+        print("received message:", data, addr)
 
 try:
     thread.start_new_thread(rxThread, (sock,1))
 except Exception as errtxt:
-    print errtxt
+    print(errtxt)
 
 print("Send request")
 sock.sendto(chr(0x11), (TX_IP, SERVER_PORT))

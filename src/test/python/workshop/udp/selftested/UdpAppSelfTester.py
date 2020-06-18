@@ -1,5 +1,5 @@
 import random
-from Queue import Queue
+from queue import Queue
 
 import cocotb
 from cocotb.scoreboard import Scoreboard
@@ -63,7 +63,7 @@ class DriverAgent(Infrastructure):
         while self.getPhase() != PHASE_SIM:
             yield None
 
-        for i in xrange(2):
+        for i in range(2):
             trans = Transaction()
             trans.last = 0
             trans.fragment = 0x55
@@ -115,13 +115,13 @@ class MonitorAgent(Infrastructure):
         cmd.length  = 1+8
         self.txCmdScordboard.refPush(cmd)
 
-        for i in xrange(2):
+        for i in range(2):
             data = Transaction()
             data.fragment = 0x22
             data.last = 0
             self.txDataScordboard.refPush(data)
             message = "test1234"
-            for f in xrange(len(message)):
+            for f in range(len(message)):
                 data = Transaction()
                 data.fragment = ord(message[f])
                 data.last = (f == len(message)-1)

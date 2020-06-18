@@ -17,7 +17,7 @@ def test1(dut):
     cocotb.fork(genClockAndReset(dut))
 
     counter = 0  # Used to model the hardware
-    for i in xrange(256):
+    for i in range(256):
         yield RisingEdge(dut.clk)
         # TODO Check that the DUT match with the model (counter variable)
         # read io_value =>     dut.io_value

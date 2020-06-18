@@ -40,6 +40,11 @@ bin/
 *.*#
 !/rtl/*_tb.vhd
 *.bin
+*.o
+/*_tb
+*.so
+*.vpi
+*.vpl
 
 simWorkspace/
 tmp/
