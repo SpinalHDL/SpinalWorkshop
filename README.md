@@ -100,8 +100,8 @@ Those labs use various tools to generate and verify the hardware :
 - SBT
 - Verilator
 - Icarus Verilog
-- Cocotb (http://cocotb.readthedocs.io/en/latest/quickstart.html#installing-cocotb)
-- Cocotb path in the 'COCOTB' environment variable
+- Cocotb
+- python3-tk
 - GTKwave to open simulation waves (./waves/*.vcd)
 
 For the first row of labs, you don't need cocotb/python stuffs.
@@ -153,9 +153,10 @@ cd ..
 
 # COCOTB
 sudo apt-get install -y git make gcc g++ swig python-dev
-git clone https://github.com/potentialventures/cocotb
-export COCOTB=$(pwd)/cocotb
-echo export COCOTB=$(pwd)/cocotb >> ~/.bashrc 
+pip3 install --user cocotb
+
+# python3-tk
+sudo apt-get install -y python3-tk
 
 # GTKwave
 sudo apt-get install gtkwave -y
