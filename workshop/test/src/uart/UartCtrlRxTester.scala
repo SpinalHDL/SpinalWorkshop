@@ -28,7 +28,7 @@ class UartCtrlRxTester extends FunSuite{
         dut.io.rxd #= false
         sleep(baudPeriod)
 
-        (0 to 7).suspendable.foreach{ bitId =>
+        (0 to 7).foreach{ bitId =>
           dut.io.rxd #= ((buffer >> bitId) & 1) != 0
           sleep(baudPeriod)
         }
@@ -55,7 +55,7 @@ class UartCtrlRxTester extends FunSuite{
       }
 
       //Test RXD
-      def testTbToDut(data : Int): Unit@suspendable ={
+      def testTbToDut(data : Int): Unit ={
         sleep(baudPeriod*8)
         assert(readQueue.length == 0, "Uart frame pop from nowhere")
         fork(tbToDut(data))

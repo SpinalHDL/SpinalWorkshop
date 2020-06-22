@@ -1,6 +1,5 @@
 package workshop.simCounter
 
-import scala.util.continuations._
 import spinal.sim._
 import spinal.core._
 import spinal.core.sim._
@@ -16,8 +15,8 @@ object SimCounterTestbench {
 
 
       var counterModel = 0
-      //Suspendable.repeat is will repeat n times to given block of code.
-      Suspendable.repeat(1000) {
+      //repeat n times to given block of code.
+      for (i <- 0 until 1000) {
         //TODO Randomize Dut inputs
 
         //TODO Wait until the dut.clockDomain will make the counter register sample its input

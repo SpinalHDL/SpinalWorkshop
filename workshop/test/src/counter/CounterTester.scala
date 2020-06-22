@@ -3,7 +3,6 @@ package workshop.counter
 import org.scalatest.FunSuite
 import spinal.core._
 import spinal.core.sim._
-import spinal.sim.Suspendable
 import workshop.common.WorkshopSimConfig
 
 import scala.sys.process._
@@ -21,7 +20,7 @@ class CounterTester extends FunSuite {
     compiled.doSim{dut =>
       dut.clockDomain.forkStimulus(10)
       var counter = 0
-      Suspendable.repeat(100){
+      for (i <- 0 until 100){
         dut.io.clear #= Random.nextDouble() < 0.1
         dut.clockDomain.waitSampling()
         assert(dut.io.value.toInt == counter, "dut.io.value missmatch")
@@ -31,4 +30,3 @@ class CounterTester extends FunSuite {
     }
   }
 }
-
