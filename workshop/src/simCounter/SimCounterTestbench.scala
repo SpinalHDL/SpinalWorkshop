@@ -1,5 +1,6 @@
 package workshop.simCounter
 
+import scala.util.continuations._
 import spinal.sim._
 import spinal.core._
 import spinal.core.sim._
