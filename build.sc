@@ -22,5 +22,9 @@ object workshop extends CommonSpinalModule {
       ivy"com.github.spinalhdl::spinalhdl-sim:$SpinalVersion",
     )
     def testFrameworks = Seq("org.scalatest.tools.Framework")
+
+    def testOnly(args: String*) = T.command {
+      super.runMain("org.scalatest.run", args: _*)
+    }
   }
 }
