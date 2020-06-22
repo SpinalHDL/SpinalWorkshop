@@ -26,5 +26,9 @@ object workshop extends CommonSpinalModule {
     def testOnly(args: String*) = T.command {
       super.runMain("org.scalatest.run", args: _*)
     }
+
+    def testAll() = T.command {
+      super.runMain("org.scalatest.tools.Runner", "-R out/workshop/test/compile/dest/classes -o".split(" "): _*)
+    }
   }
 }
