@@ -1,9 +1,8 @@
 COMMON_PATH:=${abspath ${dir ${lastword ${MAKEFILE_LIST}}}}
 
 export PYTHONPATH:=$(COMMON_PATH)/../..
-WORKSHOPROOT=${COMMON_PATH}/../../../../..
-include $(COCOTB)/makefiles/Makefile.inc
-include $(COCOTB)/makefiles/Makefile.sim
-
+WORKSHOPROOT=${COMMON_PATH}/../../../../../..
+include $(shell cocotb-config --makefiles)/Makefile.inc
+include $(shell cocotb-config --makefiles)/Makefile.sim
 
 #$(info *** Base path :  ${COMMON_PATH} )

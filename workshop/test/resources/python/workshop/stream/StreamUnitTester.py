@@ -1,5 +1,5 @@
 import random
-from Queue import Queue
+from queue import Queue
 
 import cocotb
 from cocotb.scoreboard import Scoreboard
@@ -45,7 +45,7 @@ class MonitorAgent(Infrastructure):
     def __init__(self,name,parent,dut):
         Infrastructure.__init__(self,name,parent)
         self.dut = dut
-        self.mem = [0 for i in xrange(1<<8)]
+        self.mem = [0 for i in range(1<<8)]
         self.cmdA = Queue()
         self.cmdB = Queue()
         self.scoreboard = ScorboardInOrder("rspScordboard",self)
@@ -100,7 +100,7 @@ def test1(dut):
     driver = DriverAgent("driver",phaseManager,dut)
     monitor = MonitorAgent("monitor",phaseManager,dut)
 
-    for i in xrange(1<<8):
+    for i in range(1<<8):
         dut.io_memWrite_valid <= 1
         dut.io_memWrite_payload_address <= i
         dut.io_memWrite_payload_data <= randBits(32)

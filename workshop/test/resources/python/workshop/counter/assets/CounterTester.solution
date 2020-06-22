@@ -24,7 +24,7 @@ def test1(dut):
     cocotb.fork(genClockAndReset(dut))
 
     counter = 0
-    for i in xrange(256):
+    for i in range(256):
         yield RisingEdge(dut.clk)
         if dut.io_value != counter:
             raise TestFailure("io_value missmatch")
@@ -38,6 +38,3 @@ def test1(dut):
             counter = (counter + 1) & 0xF
 
         dut.io_clear = (random.random() < 0.03)
-
-
-

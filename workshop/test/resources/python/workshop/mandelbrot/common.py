@@ -21,8 +21,8 @@ def cmdAgent(dut,validRatio):
     dut.io_cmd_valid <= 0
     yield RisingEdge(dut.clk)
 
-    for y in xrange(resY):
-        for x in xrange(resX):
+    for y in range(resY):
+        for x in range(resX):
             while random.random() > validRatio:
                 yield RisingEdge(dut.clk)
             dut.io_cmd_valid <= 1
@@ -36,8 +36,8 @@ def cmdAgent(dut,validRatio):
 
 @cocotb.coroutine
 def rspAgent(dut,resultArray,readyRatio):
-    for y in xrange(resY):
-        for x in xrange(resX):
+    for y in range(resY):
+        for x in range(resX):
             while True:
                 dut.io_rsp_ready <= (random.random() <= readyRatio)
                 yield RisingEdge(dut.clk)
@@ -66,7 +66,7 @@ def pixelSolverTester(dut):
 
     cmdThread = cocotb.fork(cmdAgent(dut,1.0 if speedBench else 0.5))
 
-    resultArray = [[0 for x in xrange(resX)] for y in xrange(resY)]
+    resultArray = [[0 for x in range(resX)] for y in range(resY)]
     rspThread = cocotb.fork(rspAgent(dut,resultArray,1.0 if speedBench else 0.5))
 
     # Wait everybody finish its job
@@ -74,23 +74,21 @@ def pixelSolverTester(dut):
     yield rspThread.join()
 
     # Flush the mandelbrot into a text file
-    uutString = reduce(lambda a,b:a + "\n" + b,[str(e) for e in resultArray])
-    uutFile = open('mandelbrot.uut', 'w')
-    uutFile.write(uutString)
-    uutFile.flush()
-    uutFile.close()
+    uutString = "\n".join([str(e) for e in resultArray])
+    with open('mandelbrot.uut', 'w') as uutFile:
+        uutFile.write(uutString)
 
     # Count how many iteration were done
     iterationCount = 0
-    for y in xrange(resY):
-        for x in xrange(resX):
+    for y in range(resY):
+        for x in range(resX):
             iterationCount += resultArray[y][x] + 1
 
     print("Done in %d cycles => %f iteration/cycle" % (cycleCounter[0],1.0*iterationCount/cycleCounter[0]))
 
 
     # Display the mandelbrot picture in a GUI
-    from Tkinter import Tk, Canvas, PhotoImage
+    from tkinter import Tk, Canvas, PhotoImage
     zoomFactor = 4
     pictureWidth, pictureHeight = resX*zoomFactor, resY*zoomFactor
     window = Tk()
@@ -99,12 +97,12 @@ def pixelSolverTester(dut):
     img = PhotoImage(width=pictureWidth, height=pictureHeight)
     canvas.create_image((pictureWidth / 2, pictureHeight / 2), image=img, state="normal")
 
-    for y in xrange(resY):
-        for x in xrange(resX):
+    for y in range(resY):
+        for x in range(resX):
             r,g,b = 0,0,0
             r = resultArray[y][x] << 4
-            for zy in xrange(zoomFactor):
-                for zx in xrange(zoomFactor):
+            for zy in range(zoomFactor):
+                for zx in range(zoomFactor):
                     img.put("#%02x%02x%02x" % (r,g,b), (x*zoomFactor +zx, y*zoomFactor +zy))
 
     window.mainloop()

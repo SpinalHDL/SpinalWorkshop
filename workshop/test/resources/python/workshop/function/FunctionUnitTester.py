@@ -25,7 +25,7 @@ def driveAndCheck(dut,header,value,valueWidth,pin):
     for h in header:
         yield sendCmdRandomTiming(dut,ord(h))
 
-    for i in xrange(valueWidth/8):
+    for i in range(valueWidth//8):
         yield sendCmdRandomTiming(dut,(value >> (i*8)) & 0xFF)
 
     yield RisingEdge(dut.clk)
@@ -49,5 +49,3 @@ def test1(dut):
     yield driveAndCheck(dut, "setValueC", 0x66778899AABB, 48, dut.io_valueC)
     yield driveAndCheck(dut, "setValueB", 0xCAFEF00D, 32, dut.io_valueB)
     yield Timer(1000*20)
-
-
