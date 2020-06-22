@@ -1,10 +1,10 @@
 package workshop.simCounter
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 
 //Just a simple wrapper for scala test purposes
-class SimCounterTester extends FunSuite {
+class SimCounterTester extends AnyFunSuite {
   test("pass on bug-free hardware") {
     SimCounterDut.errorId = 0
     SimCounterTestbench.main(null)
@@ -33,4 +33,3 @@ class SimCounterTester extends FunSuite {
 
   SimCounterDut.errorId = 0
 }
-

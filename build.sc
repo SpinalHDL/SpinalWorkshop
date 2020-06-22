@@ -17,7 +17,10 @@ trait CommonSpinalModule extends ScalaModule {
 
 object workshop extends CommonSpinalModule {
   object test extends Tests {
-    def ivyDeps = Agg(ivy"org.scalatest::scalatest:3.0.4")
+    def ivyDeps = Agg(
+      ivy"org.scalatest::scalatest:3.1.2",
+      ivy"com.github.spinalhdl::spinalhdl-sim:$SpinalVersion",
+    )
     def testFrameworks = Seq("org.scalatest.tools.Framework")
   }
 }

@@ -1,11 +1,11 @@
 package workshop.mandelbrot
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import workshop.common.CocotbRunner
 
 //Run this scala test to generate and check that your RTL work correctly
-class PixelSolverTester extends FunSuite{
+class PixelSolverTester extends AnyFunSuite{
   test("test") {
     SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../../waves/PixelSolverTester.vcd").generateVerilog(
       PixelSolver(

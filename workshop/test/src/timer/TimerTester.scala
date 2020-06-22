@@ -1,13 +1,13 @@
 package workshop.timer
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import workshop.common.WorkshopSimConfig
 import workshop.pwm.{ApbConfig, ApbPwm}
 
 //Run this scala test to generate and check that your RTL work correctly
-class TimerTester extends FunSuite {
+class TimerTester extends AnyFunSuite {
   var compiled: SimCompiled[Timer] = null
 
   test("compile") {
@@ -22,7 +22,7 @@ class TimerTester extends FunSuite {
       dut.io.clear #= false
       dut.io.limit #= dut.io.limit.maxValue
       dut.clockDomain.waitSampling()
-      
+
       //-- Do clear
       dut.io.clear #= true
       dut.clockDomain.waitSampling()

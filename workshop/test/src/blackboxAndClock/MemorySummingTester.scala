@@ -1,10 +1,10 @@
 package workshop.blackboxAndClock
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 
 //Run this scala test to generate and check that your RTL work correctly
-class MemorySummingTester extends FunSuite{
+class MemorySummingTester extends AnyFunSuite{
   test("test") {
     SpinalConfig(targetDirectory = "rtl").generateVhdl(MemorySumming(ClockDomain.external("io_wr"),ClockDomain.external("io_sum")))
     assert(doCmd(s"ghdl -a --work=lib_memorysumming --ieee=synopsys rtl/Ram_1w_1r_2c.vhd rtl/MemorySumming.vhd rtl/MemorySumming_tb.vhd") == 0,"GHDL analysis fail")
@@ -19,4 +19,3 @@ class MemorySummingTester extends FunSuite{
     cmd !
   }
 }
-

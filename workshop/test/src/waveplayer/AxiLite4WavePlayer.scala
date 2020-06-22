@@ -3,11 +3,11 @@ package workshop.waveplayer
 import java.io.File
 
 import org.apache.commons.io.FileUtils
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core.SpinalConfig
 import workshop.common.CocotbRunner
 
-class AxiLite4WavePlayerTester extends FunSuite{
+class AxiLite4WavePlayerTester extends AnyFunSuite{
   test("test") {
     SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../waves/AxiLite4WavePlayer.vcd").generateVerilog(
       gen = new AxiLite4WavePlayer(
