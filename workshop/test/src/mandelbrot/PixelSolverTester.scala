@@ -7,7 +7,7 @@ import workshop.common.CocotbRunner
 //Run this scala test to generate and check that your RTL work correctly
 class PixelSolverTester extends AnyFunSuite{
   test("test") {
-    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../../waves/PixelSolverTester.vcd").generateVerilog(
+    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../../../waves/PixelSolverTester.vcd").generateVerilog(
       PixelSolver(
         g = PixelSolverGenerics(
           fixAmplitude = 7,
@@ -17,7 +17,7 @@ class PixelSolverTester extends AnyFunSuite{
       )
     )
 
-    assert(CocotbRunner("./src/test/python/workshop/mandelbrot/PixelSolverTester"),"Simulation faild")
+    assert(CocotbRunner("./workshop/test/resources/python/workshop/mandelbrot/PixelSolverTester"),"Simulation faild")
     println("SUCCESS")
   }
 

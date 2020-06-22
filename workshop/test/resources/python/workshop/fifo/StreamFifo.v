@@ -204,10 +204,9 @@ module StreamFifo
   end
 
   initial begin
-    $dumpfile("../../../../../waves/StreamFifo.vcd");
+    $dumpfile("../../../../../../waves/StreamFifo.vcd");
     $dumpvars(0, StreamFifo);
   end
 
 
 endmodule
-

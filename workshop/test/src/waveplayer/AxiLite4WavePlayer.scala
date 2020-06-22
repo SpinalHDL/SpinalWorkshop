@@ -9,7 +9,7 @@ import workshop.common.CocotbRunner
 
 class AxiLite4WavePlayerTester extends AnyFunSuite{
   test("test") {
-    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../waves/AxiLite4WavePlayer.vcd").generateVerilog(
+    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../../waves/AxiLite4WavePlayer.vcd").generateVerilog(
       gen = new AxiLite4WavePlayer(
         wavePlayerGenerics = WavePlayerGenerics(
           sampleWidth = 16,
@@ -18,11 +18,11 @@ class AxiLite4WavePlayerTester extends AnyFunSuite{
           filterCoefWidth = 8
         )
       )
-    ).generatedSourcesPaths.filter(_.endsWith(".bin")).foreach(rom => FileUtils.copyFileToDirectory(new File(rom), new File("./src/test/python/workshop/waveplayer")))
+    ).generatedSourcesPaths.filter(_.endsWith(".bin")).foreach(rom => FileUtils.copyFileToDirectory(new File(rom), new File("./workshop/test/resources/python/workshop/waveplayer")))
 
 
 
-    assert(CocotbRunner("./src/test/python/workshop/waveplayer"),"Simulation faild")
+    assert(CocotbRunner("./workshop/test/resources/python/workshop/waveplayer"),"Simulation faild")
     println("SUCCESS")
   }
 }

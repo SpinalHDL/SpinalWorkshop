@@ -1,11 +1,11 @@
 
 module Counter
-( 
+(
   input   io_clear,
   output [3:0] io_value,
   output  io_full,
   input   clk,
-  input   reset 
+  input   reset
 );
 
   reg [3:0] counter;
@@ -32,9 +32,8 @@ module Counter
   end
 
   initial begin
-    $dumpfile("../../../../../waves/Counter.vcd");
+    $dumpfile("../../../../../../waves/Counter.vcd");
     $dumpvars(0, Counter);
   end
 
 endmodule
-
