@@ -118,7 +118,7 @@ sudo update-alternatives --config java
 sudo update-alternatives --config javac
 
 # Mill
-curl 'https://github.com/lihaoyi/mill/releases/download/0.7.3/0.7.3' | install /dev/stdin /usr/local/bin/mill
+curl -L 'https://github.com/lihaoyi/mill/releases/download/0.7.3/0.7.3' | install /dev/stdin /usr/local/bin/mill
 
 # Verilator
 sudo apt-get install git make autoconf g++ flex bison -y  # First time prerequisites
