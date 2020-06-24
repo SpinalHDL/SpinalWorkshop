@@ -98,6 +98,7 @@ Those labs use various tools to generate and verify the hardware :
 
 - java 11
 - Mill (https://www.lihaoyi.com/mill/)
+- GHDL
 - Verilator
 - Icarus Verilog
 - Cocotb (http://cocotb.readthedocs.io/en/latest/quickstart.html)
@@ -107,26 +108,27 @@ Those labs use various tools to generate and verify the hardware :
 For the first row of labs, you don't need cocotb/python stuff.
 
 
-There is how to setup by command line a Debian distribution :
+There is how to setup by command line a Debian/Ubuntu distribution :
 
 ```sh
 # Basics
 sudo apt-get update
-sudo apt-get install -y software-properties-common git curl
+sudo apt-get install -y git curl
 
 # JAVA 11
-sudo add-apt-repository -y ppa:openjdk-r/ppa
-sudo apt-get update
 sudo apt-get install -y openjdk-11-jdk
 
 # Mill
-curl -L 'https://github.com/lihaoyi/mill/releases/download/0.7.3/0.7.3' | sudo install /dev/stdin /usr/local/bin/mill
+curl -L https://github.com/lihaoyi/mill/releases/download/0.7.3/0.7.3 | sudo install /dev/stdin /usr/local/bin/mill
 
 # HDL tools: GHDL, Verilator & Icarus Verilog
 sudo apt-get install -y make g++ ghdl verilator iverilog gtkwave
 
+# Make python equal to python3. This is important for current releases of cocotb
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 100
+
 # python3 stuff
-sudo apt-get install -y python-is-python3 python3-pip python3-tk
+sudo apt-get install -y python3-pip python3-tk
 
 # COCOTB
 pip3 install --user cocotb
