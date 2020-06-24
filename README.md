@@ -98,6 +98,7 @@ Those labs use various tools to generate and verify the hardware :
 
 - java 11
 - Mill (https://www.lihaoyi.com/mill/)
+- GHDL
 - Verilator
 - Icarus Verilog
 - Cocotb (http://cocotb.readthedocs.io/en/latest/quickstart.html)
@@ -107,55 +108,30 @@ Those labs use various tools to generate and verify the hardware :
 For the first row of labs, you don't need cocotb/python stuff.
 
 
-There is how to setup by command line a Debian distribution :
+There is how to setup by command line a Debian/Ubuntu distribution :
 
 ```sh
-# JAVA 8
-sudo add-apt-repository -y ppa:openjdk-r/ppa
+# Basics
 sudo apt-get update
-sudo apt-get install openjdk-8-jdk -y
-sudo update-alternatives --config java
-sudo update-alternatives --config javac
+sudo apt-get install -y git curl
+
+# JAVA 11
+sudo apt-get install -y openjdk-11-jdk
 
 # Mill
-curl 'https://github.com/lihaoyi/mill/releases/download/0.7.3/0.7.3' | install /dev/stdin /usr/local/bin/mill
+curl -L https://github.com/lihaoyi/mill/releases/download/0.7.3/0.7.3 | sudo install /dev/stdin /usr/local/bin/mill
 
-# Verilator
-sudo apt-get install git make autoconf g++ flex bison -y  # First time prerequisites
-git clone http://git.veripool.org/git/verilator   # Only first time
+# HDL tools: GHDL, Verilator & Icarus Verilog
+sudo apt-get install -y make g++ ghdl verilator iverilog gtkwave
 
-unsetenv VERILATOR_ROOT  # For csh; ignore error if on bash
-unset VERILATOR_ROOT  # For bash
-cd verilator
-git pull        # Make sure we're up-to-date
-git tag         # See what versions exist
-#git checkout HEAD                 # Use HEAD development version
-#git checkout verilator_{version}  # Switch to specified version
-autoconf        # Create ./configure script
-./configure
-make -j$(nproc)
-sudo make install
-cd ..
+# Make python equal to python3. This is important for current releases of cocotb
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 100
 
-# iverilog (debian package 9.7 contain bugs)
-sudo apt-get install -y gperf readline-common bison flex autoconf
-wget https://github.com/steveicarus/iverilog/archive/v10_0.tar.gz
-tar -xvf v10_0.tar.gz
-cd iverilog-10_0
-autoconf
-./configure
-make -j4
-sudo make install
-cd ..
+# python3 stuff
+sudo apt-get install -y python3-pip python3-tk
 
 # COCOTB
-sudo pip3 install cocotb
-
-# GTKwave
-sudo apt-get install gtkwave -y
-
-# Python3-tk: Used for the mandelbrot lab
-sudo apt-get install -y python3-tk
+pip3 install --user cocotb
 
 # Clone this repo
 git clone --recursive https://github.com/SpinalHDL/SpinalWorkshop.git SpinalWorkshop

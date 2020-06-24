@@ -1,1 +1,1 @@
-#!/bin/env python
+#!/bin/env python3
