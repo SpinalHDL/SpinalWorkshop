@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/bin/env python3
 import cocotb
 from cocotb.result import TestFailure
 from cocotb.triggers import Timer
