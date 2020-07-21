@@ -27,7 +27,7 @@ There is a wave from the logic part :
 | name | type | address |  description |
 | ------ | ------ | ----------- | ------ |
 | enable | R/W | 0 | Enable the internal timer when the register LSB is set |
-| dutyCycle | R/W | 4 | Specify own many cycle the `pwm` output is high in a timer period. <br> Range from 0 to (1 << timerWidth)-1 |
+| dutyCycle | R/W | 4 | Specify how many cycles the `pwm` output is high in a timer period. <br> Range from 0 to (1 << timerWidth)-1 |
 
 ## RTL parametrization
 
