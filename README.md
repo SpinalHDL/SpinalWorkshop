@@ -27,7 +27,7 @@ For each labs, you will find a scala main which will generate your RTL.
 For example, to run the `CounterMain` by using Mill, you can do as following in the root folder of this repository :
 
 ```sh
-mill -i
+mill --repl
 @ workshop.runMain("workshop.counter.CounterMain")()
 
 # Run again
@@ -51,7 +51,7 @@ For each labs, you will find an automated regression suite in workshop/test/src/
 For example, to run the `CounterTester` regression by using Mill, you can do as following in the root folder of this repository :
 
 ```sh
-mill -i
+mill --repl
 @ workshop.test.testOnly("workshop.counter.CounterTester")()
 
 # To test again
@@ -119,7 +119,7 @@ sudo apt-get install -y git curl
 sudo apt-get install -y openjdk-11-jdk
 
 # Mill
-curl -L https://github.com/lihaoyi/mill/releases/download/0.7.3/0.7.3 | sudo install /dev/stdin /usr/local/bin/mill
+curl -L https://github.com/lihaoyi/mill/releases/download/0.8.0/0.8.0 | sudo install /dev/stdin /usr/local/bin/mill
 
 # HDL tools: GHDL, Verilator & Icarus Verilog
 sudo apt-get install -y make g++ ghdl verilator iverilog gtkwave
