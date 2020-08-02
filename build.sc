@@ -4,7 +4,7 @@ import mill._, scalalib._
 val SpinalVersion = "1.4.1"
 
 trait CommonSpinalModule extends ScalaModule {
-  def scalaVersion = "2.12.11"
+  def scalaVersion = "2.12.12"
 
   def scalacOptions = Seq("-unchecked", "-deprecation", "-feature")
 
