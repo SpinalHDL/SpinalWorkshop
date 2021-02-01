@@ -7,7 +7,7 @@ from cocotblib.misc import ClockDomainAsyncReset, simulationSpeedPrinter, assert
 
 
 def is_prime(a):
-    return all(a % i for i in xrange(2, a))
+    return all(a % i for i in range(2, a))
 
 @cocotb.test()
 def test1(dut):

@@ -1,5 +1,5 @@
 import random
-from Queue import Queue
+from queue import Queue
 from math import sin
 
 import math
@@ -76,7 +76,7 @@ class AxiLite4Master:
 def analyseFreq(dut, periode):
     i = 0
     q = 0
-    for phase in xrange(periode):
+    for phase in range(periode):
         yield RisingEdge(dut.clk)
         fPhase = 2*math.pi*phase/periode
         value = int(dut.io_wave)/65535.0*2-1
@@ -106,7 +106,7 @@ def test1(dut):
     yield master.write(0, 1)
     yield master.readAssert(0x00, 1, 1, "wavePlayer.phase.run was read as False, but should be True")
     phaseValue = 0
-    for i in xrange(4):
+    for i in range(4):
         newValue = [0]
         yield master.read(0x8, newValue)
         assert newValue[0] > phaseValue, "wavePlayer.phase.value doesn't seem to increment"

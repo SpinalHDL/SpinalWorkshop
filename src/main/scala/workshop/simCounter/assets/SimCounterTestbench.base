@@ -13,10 +13,8 @@ object SimCounterTestbench {
     compiled.doSim{dut =>
       // TODO Fork a thread to generate the reset and the clock with a period of 10 units of time
 
-
       var counterModel = 0
-      //Suspendable.repeat is will repeat n times to given block of code.
-      Suspendable.repeat(1000) {
+      for(_ <- 0 until 1000) {
         //TODO Randomize Dut inputs
 
         //TODO Wait until the dut.clockDomain will make the counter register sample its input

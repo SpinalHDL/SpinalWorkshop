@@ -15,8 +15,7 @@ object SimCounterTestbench {
       dut.clockDomain.forkStimulus(10)
 
       var counterModel = 0
-      //Suspendable.repeat is will repeat n times to given block of code.
-      Suspendable.repeat(1000) {
+      for(_ <- 0 until 1000) {
         //Randomize Dut inputs
         dut.io.enable.randomize()
 

@@ -5,7 +5,7 @@ import spinal.core.sim._
 import spinal.lib.bus.amba3.apb.Apb3
 
 case class Apb3Driver(apb : Apb3, clockDomain : ClockDomain) {
-  def write(address : BigInt, data : BigInt) : Unit@suspendable = {
+  def write(address : BigInt, data : BigInt) : Unit = {
     apb.PSEL #= 1
     apb.PENABLE #= false
     apb.PWRITE #= true
@@ -21,7 +21,7 @@ case class Apb3Driver(apb : Apb3, clockDomain : ClockDomain) {
     apb.PWRITE.randomize()
   }
 
-  def read(address : BigInt) : BigInt@suspendable = {
+  def read(address : BigInt) : BigInt = {
     apb.PSEL #= 1
     apb.PENABLE #= false
     apb.PADDR #= address

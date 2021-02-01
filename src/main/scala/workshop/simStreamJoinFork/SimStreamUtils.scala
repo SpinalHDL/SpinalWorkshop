@@ -24,7 +24,7 @@ object SimStreamUtils {
   }
 
   //Fork a thread which will call the body function each time a transaction is consumed on the given stream
-  def onStreamFire[T <: Data](stream : Stream[T], clockDomain: ClockDomain)(body : => Unit@suspendable): Unit = fork{
+  def onStreamFire[T <: Data](stream : Stream[T], clockDomain: ClockDomain)(body : => Unit): Unit = fork{
     while(true) {
       clockDomain.waitSampling()
       var dummy = if (stream.valid.toBoolean && stream.ready.toBoolean) {

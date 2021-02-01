@@ -27,7 +27,7 @@ The idea is to implement an driverAgent which constantly send random stimulus to
 In python you can define Queue by the following way :
 
 ```python
-from Queue import Queue
+from queue import Queue
 
 queue = Queue()
 ```

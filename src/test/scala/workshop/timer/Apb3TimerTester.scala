@@ -17,7 +17,7 @@ class Apb3TimerTester extends FunSuite{
     compiled.doSim { dut =>
       dut.clockDomain.forkStimulus(10)
       def apb = dut.io.apb
-      def apbWrite(address : BigInt, data : BigInt) : Unit@suspendable = {
+      def apbWrite(address : BigInt, data : BigInt) : Unit = {
         apb.PSEL #= 1
         apb.PENABLE #= false
         apb.PWRITE #= true
@@ -33,7 +33,7 @@ class Apb3TimerTester extends FunSuite{
         apb.PWRITE.randomize()
       }
 
-      def apbReadImpl(address : BigInt) : BigInt@suspendable = {
+      def apbReadImpl(address : BigInt) : BigInt = {
         apb.PSEL #= 1
         apb.PENABLE #= false
         apb.PADDR #= address
@@ -50,7 +50,7 @@ class Apb3TimerTester extends FunSuite{
       }
       var testId = 0
 
-      def apbRead(address : BigInt, data : BigInt, mask : BigInt, message : String) : Unit@suspendable =  assert((apbReadImpl(address) & mask) == data, "Test case " + testId + " :" + message)
+      def apbRead(address : BigInt, data : BigInt, mask : BigInt, message : String) : Unit =  assert((apbReadImpl(address) & mask) == data, "Test case " + testId + " :" + message)
 
 
 
@@ -59,7 +59,7 @@ class Apb3TimerTester extends FunSuite{
 
       dut.clockDomain.waitSampling(1)
 
-      def testSetA : Unit@suspendable = {
+      def testSetA : Unit = {
         testId = 1
         apbWrite(0x08, 0x00000000) // Clear timerA
         apbRead(0x08, 0x00000000, 0x0000FFFF, "TimerA clear/read value doesn't work")
@@ -87,7 +87,7 @@ class Apb3TimerTester extends FunSuite{
       }
       testSetA
 
-      def testSetB : Unit@suspendable = {
+      def testSetB : Unit = {
         testId = 5
         apbWrite(0x04, 0x0000001F)
         apbWrite(0x00, 0x00010001) // timerA self tick self reset
@@ -124,7 +124,7 @@ class Apb3TimerTester extends FunSuite{
 
       testSetB
 
-      def testSetC : Unit@suspendable = {
+      def testSetC : Unit = {
         dut.clockDomain.waitSampling(100)
 
         testId = 8
@@ -154,7 +154,7 @@ class Apb3TimerTester extends FunSuite{
       }
       testSetC
 
-      def testSetD : Unit@suspendable = {
+      def testSetD : Unit = {
         testId = 12
         apbWrite(0x14, 0x0000001F)
         apbWrite(0x10, 0x00010001) // timerB self tick self reset

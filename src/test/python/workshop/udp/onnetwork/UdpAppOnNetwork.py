@@ -1,5 +1,5 @@
 import random
-from Queue import Queue
+from queue import Queue
 
 import cocotb
 from cocotb.scoreboard import Scoreboard
@@ -45,7 +45,7 @@ class DriverAgent(Infrastructure):
             cmdTrans = Transaction()
             ipSplit = addr[0].split(".")
             cmdTrans.ip = 0
-            for i in xrange(4):
+            for i in range(4):
                 cmdTrans.ip |= int(ipSplit[i]) << (i*8)
             cmdTrans.srcPort = addr[1]
             cmdTrans.dstPort = SERVER_PORT
@@ -53,7 +53,7 @@ class DriverAgent(Infrastructure):
             self.rxCmdQueue.put(cmdTrans)
 
 
-            for i in xrange(len(data)):
+            for i in range(len(data)):
                 dataTrans = Transaction()
                 dataTrans.last = (i == len(data)-1)
                 dataTrans.fragment = ord(data[i])
@@ -110,7 +110,7 @@ class MonitorAgent(Infrastructure):
                 ip = "%d.%d.%d.%d" % ((cmd.ip >> 0) &0xFF,(cmd.ip >> 8) &0xFF,(cmd.ip >> 16) &0xFF,(cmd.ip >> 24) &0xFF)
 
                 payload = ""
-                for i in xrange(cmd.length):
+                for i in range(cmd.length):
                     data = self.txDataQueue.get()
                     payload += chr(data.fragment)
                 self.sock.sendto(payload, (ip, cmd.dstPort))

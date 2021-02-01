@@ -3,7 +3,6 @@ package workshop.pwm
 import org.scalatest.FunSuite
 import spinal.core._
 import spinal.core.sim._
-import spinal.sim.Suspendable
 import workshop.common.{Apb3Driver, WorkshopSimConfig}
 import workshop.counter.Counter
 
@@ -34,7 +33,7 @@ class ApbPwmTester extends FunSuite{
       dut.clockDomain.forkStimulus(10)
       val io = dut.io.flatten.map(e => e.getName().replace("io_","") -> e).toMap
       
-      def apbWrite(address : BigInt, data : BigInt) : Unit@suspendable = {
+      def apbWrite(address : BigInt, data : BigInt) : Unit = {
         io("apb_PSEL").assignBigInt(1)
         io("apb_PENABLE").assignBigInt(0)
         io("apb_PWRITE").assignBigInt(1)
@@ -50,7 +49,7 @@ class ApbPwmTester extends FunSuite{
         io("apb_PWRITE").randomize()
       }
 
-      def apbRead(address : BigInt) : BigInt@suspendable = {
+      def apbRead(address : BigInt) : BigInt = {
         io("apb_PSEL").assignBigInt(1)
         io("apb_PENABLE").assignBigInt(0)
         io("apb_PADDR").assignBigInt(address)
@@ -66,13 +65,13 @@ class ApbPwmTester extends FunSuite{
         io("apb_PRDATA").toBigInt
       }
 
-      def apbReadAssert(address : BigInt, data : BigInt, mask : BigInt, message : String) : Unit@suspendable =  assert((apbRead(address) & mask) == data, message)
+      def apbReadAssert(address : BigInt, data : BigInt, mask : BigInt, message : String) : Unit =  assert((apbRead(address) & mask) == data, message)
 
-      def checkDutyCycle(value : Int): Unit@suspendable ={
+      def checkDutyCycle(value : Int): Unit ={
         dut.clockDomain.waitSampling(256*6)
         var highs, toggles = 0
         var last = io("pwm").toBigInt
-        Suspendable.repeat(256){
+        for(_ <- 0 until 256){
           dut.clockDomain.waitSampling()
           val pwm = io("pwm").toBigInt
           if(pwm == 1){
