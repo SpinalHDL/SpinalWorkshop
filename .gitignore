@@ -44,3 +44,7 @@ bin/
 simWorkspace/
 tmp/
 waves/*/*
+*.so
+*.vpl
+*.vpi
+*.o
