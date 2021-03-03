@@ -58,7 +58,7 @@ There is a list of some usefull function of the BusSlaveFactory :
 
 | Function  |  Description |
 | ------- | ---- | 
-| createReadWrite(dataType, address, bitOffset) | Return a new readable and writeable register mapped were specified |
+| createReadAndWrite(dataType, address, bitOffset) | Return a new readable and writeable register mapped were specified |
 | driveAndRead(that, address, bitOffset) | Drive `that` from a new readable and writeable register mapped were specified|
 | read(that, address, bitOffset)  | Make that readable on the specified mapping  |
 | isWriting(address) | Return True when the specified address is written |

@@ -17,5 +17,6 @@ case class StreamUnit() extends Component{
     val rsp      = master Stream(Bits(32 bits))
   }
 
+  val mem = Mem(Bits(32 bits),1 << 8)
   //TODO
 }

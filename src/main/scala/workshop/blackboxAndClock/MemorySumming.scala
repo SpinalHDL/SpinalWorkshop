@@ -5,7 +5,7 @@ import spinal.lib._
 
 
 // Define a Ram as a BlackBox
-case class Ram_1w_1r_2c(wordWidth: Int, wordCount: Int,writeClock : ClockDomain,readClock : ClockDomain) extends BlackBox {
+case class Ram_1w_1r_2c(wordWidth: Int, addressWidth: Int,writeClock : ClockDomain,readClock : ClockDomain) extends BlackBox {
   // TODO define Generics
 
   // TODO define IO
@@ -15,7 +15,19 @@ case class Ram_1w_1r_2c(wordWidth: Int, wordCount: Int,writeClock : ClockDomain,
 
 // Create the top level and instanciate the Ram
 case class MemorySumming(writeClock : ClockDomain,sumClock : ClockDomain) extends Component {
-  // TODO define IO
+  val io = new Bundle {
+    val wr = new Bundle {
+      val en   = in Bool
+      val addr = in UInt (8 bits)
+      val data = in Bits (16 bits)
+    }
+
+    val sum = new Bundle{
+      val start = in Bool
+      val done  = out Bool
+      val value = out UInt(16 bits)
+    }
+  }
 
   // TODO define the ram
 

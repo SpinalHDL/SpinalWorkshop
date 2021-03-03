@@ -7,16 +7,6 @@ This lab will introduce :
 - How to manage different clock domains (ClockingArea)
 - The possibility of inner bundles
 
-## Setup
-This lab is using GHDL to do the VHDL simulation of your design :  
-
-```sh
-# GHDL
-sudo add-apt-repository -y ppa:pgavin/ghdl
-sudo apt-get update
-sudo apt-get install -y --force-yes ghdl
-```
-
 ## Component interfaces
 
 | name | direction | type | description |
@@ -30,25 +20,36 @@ sudo apt-get install -y --force-yes ghdl
 
 ## Dual port dual clock memory blackbox
 
-The memory is implemented in VHDL with the following entity :
+The memory is already implemented in Verilog as following in rtl/Ram_1w_1r_2c.v :
 
-```vhdl
-entity Ram_1w_1r_2c is
-  generic(
-    wordCount : integer;
-    wordWidth : integer
-  );
-  port(
-    io_wr_clk : in std_logic;
-    io_wr_en : in std_logic;
-    io_wr_addr : in unsigned;
-    io_wr_data : in std_logic_vector;
-    io_rd_clk : in std_logic;
-    io_rd_en : in std_logic;
-    io_rd_addr : in unsigned;
-    io_rd_data : out std_logic_vector
-  );
-end Ram_1w_1r_2c;
+```verilog
+module Ram_1w_1r_2c #(
+  parameter addressWidth,
+  parameter wordWidth)(
+  input                         io_wr_clk,
+  input                         io_wr_en,
+  input      [addressWidth-1:0] io_wr_addr,
+  input      [wordWidth-1:0]    io_wr_data,
+  input                         io_rd_clk,
+  input                         io_rd_en,
+  input      [addressWidth-1:0] io_rd_addr,
+  output reg [wordWidth-1:0]    io_rd_data
+);
+
+  reg [wordWidth:0] mem [0:(1<<addressWidth)-1];
+
+  always @ (posedge io_wr_clk) begin
+    if(io_wr_en) begin
+      mem[io_wr_addr] <= io_wr_data;
+    end
+  end
+
+  always @ (posedge io_rd_clk) begin
+    if(io_rd_en) begin
+      io_rd_data <= mem[io_rd_addr];
+    end
+  end
+endmodule
 ```
 
 Some documentation about the SpinalHDL blackbox feature are present [here](http://spinalhdl.github.io/SpinalDoc/spinal/core/blackbox/)

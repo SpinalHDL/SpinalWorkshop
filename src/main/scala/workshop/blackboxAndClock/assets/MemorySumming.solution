@@ -5,33 +5,31 @@ import spinal.lib._
 
 
 // Define a Ram as a BlackBox
-case class Ram_1w_1r_2c(wordWidth: Int, wordCount: Int,writeClock : ClockDomain,readClock : ClockDomain) extends BlackBox {
-  val generic = new Generic {
-    val wordCount = Ram_1w_1r_2c.this.wordCount
-    val wordWidth = Ram_1w_1r_2c.this.wordWidth
-  }
+case class Ram_1w_1r_2c(wordWidth: Int, addressWidth: Int,writeClock : ClockDomain,readClock : ClockDomain) extends BlackBox {
+  addGeneric("addressWidth", addressWidth)
+  addGeneric("wordWidth", wordWidth)
 
   val io = new Bundle {
     val wr = new Bundle {
-      val clk = in Bool
-      val en   = in Bool
-      val addr = in UInt (log2Up(wordCount) bits)
-      val data = in Bits (wordWidth bits)
+      val clk  = in Bool()
+      val en   = in Bool()
+      val addr = in UInt(addressWidth bits)
+      val data = in Bits(wordWidth bits)
     }
     val rd = new Bundle {
-      val clk = in Bool
-      val en   = in Bool
-      val addr = in UInt (log2Up(wordCount) bits)
-      val data = out Bits (wordWidth bits)
+      val clk  = in Bool()
+      val en   = in Bool()
+      val addr = in UInt(addressWidth bits)
+      val data = out Bits(wordWidth bits)
     }
   }
 
-  mapClockDomain(clockDomain = writeClock,clock=io.wr.clk)
-  mapClockDomain(clockDomain = readClock ,clock=io.rd.clk)
+  mapClockDomain(clockDomain = writeClock, clock=io.wr.clk)
+  mapClockDomain(clockDomain = readClock , clock=io.rd.clk)
 }
 
 // Create the top level and instanciate the Ram
-case class MemorySumming(writeClock : ClockDomain,sumClock : ClockDomain) extends Component {
+case class MemorySumming(writeClock : ClockDomain, sumClock : ClockDomain) extends Component {
   val io = new Bundle {
     val wr = new Bundle {
       val en   = in Bool
@@ -48,7 +46,7 @@ case class MemorySumming(writeClock : ClockDomain,sumClock : ClockDomain) extend
 
   val ram = new Ram_1w_1r_2c(
     wordWidth = 16,
-    wordCount = 256,
+    addressWidth = 8,
     writeClock = writeClock,
     readClock  = sumClock
   )
@@ -65,7 +63,7 @@ case class MemorySumming(writeClock : ClockDomain,sumClock : ClockDomain) extend
     ram.io.rd.addr := counter
 
     when(!active){
-      active := True
+      active := io.sum.start
       counter := 0
     }otherwise{
       counter := counter + 1

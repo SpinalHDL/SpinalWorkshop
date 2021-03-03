@@ -16,5 +16,5 @@ case class Counter(width: Int) extends Component {
   }
 
   io.value := counter
-  io.full  := counter === U(counter.range -> true)
+  io.full  := counter === (U"1" << width) - 1 //counter.maxValue //U(counter.range -> true)
 }

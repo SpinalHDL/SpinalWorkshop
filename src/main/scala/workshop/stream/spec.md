@@ -50,6 +50,9 @@ val joinedStreamWithoutPayload = StreamJoin.arg(streamA,streamB)
 
 //Return a stream with anotherPayload as payload
 val translatedStream = myStream.translateWith(anotherPayload)   
+
+//Read a memory syncronusly using a stream of address to get a stream of data
+val dataStream =  memory.streamReadSync(addressStream)
 ```
 
 There is many other utils documented [there](http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/)

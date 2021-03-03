@@ -2,12 +2,16 @@ package workshop.mandelbrot
 
 import org.scalatest.FunSuite
 import spinal.core._
-import workshop.common.CocotbRunner
+import spinal.core.sim._
+import workshop.common.WorkshopSimConfig
 
 //Run this scala test to generate and check that your RTL work correctly
 class PixelSolverMultiCoreTester extends FunSuite{
-  test("test") {
-    SpinalConfig(targetDirectory = "rtl").dumpWave(0,"../../../../../../waves/PixelSolverMultiCoreTester.vcd").generateVerilog(
+
+  var compiled: SimCompiled[PixelSolverMultiCore] = null
+
+  test("compile") {
+    compiled = WorkshopSimConfig().compile(
       PixelSolverMultiCore(
         g = PixelSolverGenerics(
           fixAmplitude = 7,
@@ -17,10 +21,12 @@ class PixelSolverMultiCoreTester extends FunSuite{
         coreCount = 8
       )
     )
-
-    assert(CocotbRunner("./src/test/python/workshop/mandelbrot/PixelSolverMultiCoreTester"),"Simulation faild")
-    println("SUCCESS")
   }
 
-
+  test("testbench") {
+    compiled.doSimUntilVoid(seed = 42){dut =>
+      dut.clockDomain.forkStimulus(10)
+      PixelSolverChecker(dut.io.cmd, dut.io.rsp, dut.clockDomain)
+    }
+  }
 }

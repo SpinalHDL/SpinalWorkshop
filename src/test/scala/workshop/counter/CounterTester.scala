@@ -17,7 +17,7 @@ class CounterTester extends FunSuite {
   }
 
   test("testbench") {
-    compiled.doSim{dut =>
+    compiled.doSim(seed = 42){dut =>
       dut.clockDomain.forkStimulus(10)
       var counter = 0
       for(_ <- 0 until 100){

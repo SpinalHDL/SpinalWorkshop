@@ -15,7 +15,7 @@ class TimerTester extends FunSuite {
   }
 
   test("testbench") {
-    compiled.doSim { dut =>
+    compiled.doSim(seed=42) { dut =>
       dut.clockDomain.forkStimulus(10)
 
       dut.io.tick #= false
@@ -23,7 +23,7 @@ class TimerTester extends FunSuite {
       dut.io.limit #= dut.io.limit.maxValue
       dut.clockDomain.waitSampling()
       
-      //-- Do clear
+      // Do clear
       dut.io.clear #= true
       dut.clockDomain.waitSampling()
       dut.io.clear #= false

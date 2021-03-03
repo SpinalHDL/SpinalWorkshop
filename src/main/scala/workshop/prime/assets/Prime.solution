@@ -3,6 +3,8 @@ package workshop.function
 import spinal.core._
 import spinal.lib._
 
+import scala.collection.mutable.ArrayBuffer
+
 
 object Prime{
   //Pure scala function which return true when the number is prime
@@ -28,6 +30,22 @@ object Prime{
         when(n === i){ //Real hardware statement
           nIsPrime := True
         }
+      }
+    }
+    nIsPrime
+  }
+
+  //Explicit traditional programming style but with more elaboration
+  def apply4(n : UInt) : Bool = {
+    val nIsPrime = False
+    val primes = ArrayBuffer[Int]()
+    for(i <- (0 until 1 << widthOf(n))){
+      if(Prime(i)) primes += i
+    }
+    println(primes.mkString(",")) //Observe primes values for debug
+    for(value <- primes){
+      when(n === value){ //Real hardware statement
+        nIsPrime := True
       }
     }
     nIsPrime
