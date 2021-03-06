@@ -30,6 +30,7 @@ bin/
 #User
 /rtl/*.vhd
 /rtl/*.v
+!/rtl/Ram_1w_1r_2c.v
 *.cf
 *.xml
 *$*
