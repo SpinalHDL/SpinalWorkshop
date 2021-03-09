@@ -8,7 +8,7 @@ This lab will introduce :
 - How this arbitration can be describe by an abstract way
 - How to use Memory (Mem)
 
-There is some Stream documentation [there](http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/)
+There is some Stream documentation [there](https://spinalhdl.github.io/SpinalDoc-RTD/SpinalHDL/Libraries/stream.html)
 
 ## Specification
 The functionalities to implement is the following :
@@ -55,7 +55,7 @@ val translatedStream = myStream.translateWith(anotherPayload)
 val dataStream =  memory.streamReadSync(addressStream)
 ```
 
-There is many other utils documented [there](http://spinalhdl.github.io/SpinalDoc/spinal/lib/stream/)
+There is many other utils documented [there](https://spinalhdl.github.io/SpinalDoc-RTD/SpinalHDL/Libraries/stream.html)
 
 
 ## Note
