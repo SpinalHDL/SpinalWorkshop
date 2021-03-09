@@ -18,9 +18,10 @@ object PixelSolverChecker {
 
 
   def apply(cmd : Stream[PixelTask], rsp : Stream[PixelResult], cd : ClockDomain): Unit ={
+    SimTimeout(2000000)
+
     val resX = 64
     val resY = 64
-
     //Produce cmd stimulus
     fork{
       val startX = -2.0
@@ -95,9 +96,12 @@ object PixelSolverChecker {
       }
 
       while(true){
-        if(frame.closed) if(error) simFailure() else simSuccess()
-        Thread.sleep(10)
-      }
+        if(frame.closed) {
+          println("simTime : " + simTime())
+          if(error) simFailure() else simSuccess()
+            Thread.sleep(10)
+          }
+        }
     }
   }
 }
