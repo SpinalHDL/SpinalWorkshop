@@ -5,7 +5,6 @@ import spinal.core._
 import spinal.core.sim._
 import workshop.common.{CocotbRunner, WorkshopSimConfig}
 import workshop.counter.Counter
-import workshop.function.{FunctionUnit, Prime, PrimeUsage}
 
 import scala.util.Random
 

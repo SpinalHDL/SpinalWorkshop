@@ -1,4 +1,4 @@
-package workshop.function
+package workshop.prime
 
 import spinal.core._
 import spinal.lib._
