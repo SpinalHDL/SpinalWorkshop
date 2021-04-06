@@ -5,8 +5,6 @@ version := "1.0"
 scalaVersion := "2.11.12"
 val spinalVersion = "1.4.3"
 
-EclipseKeys.withSource := true
-
 libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.11" % "2.2.1",
   "com.github.spinalhdl" % "spinalhdl-core_2.11" % spinalVersion,
