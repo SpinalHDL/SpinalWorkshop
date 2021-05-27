@@ -33,26 +33,26 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
   import g._
 
   val idWidth = 3
-  trait Context{
+  class Context extends Bundle{
     val id        = UInt(idWidth bits)
     val x0,y0     = fixType
     val iteration = UInt(iterationWidth bits)
     val done      = Bool
   }
 
-  case class InserterContext() extends Bundle with Context{
+  case class InserterContext() extends Context{
     val x,y = fixType
   }
 
-  case class MulStageContext() extends Bundle with Context{
+  case class MulStageContext() extends Context{
     val xx,yy,xy = fixType
   }
 
-  case class AddStageContext() extends Bundle with Context{
+  case class AddStageContext() extends Context{
     val x,y = fixType
   }
 
-  case class RouterContext() extends Bundle with Context{
+  case class RouterContext() extends Context{
     val x,y = fixType
   }
 
@@ -95,6 +95,8 @@ case class PixelSolver(g : PixelSolverGenerics) extends Component{
     output.payload.assignSomeByName(input.payload)
     output.x         := (input.xx - input.yy + input.x0).truncated
     output.y         := (((input.xy) << 1)   + input.y0).truncated
+    output.done.allowOverride
+    output.iteration.allowOverride
     output.done      := input.done || input.xx + input.yy >= 4.0 || input.iteration === iterationLimit
     output.iteration := input.iteration + (!output.done).asUInt
   }
