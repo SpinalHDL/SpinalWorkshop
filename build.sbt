@@ -3,7 +3,7 @@ name := "SpinalWorkshop"
 version := "1.0"
 
 scalaVersion := "2.11.12"
-val spinalVersion = "1.4.3"
+val spinalVersion = "1.5.0"
 
 libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.11" % "2.2.1",
