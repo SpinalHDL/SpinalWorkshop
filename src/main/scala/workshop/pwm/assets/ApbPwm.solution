@@ -9,12 +9,12 @@ case class ApbConfig(addressWidth : Int,
 
 case class Apb(config: ApbConfig) extends Bundle with IMasterSlave {
   val PSEL       = Bits(config.selWidth bits)
-  val PENABLE    = Bool
+  val PENABLE    = Bool()
   val PADDR      = UInt(config.addressWidth bit)
-  val PWRITE     = Bool
+  val PWRITE     = Bool()
   val PWDATA     = Bits(config.dataWidth bit)
   val PRDATA     = Bits(config.dataWidth bit)
-  val PREADY     = Bool
+  val PREADY     = Bool()
 
   override def asMaster(): Unit = {
     out(PADDR,PSEL,PENABLE,PWRITE,PWDATA)
@@ -28,14 +28,14 @@ case class ApbPwm(apbConfig: ApbConfig,timerWidth : Int) extends Component{
 
   val io = new Bundle{
     val apb = slave(Apb(apbConfig))
-    val pwm = out Bool
+    val pwm = out Bool()
   }
 
   val logic = new Area {
-    val enable    = Reg(Bool) init(False)
+    val enable    = Reg(Bool()) init(False)
     val timer     = Reg(UInt(timerWidth bits)) init(0)
     val dutyCycle = Reg(UInt(timerWidth bits))
-    val output = Reg(Bool) init(False)
+    val output = Reg(Bool()) init(False)
 
     when(enable) {
       timer := timer + 1

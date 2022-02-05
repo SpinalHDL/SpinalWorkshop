@@ -7,11 +7,11 @@ import spinal.lib.bus.amba3.apb.{Apb3SlaveFactory, Apb3}
 case class Apb3Timer() extends Component{
   val io = new Bundle{
     val apb = slave(Apb3(addressWidth = 8,dataWidth = 32))
-    val fullA = out Bool
-    val fullB = out Bool
+    val fullA = out Bool()
+    val fullB = out Bool()
     val external = new Bundle{
-      val tick  = in Bool
-      val clear = in Bool
+      val tick  = in Bool()
+      val clear = in Bool()
     }
   }
 

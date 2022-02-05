@@ -17,14 +17,14 @@ case class Ram_1w_1r_2c(wordWidth: Int, addressWidth: Int,writeClock : ClockDoma
 case class MemorySumming(writeClock : ClockDomain,sumClock : ClockDomain) extends Component {
   val io = new Bundle {
     val wr = new Bundle {
-      val en   = in Bool
+      val en   = in Bool()
       val addr = in UInt (8 bits)
       val data = in Bits (16 bits)
     }
 
     val sum = new Bundle{
-      val start = in Bool
-      val done  = out Bool
+      val start = in Bool()
+      val done  = out Bool()
       val value = out UInt(16 bits)
     }
   }
