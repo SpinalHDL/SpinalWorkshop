@@ -44,7 +44,7 @@ class StreamUnitTester extends FunSuite{
         val a = aHistory.dequeue()
         val b = bHistory.dequeue()
         val ref = ramContent(a) ^ b
-        assert(p.toLong == ref, f"rsp had the wrong value from cmdA=$a cmdB=$b%x mem(cmdB)=${ramContent(a)}%x")
+        assert(p.toLong == ref, f"rsp had the wrong value from cmdA=$a cmdB=$b%x mem(cmdA)=${ramContent(a)}%x")
         rspCounter = rspCounter + 1
         if(rspCounter == 100) simSuccess()
       }
