@@ -26,8 +26,8 @@ Commands comming on the `cmd` port are string based :
 | Command pattern | Description |
 | ------- | ---- |
 | 'setValueAx' | Load the valueA with x |
-| 'setValueBxxxx' | Load the valueA with xxxx (big-endian) |
-| 'setValueCxxxxxx' | Load the valueA with xxxxxx (big-endian) |
+| 'setValueBxxxx' | Load the valueB with xxxx (big-endian) |
+| 'setValueCxxxxxx' | Load the valueC with xxxxxx (big-endian) |
 
 ## Implementation
 The implementation could be done by many way, but the goal of this lab is to practice functions. The proposal is the following :
