@@ -2,5 +2,5 @@ VERILOG_SOURCES += ../common/timescaleit.v Counter.v
 TOPLEVEL=Counter
 MODULE=CounterTester
 
-include $(COCOTB)/makefiles/Makefile.inc
-include $(COCOTB)/makefiles/Makefile.sim
+include $(shell cocotb-config --makefiles)/Makefile.inc
+include $(shell cocotb-config --makefiles)/Makefile.sim
