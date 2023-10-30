@@ -1,6 +1,6 @@
 package workshop.pwm
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import workshop.common.{Apb3Driver, WorkshopSimConfig}
@@ -12,7 +12,7 @@ import scala.util.Random
 //IMPORTANT this testbench use hardware signal reflection to avoid compilation issues when the dut isn't implemented
 
 //Run this scala test to generate and check that your RTL work correctly
-class ApbPwmTester extends FunSuite{
+class ApbPwmTester extends AnyFunSuite{
   var compiled: SimCompiled[ApbPwm] = null
 
   test("compile") {

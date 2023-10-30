@@ -1,6 +1,6 @@
 package workshop.uart
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core.sim._
 import spinal.sim._
 import spinal.core._
@@ -8,7 +8,7 @@ import workshop.common.WorkshopSimConfig
 
 import scala.collection.mutable
 import scala.util.Random
-class UartCtrlRxTester extends FunSuite{
+class UartCtrlRxTester extends AnyFunSuite{
   var compiled: SimCompiled[UartCtrlRx] = null
 
   test("compile") {

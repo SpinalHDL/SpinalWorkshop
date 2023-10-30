@@ -1,13 +1,13 @@
 package workshop.timer
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import spinal.lib.bus.amba3.apb.sim.Apb3Driver
 import workshop.common.WorkshopSimConfig
 
 //Run this scala test to generate and check that your RTL work correctly
-class Apb3TimerTester extends FunSuite{
+class Apb3TimerTester extends AnyFunSuite{
   var compiled: SimCompiled[Apb3Timer] = null
 
   test("compile") {

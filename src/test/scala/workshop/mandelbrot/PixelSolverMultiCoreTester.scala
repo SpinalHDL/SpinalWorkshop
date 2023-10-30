@@ -1,12 +1,12 @@
 package workshop.mandelbrot
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import workshop.common.WorkshopSimConfig
 
 //Run this scala test to generate and check that your RTL work correctly
-class PixelSolverMultiCoreTester extends FunSuite{
+class PixelSolverMultiCoreTester extends AnyFunSuite{
 
   var compiled: SimCompiled[PixelSolverMultiCore] = null
 

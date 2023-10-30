@@ -1,6 +1,6 @@
 package workshop.counter
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import workshop.common.WorkshopSimConfig
@@ -9,7 +9,7 @@ import scala.sys.process._
 import scala.util.Random
 
 //Run this scala test to generate and check that your RTL work correctly
-class CounterTester extends FunSuite {
+class CounterTester extends AnyFunSuite {
   var compiled: SimCompiled[Counter] = null
 
   test("compile") {

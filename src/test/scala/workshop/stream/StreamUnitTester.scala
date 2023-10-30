@@ -1,6 +1,6 @@
 package workshop.stream
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import spinal.lib.sim.{StreamDriver, StreamMonitor, StreamReadyRandomizer}
@@ -10,7 +10,7 @@ import scala.collection.mutable
 import scala.util.Random
 
 //Run this scala test to generate and check that your RTL work correctly
-class StreamUnitTester extends FunSuite{
+class StreamUnitTester extends AnyFunSuite{
   var compiled: SimCompiled[StreamUnit] = null
 
   test("compile") {

@@ -1,6 +1,6 @@
 package workshop.blackboxAndClock
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import workshop.common.WorkshopSimConfig
@@ -8,7 +8,7 @@ import workshop.common.WorkshopSimConfig
 import scala.util.Random
 
 //Run this scala test to generate and check that your RTL work correctly
-class BlackBoxAndClockTester extends FunSuite{
+class BlackBoxAndClockTester extends AnyFunSuite{
   var compiled: SimCompiled[MemorySumming] = null
 
   test("compile") {
