@@ -1,6 +1,6 @@
 package workshop.prime
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import workshop.common.{CocotbRunner, WorkshopSimConfig}
@@ -9,7 +9,7 @@ import workshop.counter.Counter
 import scala.util.Random
 
 //Run this scala test to generate and check that your RTL work correctly
-class PrimeTester extends FunSuite{
+class PrimeTester extends AnyFunSuite{
   var compiled: SimCompiled[PrimeUsage] = null
 
   test("compile") {

@@ -1,6 +1,6 @@
 package workshop.pwm
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.lib._
 
