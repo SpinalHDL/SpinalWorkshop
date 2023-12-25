@@ -10,9 +10,10 @@ case class Counter(width: Int) extends Component {
   }
 
   val counter = Reg(UInt(width bits)) init(0)
-  counter := counter + 1
   when(io.clear) {
     counter := 0
+  } otherwise {
+    counter := counter + 1
   }
 
   io.value := counter
